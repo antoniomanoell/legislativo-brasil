@@ -22,7 +22,7 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Etapa `ideologia` (BLS 49ª–56ª; Bolognesi 2022 57ª–58ª) → `data/processed/ideologia.parquet`
 - [x] Etapa `publicar`: JSON para o site em `web/public/data/` (momentos, partidos, ideologia)
 - [x] Início: hemiciclo + linha do tempo (eleitos × em exercício) + tabela acessível + estado na URL
-- [ ] Evolução: % de cadeiras por partido ao longo do tempo; por faixa só onde há rótulo (A7)
+- [x] Evolução: % de cadeiras por partido ao longo do tempo; por faixa só onde há rótulo (A7)
 - [ ] Partidos: página básica (linhagem, tamanho, pontuação por legislatura com fonte)
 - [ ] Metodologia: rascunho (`<!-- RASCUNHO: revisar com Antônio -->`)
 - [ ] Testes de fumaça (Playwright, desktop e celular) e CI
@@ -30,4 +30,4 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 
 ## Próximo passo exato
 
-Página Evolução: `web/evolucao.html` + `web/src/pages/evolucao.ts` (pontos por pontuação em dois painéis; tabela de cadeiras por partido com "seguir linhagem").
+Página Partidos: `web/partidos.html` + `web/src/pages/partidos.ts` (lista; ficha com linhagem, cadeiras por momento e pontuação por legislatura com fonte).
