@@ -100,3 +100,36 @@
   box-shadow: var(--sombra-2);
   z-index: auto;
 }
+
+/* ---------- Faixas ideológicas: paleta A (roxo ↔ laranja), DECISIONS A9 ----------
+   Mesmos valores de paletas.ts. No tema escuro os tons próprios foram validados contra o fundo
+   escuro (não é inversão automática). "Não classificado" não tem cor: usa a hachura do mapa. */
+:root {
+  --faixa-1: #5e3594;
+  --faixa-2: #926bcf;
+  --faixa-3: #c7a7ff;
+  --faixa-4: #dbdbdb;
+  --faixa-5: #faa365;
+  --faixa-6: #c56604;
+  --faixa-7: #8a2f00;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema='claro']) {
+    --faixa-1: #d6b9ff;
+    --faixa-2: #9f7ed6;
+    --faixa-3: #6e519d;
+    --faixa-4: #424242;
+    --faixa-5: #964d09;
+    --faixa-6: #ce7a3b;
+    --faixa-7: #ffb57c;
+  }
+}
+:root[data-tema='escuro'] {
+  --faixa-1: #d6b9ff;
+  --faixa-2: #9f7ed6;
+  --faixa-3: #6e519d;
+  --faixa-4: #424242;
+  --faixa-5: #964d09;
+  --faixa-6: #ce7a3b;
+  --faixa-7: #ffb57c;
+}
