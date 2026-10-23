@@ -2,44 +2,56 @@
 
 Tudo marcado [confirmar] no PROJECT.md e as questões que aguardam decisão do Antônio. Ao resolver,
 registrar o que foi descoberto, a data e a fonte, e mover a decisão para `DECISIONS.md`.
+Contexto completo de cada item em `reports/fase0_viabilidade.md`.
 
-## A. Decisões de método do Antônio
+## A. Decisões do Antônio
 
-Levantadas na revisão do PROJECT.md em 2026-10-23, somadas às da seção 11.
-
-| # | Questão | Contexto | Status |
+| # | Questão | Contexto (verificado em 2026-10-23) | Status |
 |---|---|---|---|
-| A1 | Qual onda BLS vale para a 49ª legislatura (fotos "eleitos 1990", 1º/fev/1991 e 1º/fev/1992)? | A regra 7.4 usa a onda de 1993, mas em 1993 o PDS e o PDC viraram PPR, e o PST e o PTR viraram PP. Partidos eleitos em 1990 (PDS, PDC, PRN) podem não estar na onda de 1993. A onda de 1990 está mais próxima dos eleitos de 1990, mas pertence à 48ª. | aberta |
-| A2 | Na 56ª, qual Bolognesi tem prioridade (2018 ou 2022) para partido ausente da BLS 2021? | A regra 7.4.2 admite as duas para a 56ª. | aberta |
-| A3 | Como tratar o voto "Art. 17" (presidente da sessão) no governismo e na presença? | A seção 7.6 não menciona. Proposta: excluir do denominador e da presença. | aberta |
-| A4 | Abstenção e obstrução contam como "votantes" no Índice de Rice? | A seção 7.6 define Rice entre "votantes" sem dizer quem são. | aberta |
-| A5 | O que é votação "de mérito" de PEC (7.7)? | Precisa de um campo objetivo nos dados que separe mérito de destaques e requerimentos; depende da Fase 0. | aberta |
-| A6 | Impeachment de 1992 (votação de 29/09/1992 por chamada oral) | Pode não estar na API da Câmara; depende de Câmara/Cebrap. | aberta |
-| A7 | Crosswalk BLS × Bolognesi e cortes das sete faixas | PROJECT.md 7.4 e 11.1 | aberta |
-| A8 | Abstenção/obstrução no governismo | PROJECT.md 7.6 e 11.2 | aberta |
-| A9 | Paleta das faixas ideológicas | PROJECT.md 9 e 11.3 | aberta |
-| A10 | Nome do site e domínio | PROJECT.md 11.4 | aberta |
-| A11 | Hospedagem (o mapa usa Vercel) | PROJECT.md 11.5 | aberta |
-| A12 | Licença dos dados derivados | PROJECT.md 11.6 | aberta |
-| A13 | Validação da curadoria de coalizões pós-2020 | PROJECT.md 11.7 | aberta |
+| A1 | Qual onda BLS vale para a 49ª (eleitos 1990, fotos de 1991 e 1992)? | A onda de 1993 (regra 7.4) tem PRN, PDS/PPR (como "PP") e o PP de 1993, mas **não tem o PDC**, fundido no PPR em 1993. A onda de 1990, mais próxima dos eleitos de 1990, tem o PDC, mas mede a 48ª (assim mapeiam os próprios autores). | aberta |
+| A2 | Na 56ª, qual Bolognesi tem prioridade (2018 ou 2022) para partido ausente da BLS 2021? | Ausentes da BLS 2021 com bancada: Avante, Patriota, PV, Rede. | aberta |
+| A3 | Voto "Artigo 17" (presidente da sessão) no governismo e na presença | Aparece como valor de voto nos dados da Câmara. Proposta: excluir do denominador e da presença. | aberta |
+| A4 | Abstenção e obstrução contam como "votantes" no Índice de Rice? | | aberta |
+| A5 | Como identificar votação de mérito de PEC em 1º/2º turno | Não há campo estruturado. A PEC é identificável (`proposicoesAfetadas`), o turno e o mérito só pelo texto ("em primeiro turno", ausência de "Requerimento", "destaque"). Proposta: regra de texto + revisão manual da lista, registrada em DECISIONS. | aberta |
+| A6 | Impeachments (1992 e 2016) | **Nenhum dos dois tem voto individual nos Dados Abertos**; só o placar (2016: Sim 367, Não 137, Abst. 7, Ausências 2). Opções: (a) mostrar só o placar oficial; (b) transcrever o voto nominal do Diário da Câmara, como curadoria documentada. | aberta |
+| A7 | Crosswalk BLS × Bolognesi e cortes das sete faixas | Escalas diferentes: BLS de −1 a +1 (estimada); Bolognesi de 0 a 10 (média de experts). Pares disponíveis: 20 (BLS 2017 × B. 2018) e 18 (BLS 2021 × B. 2022). Cortes literais confirmados (PROJECT.md §6.2). | aberta |
+| A8 | Abstenção/obstrução (e falta) no governismo | Opções documentadas: (A) Basômetro/Poder360 — abstenção e obstrução contra, ausência fora; (B) Congresso em Foco — abstenção, obstrução e falta contra; (C) obstrução a favor quando o governo orienta "Não"; (D) só Sim/Não no denominador; (E) qualquer das anteriores restrita a votações de mérito com disputa ≥ 20% (DIAP). | aberta |
+| A9 | Paleta das faixas ideológicas | Três candidatas em `web/estilo.html`; a A (roxo ↔ laranja) passa em todas as checagens. | aberta |
+| A10 | Nome do site e domínio | | aberta |
+| A11 | Hospedagem (o mapa usa Vercel) | | aberta |
+| A12 | Licença dos dados derivados | Câmara: domínio público com citação. TSE: CC-BY. BLS e Bolognesi: CC0. **IPEA: proíbe uso comercial.** **Cebrap: sem licença de redistribuição.** | aberta |
+| A13 | Curadoria das coalizões pós-meados de 2020 | O IPEA para em meados de 2020; não há atualização acadêmica. | aberta |
+| A14 | O que é "eleito"? | O TSE mostra a situação **atual** (ex.: as 7 cadeiras de 2022 trocadas por decisão do STF em 2025), mas não registra cassações depois da diplomação (Deltan segue "eleito"). Opções: (a) situação atual do TSE, com nota; (b) resultado original, reconstruído de cópias datadas e notícias. | aberta |
+| A15 | Fotos de 1º/fev de 1991 a 2002 | A Câmara **não tem** filiação datada nem exercício datado antes de 2003. Opções: (a) pedir a filiação ao NIPE/Cebrap (só sob pedido, site fora do ar); (b) curadoria manual; (c) lançar com fotos só a partir de 2003 e, antes disso, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada. | aberta |
+| A16 | Votações de 1991 a 2000 (e 2001–2002 sem orientação) | Só o Cebrap tem, mas o site está fora do ar e não há licença de redistribuição. Opções: (a) escrever ao NIPE/Cebrap pedindo autorização; (b) lançar com votações a partir de 2003 (governismo) e 2001 (votos), com a lacuna visível. | aberta |
+| A17 | Rótulos de Bolognesi 2022: média ponderada (como publicado) ou média bruta? | Aplicando os cortes à média bruta mudam 4 partidos: PSD (direita → centro-direita), Republicanos, PSC e União (extrema-direita → direita). | aberta |
+| A18 | Gabinetes do IPEA: 52 (CSV) ou 43 (Nota Técnica 53)? | O CSV não tem datas; a NT tem o mês de início de cada gabinete e outra divisão. | aberta |
 
 ## B. Itens [confirmar] do PROJECT.md
 
-| # | Item | Seção | Descoberto |
+| # | Item | Descoberto em 2026-10-23 | Status |
 |---|---|---|---|
-| B1 | Cobertura dos anos 1990 no histórico de filiação da API da Câmara | 5 (Fase 0), 6.1 | — |
-| B2 | Microdados do TSE para 1990 | 6.1 | — |
-| B3 | Dataset BLS no Harvard Dataverse e licença | 6.2 | — |
-| B4 | Pontos de corte exatos das sete faixas em Bolognesi et al. | 6.2, 7.4 | — |
-| B5 | Ano inicial de voto individual + orientação do governo na API da Câmara | 5, 6.3 | — |
-| B6 | Cebrap: o que é público, cobertura e termos de redistribuição | 5, 6.3 | — |
-| B7 | 49ª legislatura com 503 cadeiras (495 → 503 com AP e RR) | 7.1 | — |
-| B8 | Datas de todos os governos (seção 7.5), incluindo a EC 111/2021 | 7.5 | — |
-| B9 | Nova onda BLS após 2021? | 7.4.3 | — |
-| B10 | Votos nominais de deputados nas sessões de vetos | 7.7 | — |
-| B11 | Deputados e senadores têm lugar fixo no plenário? | 8 | — |
-| B12 | Todas as linhagens do Apêndice B no TSE (incluindo PCB → PPS, PGT/PST → PL, PAN → PTB, acrescentadas em 2026-10-23) | 7.3, Apêndice B | — |
-| B13 | Data de registro do partido Missão | Apêndice B | — |
-| B14 | Datas e composição das federações | Apêndice B | — |
-| B15 | Bancadas eleitas em 2026: conferir com o resultado consolidado do TSE (o Apêndice A é provisório) | Apêndice A | — |
-| B16 | Presidente eleito em 2026 (2º turno em 25/10/2026, se houver) — preencher a seção 7.5 | 7.5 | — |
+| B1 | Filiação dos anos 1990 na API da Câmara | **Não cobre.** Eventos datados só a partir da 52ª (2003). Para a 49ª–51ª há um registro artificial por legislatura, que às vezes contradiz a listagem (ex.: Arnaldo Faria de Sá: PPR no histórico, PRN na listagem). | resolvido: não existe → A15 |
+| B2 | Microdados do TSE para 1990 | Existe `votacao_candidato_uf_1990.zip` (TXT sem cabeçalho, 503 eleitos). Falta conferir o layout no Leia-me.pdf. | parcial |
+| B3 | Dataset BLS e licença | Harvard Dataverse, CC0 (DOI 10.7910/DVN/6KVTUV). | resolvido |
+| B4 | Cortes das sete faixas | Literais nos dois artigos de Bolognesi (§6.2). | resolvido → A17 |
+| B5 | Ano inicial de voto individual + orientação do governo | Votos: dez/2001 (volumosos a partir de 2003). Orientação do Governo: 2003. | resolvido |
+| B6 | Cebrap: o que é público e termos | Site fora do ar; sem licença de redistribuição; Senado nunca publicado. | resolvido → A16 |
+| B7 | 49ª com 503 cadeiras | 503 eleitos no TSE em 1990. | resolvido |
+| B8 | Datas dos governos e EC 111/2021 | Todas confirmadas em fonte oficial, exceto as trocas de partido de Bolsonaro (só imprensa) e o partido de Itamar no mandato (só IPEA). EC 111 confirmada: posse em 05/01/2027. | parcial |
+| B9 | Nova onda BLS após 2021? | A onda 10 foi aplicada em 2025, mas não está publicada. | aberta: acompanhar |
+| B10 | Votos nominais de deputados em vetos | Existem na API do Senado pelo menos desde mar/2016, sem o id da Câmara (casar por nome, partido e UF). Ano inicial exato não confirmado. | parcial |
+| B11 | Lugar fixo no plenário | Câmara: só a primeira fila (líderes). Senado: não confirmado (página oficial deu 403). | parcial |
+| B12 | Linhagens do Apêndice B | De 1995 em diante: todas confirmadas no TSE, com 5 datas corrigidas e 4 eventos acrescentados. Antes de 1995 (PPR, PP de 1993, PCB → PPS, registros do PRONA e do PSD de 1987): sem fonte no TSE. | parcial |
+| B13 | Registro do Missão | 04/11/2025. | resolvido |
+| B14 | Federações | Cinco, com datas (Apêndice B). | resolvido |
+| B15 | Bancadas de 2026 | Os 10 partidos do Apêndice A batem com o TSE. Ainda não é definitivo: 9 eleitos com registro em recurso ou pendente, 178 candidatos com votos "anulado sub judice", diplomação não ocorrida. | aberta: reprocessar após a diplomação |
+| B16 | Presidente eleito em 2026 | 2º turno em 25/10/2026: Lula (PT) × Flávio Bolsonaro (PL). | aberta |
+
+## C. Pendências técnicas (sem decisão de método)
+
+- 58ª legislatura: não existe na API da Câmara; criar em `data/manual/` a partir do TSE.
+- Filtro `/deputados` em 1º/fev/2005 devolve 497 (de 513): investigar antes da Fase 1.
+- Rótulo da orientação do Governo: normalizar "GOV." e "Governo".
+- TSE 1998: deduplicar substitutos que dividem o número com o titular.
+- Senado: votações de 2015–2016 incompletas ou com datas erradas; validar ano a ano na Fase 4.

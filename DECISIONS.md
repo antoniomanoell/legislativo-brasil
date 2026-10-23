@@ -20,7 +20,8 @@ Formato de cada entrada:
 - **Alternativa descartada:** 31/12/2026 → 01/01/2027, como estava no rascunho original.
 - **Motivo:** a EC 111/2021 alterou o art. 82 da Constituição (posse em 5 de janeiro), com aplicação a
   partir das eleições de 2026. Afeta a atribuição de base de governo por data; não afeta as fotos de 1º/fev.
-- **Fonte:** Emenda Constitucional nº 111, de 28/09/2021 [confirmar texto no Planalto e registrar em SOURCES.md].
+- **Fonte:** Emenda Constitucional nº 111, de 28/09/2021, art. 4º (conferido no Planalto em
+  2026-10-23; ver SOURCES.md).
 
 ## 2026-10-23 — Repositórios
 - **Decisão:** este projeto vive em https://github.com/antoniomanoell/legislativo-brasil. A identidade

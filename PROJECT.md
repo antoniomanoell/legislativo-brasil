@@ -181,16 +181,16 @@ Senado (fase 4); comparação lado a lado de dois momentos; versão em inglês; 
 
 | Fonte | Cobertura | Observações |
 |---|---|---|
-| **Power & Zucco — Brazilian Legislative Surveys (BLS)**. Artigo: Zucco & Power, "The Ideology of Brazilian Parties and Presidents: A Research Note on Coalitional Presidentialism Under Stress", *Latin American Politics and Society* (Cambridge). Suplemento com estimativas completas (Tabela C1): https://static.cambridge.org/content/id/urn:cambridge.org:id:article:S1531426X23000249/resource/name/S1531426X23000249sup001.pdf | Ondas em 1990, 1993, 1997, 2001, 2005, 2009, 2013, 2017, 2021 — **uma por legislatura** (48ª a 56ª) | Única série longa. Cobre os principais partidos, não todos. Dataset possivelmente no Harvard Dataverse [confirmar] |
-| **Bolognesi, Ribeiro & Codato (2023)**, "Uma nova classificação ideológica dos partidos políticos brasileiros", *Dados* 66(2) — https://doi.org/10.1590/dados.2023.66.2.303 | 2018, todos os 35 partidos então registrados, escala 0–10 | Survey com especialistas |
-| **Bolognesi, Ribeiro, Codato & Silva**, "O desaparecimento do centro ideológico no sistema partidário brasileiro: a classificação mais atualizada dos experts", *Opinião Pública* (Unicamp) — https://periodicos.sbu.unicamp.br/ojs/index.php/op/article/view/8682072 | 2018 e 2022, todos os partidos registrados (32 em 2022), escala 0–10, 477 respondentes | Fonte das **sete faixas** e de seus pontos de corte [confirmar cortes no artigo] |
+| **Power & Zucco — Brazilian Legislative Surveys (BLS)**. Artigo: Zucco & Power, "The Ideology of Brazilian Parties and Presidents: A Research Note on Coalitional Presidentialism Under Stress", *Latin American Politics and Society* (Cambridge). Suplemento com estimativas completas (Tabela C1): https://static.cambridge.org/content/id/urn:cambridge.org:id:article:S1531426X23000249/resource/name/S1531426X23000249sup001.pdf | Ondas em 1990, 1993, 1997, 2001, 2005, 2009, 2013, 2017, 2021 — **uma por legislatura** (48ª a 56ª) | Única série longa. Cobre os principais partidos, não todos (92,9% a 98,3% das cadeiras por onda). Escala estimada de −1 (esquerda) a +1, com erro-padrão. Artigo: *LAPS* 66(1), 2024, DOI 10.1017/lap.2023.24 (CC-BY 4.0). Estimativas: Harvard Dataverse, DOI 10.7910/DVN/6KVTUV (CC0). Onda 10 (2025) aplicada mas **não publicada** em 2026-10-23 |
+| **Bolognesi, Ribeiro & Codato (2023)**, "Uma nova classificação ideológica dos partidos políticos brasileiros", *Dados* 66(2) — https://doi.org/10.1590/dados.2023.66.2.303 | 2018, todos os 35 partidos então registrados, escala 0–10 | Survey com especialistas (ABCP, julho/2018, 519 respondentes). CC-BY 4.0; errata só na Figura 2. Os sete cortes também estão aqui (p. 15) |
+| **Bolognesi, Ribeiro, Codato & Silva**, "O desaparecimento do centro ideológico no sistema partidário brasileiro: a classificação mais atualizada dos experts", *Opinião Pública* v. 31, e31120, 2025 — https://doi.org/10.1590/1807-0191202531120 | 2018 e 2022, todos os partidos registrados (32 em 2022), escala 0–10. Microdados de 2022 com base de 571 IDs (o número 477 não está no artigo) | Fonte das **sete faixas** (cortes na p. 13: 0–1,5; 1,51–3; 3,01–4,49; 4,5–5,5; 5,51–7; 7,01–8,5; 8,51–10). O rótulo publicado aplica os cortes à **média ponderada**, não à média bruta. Dados: Dataverse, DOI 10.7910/DVN/MFIXKW (CC0) |
 
 ### 6.3 Votações
 
 | Fonte | Cobertura | Observações |
 |---|---|---|
 | **Câmara — Dados Abertos** (votações, votos, orientações) | Período recente; ano inicial de voto individual + orientação [confirmar] | Fonte primária quando disponível |
-| **Cebrap — Banco de Dados Legislativos** (Figueiredo & Limongi) | Votações nominais de deputados desde 1988; senadores 1988–2019 (previsto) [confirmar] | Única fonte sólida para os anos 1990; verificar termos de redistribuição antes de publicar |
+| **Cebrap — Banco de Dados Legislativos** (Figueiredo & Limongi) | Votações nominais de deputados 1988–2019 e indicações das lideranças; Senado nunca publicado; filiação só sob pedido | Única fonte para os anos 1990. **Site fora do ar em 2026-10-23** (última cópia arquivada em 13/02/2026); download só com cadastro; **sem licença de redistribuição** — exige autorização escrita do NIPE/Cebrap |
 | **Senado — votações nominais** — https://www12.senado.leg.br/dados-abertos/legislativo/plenario/votacoes-nominais/info | 2003+ | Fase 4 |
 
 ### 6.4 Governos e coalizões
@@ -212,7 +212,7 @@ Poder360, Congresso em Foco, Agência Câmara, Agência Senado, DIAP. Úteis par
 
 | Legislatura | Período | Cadeiras na Câmara |
 |---|---|---|
-| 49ª | 1991–1995 | 503 [confirmar: fonte indica que passou de 495 para 503 com a criação de AP e RR como estados] |
+| 49ª | 1991–1995 | 503 (confirmado: 503 eleitos no TSE em 1990) |
 | 50ª | 1995–1999 | 513 |
 | 51ª | 1999–2003 | 513 |
 | 52ª | 2003–2007 | 513 |
@@ -237,7 +237,7 @@ Poder360, Congresso em Foco, Agência Câmara, Agência Senado, DIAP. Úteis par
 - Tabela de **linhagem** registra renomeações, fusões e incorporações com data. Gráficos de série temporal oferecem a opção "seguir linhagem".
 - **Homônimos são partidos diferentes:** o PSD de 1987–2003 (incorporado ao PTB) ≠ o PSD fundado em 2011. O PP de 1993–1995 ≠ o PP/Progressistas de 2003 em diante (que descende do PPB).
 - **Federações** (a partir de 2022) são registradas à parte; a composição é sempre por **partido**, com a federação como atributo.
-- Lista inicial de linhagens no Apêndice B — **todas as datas e eventos devem ser confirmados no TSE**.
+- Linhagens no Apêndice B, conferidas no TSE de 1995 em diante; os eventos anteriores a 1995 ainda precisam de fonte.
 
 ### 7.4 Ideologia
 
@@ -264,7 +264,7 @@ Poder360, Congresso em Foco, Agência Câmara, Agência Senado, DIAP. Úteis par
 | Presidente | Partido | Período |
 |---|---|---|
 | Fernando Collor | PRN | 15/03/1990 – 01/10/1992 (afastado em 02/10/1992; renunciou em 29/12/1992) |
-| Itamar Franco | sem partido durante o mandato | 02/10/1992 – 31/12/1994 |
+| Itamar Franco | sem partido durante o mandato (segundo o IPEA) | 02/10/1992 – 31/12/1994 |
 | Fernando Henrique Cardoso | PSDB | 01/01/1995 – 31/12/2002 |
 | Luiz Inácio Lula da Silva | PT | 01/01/2003 – 31/12/2010 |
 | Dilma Rousseff | PT | 01/01/2011 – 12/05/2016 (afastada); impeachment em 31/08/2016 |
@@ -343,7 +343,7 @@ legislativo-brasil/
 - **Pipeline:** Python; DuckDB + Parquet para transformação; requests com cache local e respeito a limites das APIs; execução **manual** (sem agendamento).
 - **Frontend:** Vite + TypeScript **puro**, sem React/Vue/Svelte (Antônio precisa conseguir manter). Gráficos com módulos do D3. Roteamento simples por URL.
 - **Volume de votações:** milhões de votos individuais. Não servir num JSON único. Opções a avaliar e registrar em `DECISIONS.md`: (a) um JSON por votação + um por deputado + agregados por partido/período; (b) Parquet consultado no navegador com DuckDB-WASM sob demanda. Escolher a mais simples que cumpra o orçamento de performance (seção 10).
-- **Hemiciclo:** implementação própria em TypeScript/SVG. Algoritmo de "parliament diagram": distribuir N cadeiras em k fileiras semicirculares concêntricas, proporcional ao comprimento de cada arco, preenchendo por ângulo da esquerda para a direita. Deve aceitar N variável (503, 513, 81). Incluir nota visível: **"a posição das cadeiras é representativa; não corresponde ao assento real no plenário"**. (Até onde se apurou no planejamento, os deputados não têm lugar fixo no Plenário Ulysses Guimarães; para o Senado não foi confirmado — [confirmar] e ajustar o texto.)
+- **Hemiciclo:** implementação própria em TypeScript/SVG. Algoritmo de "parliament diagram": distribuir N cadeiras em k fileiras semicirculares concêntricas, proporcional ao comprimento de cada arco, preenchendo por ângulo da esquerda para a direita. Deve aceitar N variável (503, 513, 81). Incluir nota visível: **"a posição das cadeiras é representativa; não corresponde ao assento real no plenário"**. (Confirmado: na Câmara só a primeira fila, dos líderes, tem lugar marcado — Visita Virtual da Câmara. Para o Senado, [confirmar] e ajustar o texto.)
 - **Hospedagem:** estática (Cloudflare Pages, Netlify ou GitHub Pages) [decidir com Antônio na Fase 5].
 
 ---
@@ -407,6 +407,8 @@ Antônio investiu esforço para deixar o design do site do mapa bom, e quer **o 
 ## Apêndice A — Bancadas eleitas na Câmara (referência para validação)
 
 > Compilado de fontes secundárias (IFES ElectionGuide, Georgetown PDBA, Wikipedia, Poder360, Congresso em Foco, Câmara). **Use somente para validar** o pipeline; os números oficiais vêm das fontes primárias. Fontes divergem em ±1–2 cadeiras (ex.: 1994 PFL 89/90/92; 2002 PMDB 74/75/76; 2014 PT 68/69/70).
+>
+> **Conferência com o TSE (2026-10-23):** os arquivos `consulta_cand` do TSE mostram a situação **atual** de cada candidato (já com retotalizações; ex.: as 7 cadeiras de 2022 trocadas por decisão do STF em 2025), não o resultado da noite da eleição. Contra eles, este apêndice diverge em 1 a 3 cadeiras por partido em 1990, 1994, 2002, 2006, 2010, 2014, 2018 e 2022; 1998 e 2026 batem (2026 nos 10 partidos listados). Detalhes em `reports/fase0_viabilidade.md`.
 
 | Eleição | Maiores bancadas eleitas |
 |---|---|
@@ -414,7 +416,7 @@ Antônio investiu esforço para deixar o design do site do mapa bom, e quer **o 
 | 1994 | PMDB 107, PFL 89, PSDB 62, PPR 52, PT 49, PP 36, PDT 34, PTB 31, PSB 15, PL 13 |
 | 1998 | PFL 105, PSDB 99, PMDB 83, PPB 60, PT 58, PTB 31, PDT 25 |
 | 2002 | PT 91, PFL 84, PMDB 75, PSDB 70, PPB 49, PL 26, PTB 26, PSB 22, PDT 21, PPS 15, PCdoB 12 |
-| 2006 | PMDB 89, PT 83, PSDB 65, PFL 65, PP 41, PSB 27, PDT 24, PR 23, PTB 22, PPS 21 |
+| 2006 | PMDB 89, PT 83, PSDB 65, PFL 65, PP 41, PSB 27, PDT 24, PL 23 (+ PRONA 2; o PR só surgiu em 19/12/2006), PTB 22, PPS 21 |
 | 2010 | PT 88, PMDB 79, PSDB 53, DEM 43, PP 41, PR 41, PSB 34, PDT 28 |
 | 2014 | PT 70, PMDB 66, PSDB 54, PP 38, PSD 37, PR 34, PSB 34, PTB 25, PRB 21, DEM 21 |
 | 2018 | PT 56, PSL 52, PP 37, MDB 34, PSD 34, PR 33, PSB 32, PRB 30, DEM 29, PSDB 29, PDT 28 |
@@ -423,28 +425,39 @@ Antônio investiu esforço para deixar o design do site do mapa bom, e quer **o 
 
 Composição estimada por blocos (classificação clássica, sem fonte nomeada — para comparação qualitativa interna apenas, **nunca exibir no site**): a esquerda nunca passou de ~38% da Câmara (pico em 2010); a direita superou 50% em 1990, 2018, 2022 e 2026.
 
-## Apêndice B — Linhagens partidárias (lista inicial, TODAS [confirmar] no TSE)
+## Apêndice B — Linhagens partidárias (conferidas no TSE em 2026-10-23)
 
-- PMDB → MDB (2017)
-- PFL → DEM (2007) → União Brasil (2022, fusão DEM + PSL)
-- PSL → União Brasil (2022)
-- PDS + PDC → PPR (1993) → PPB (1995, fusão PPR + PP) → PP (2003) → Progressistas (2017)
-- PST + PTR → PP (1993) → PPB (1995)
-- PGT e PST incorporados ao PL (2003)
-- PL → PR (2006, fusão PL + PRONA) → PL (2019); PRONA existiu de 1989 a 2006
-- PRB → Republicanos (2019)
-- PCB → PPS (1992) → Cidadania (2019) — o PCB tinha deputados na 49ª legislatura
-- PTdoB → Avante (2017)
-- PTN → Podemos (2017); PHS incorporado ao Podemos (2019); PSC incorporado ao Podemos (2023)
-- PEN → Patriota (2017); PRP incorporado ao Patriota (2019); Patriota + PTB → PRD (2023)
-- PSDC → DC (2017)
-- PPL incorporado ao PCdoB (2019)
-- PROS incorporado ao Solidariedade (2023) (sigla SD; não houve renomeação)
-- PAN incorporado ao PTB (2007)
-- PRN → PTC (2000) → Agir (2022)
-- PSD (1987) incorporado ao PTB (2003) — **não confundir** com PSD (2011)
-- Missão — partido recente com 1 deputado eleito em 2026 [confirmar data de registro]
-- Federações (a partir de 2022): PT–PCdoB–PV (Brasil da Esperança); PSDB–Cidadania; PSOL–Rede; PP–União Brasil (União Progressista); PRD–Solidariedade (Renovação Solidária) [confirmar datas e composição]
+Datas = decisão do TSE, conforme "Partidos políticos registrados no TSE" (https://www.tse.jus.br/partidos/partidos-registrados-no-tse), que só cobre eventos posteriores à Lei 9.096/1995. Eventos anteriores a 1995 seguem **[confirmar]** em outra fonte. Números de processo em `SOURCES.md`.
+
+**Antes de 1995 (sem confirmação no TSE):**
+- PDS + PDC → PPR (1993) [confirmar]
+- PST + PTR → PP (1993) [confirmar] — não confundir com o PP de 2003
+- PCB → PPS (1992) [confirmar a transformação; o TSE registra o deferimento do partido hoje Cidadania em 19/03/1992]
+- PRONA (registro em 1989) e PSD de 1987 [confirmar datas de registro]
+
+**De 1995 em diante (confirmado no TSE):**
+- PPR + PP → PPB (fusão, 16/11/1995) → PP (29/05/2003) → Progressistas (11/09/2018)
+- PSN → PHS (30/05/2000); PHS incorporado ao Podemos (19/09/2019)
+- PRN → PTC (24/04/2001) → Agir (31/03/2022)
+- PSD (1987) incorporado ao PTB (20/02/2003) — o TSE registra que **não tem relação** com o PSD de 27/09/2011
+- PGT e PST incorporados ao PL (01/04/2003)
+- PL + PRONA → PR (fusão, 19/12/2006) → PL (09/02/2019). Na eleição de 2006 ainda concorreram PL e PRONA separados
+- PAN incorporado ao PTB (15/03/2007)
+- PFL → DEM (12/06/2007); DEM + PSL → União Brasil (fusão, 08/02/2022)
+- PMR → PRB (21/09/2009) → Republicanos (15/08/2019)
+- PTN → Podemos (16/05/2017); PSC incorporado ao Podemos (15/06/2023)
+- PTdoB → Avante (12/09/2017)
+- PEN → Patriota (26/04/2018; sigla PATRIOTA em 28/03/2019); PRP incorporado ao Patriota (28/03/2019); PTB + Patriota → PRD (fusão, 09/11/2023)
+- PMDB → MDB (15/05/2018)
+- PSDC → DC (17/05/2018)
+- Solidariedade: sigla SD → SOLIDARIEDADE (28/06/2018); PROS incorporado (14/02/2023)
+- PPL incorporado ao PCdoB (28/05/2019)
+- PPS → Cidadania (19/09/2019)
+- PMN → Mobiliza (05/12/2023)
+- Missão: registro deferido em 04/11/2025 (usa o número 14, do PTB extinto)
+- PMB → Democrata (02/12/2025)
+
+**Federações (confirmadas no TSE):** Brasil da Esperança — PT, PCdoB, PV (24/05/2022); PSDB Cidadania (26/05/2022); PSOL REDE (26/05/2022); Renovação Solidária — PRD, Solidariedade (04/12/2025); União Progressista — União Brasil, PP (26/03/2026). Em 2026 são estas cinco.
 
 ## Apêndice C — Referências
 
