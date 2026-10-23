@@ -11,7 +11,15 @@ const p = (destino?: string): Partido => ({
   destino: destino ? [{ partido: destino, tipo: 'fusão', data: '', confirmado_no_tse: 'sim' }] : [],
 });
 
-const partidos = { pfl: p('uniao'), psl: p('uniao'), uniao: p(), pds: p('ppr'), ppr: p('ppb'), ppb: p(), pt: p() };
+const partidos = {
+  pfl: p('uniao'),
+  psl: p('uniao'),
+  uniao: p(),
+  pds: p('ppr'),
+  ppr: p('ppb'),
+  ppb: p(),
+  pt: p(),
+};
 
 describe('linhagem', () => {
   it('segue fusões até o partido final', () => {
