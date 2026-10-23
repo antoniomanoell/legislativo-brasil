@@ -8,6 +8,7 @@ import polars as pl
 from congresso.extract import camara, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.load.site import publicar as gravar_site
+from congresso.load.site import publicar_governos
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
@@ -191,6 +192,21 @@ def publicar(*, atualizar: bool = False) -> None:
         linhagens=pl.read_csv(MANUAIS / "linhagens.csv"),
         destino=PUBLICADOS,
     )
+    if (PROCESSADOS / "base_governo.parquet").exists():
+        gabinetes = gov.ler_gabinetes(pl.read_csv(MANUAIS / "gabinetes_ipea.csv"))
+        fim = FIM_IPEA
+        if (MANUAIS / "gabinetes_pos2020.csv").exists():
+            extra = pl.read_csv(MANUAIS / "gabinetes_pos2020.csv")
+            gabinetes = pl.concat([gabinetes, gov.ler_gabinetes(extra)]).sort("inicio")
+            fim = date.fromisoformat(str(extra["cobertura_ate"].max()))
+        publicar_governos(
+            governos=pl.read_csv(MANUAIS / "governos.csv", try_parse_dates=True),
+            gabinetes=gabinetes,
+            base=pl.read_parquet(PROCESSADOS / "base_governo.parquet"),
+            inicio_gabinetes=pl.read_csv(RELATORIOS / "base_inicio_gabinetes.csv"),
+            fim_cobertura=fim.isoformat(),
+            destino=PUBLICADOS,
+        )
     tamanho = sum(p.stat().st_size for p in PUBLICADOS.rglob("*.json"))
     print(
         f"publicar: {len(catalogo['momentos'])} momentos; {tamanho / 1024:.0f} KB em {PUBLICADOS}"

@@ -185,3 +185,59 @@ def publicar(
     _gravar(destino / "ideologia.json", pontos)
     _gravar(destino / "agregados.json", agregados)
     return catalogo
+
+
+def publicar_governos(
+    governos: pl.DataFrame,
+    gabinetes: pl.DataFrame,
+    base: pl.DataFrame,
+    inicio_gabinetes: pl.DataFrame,
+    fim_cobertura: str,
+    destino: Path,
+) -> None:
+    """governos.json: presidentes, gabinetes com partidos e base no início, e base em cada foto."""
+    no_inicio = {r["gabinete"]: r for r in inicio_gabinetes.iter_rows(named=True)}
+
+    def governo_de(dia) -> str | None:
+        g = governos.filter((pl.col("inicio") <= dia) & (pl.col("fim") >= dia))
+        return g["governo_id"][0] if g.height else None
+
+    lista_gabinetes = []
+    for g in gabinetes.iter_rows(named=True):
+        conf = no_inicio.get(g["gabinete"])
+        lista_gabinetes.append(
+            {
+                "gabinete": g["gabinete"],
+                "inicio": g["inicio"].isoformat()[: 7 if g["so_mes"] else 10],
+                "evento": g["evento"],
+                "partidos": g["partidos"],
+                "governo": governo_de(g["inicio"]),
+                "fonte": g["fonte"],
+                "base_no_inicio": None
+                if conf is None
+                else {
+                    "data": str(conf["data_calculo"]),
+                    "cadeiras": conf["cadeiras_base"],
+                    "em_exercicio": conf["em_exercicio"],
+                },
+            }
+        )
+    dados = {
+        "cobertura_ate": fim_cobertura,
+        "governos": [
+            {k: (v.isoformat() if hasattr(v, "isoformat") else v) for k, v in r.items()}
+            for r in governos.drop("fonte", "prefixo_gabinete").iter_rows(named=True)
+        ],
+        "gabinetes": lista_gabinetes,
+        "base_por_momento": {
+            r["momento"]: {
+                "gabinete": r["gabinete"],
+                "partidos": r["partidos"],
+                "cadeiras_base": r["cadeiras_base"],
+                "ocupadas": r["ocupadas"],
+                "governo": r["governo_id"],
+            }
+            for r in base.iter_rows(named=True)
+        },
+    }
+    _gravar(destino / "governos.json", dados)
