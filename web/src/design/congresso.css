@@ -133,3 +133,108 @@
   --faixa-6: #ce7a3b;
   --faixa-7: #ffb57c;
 }
+
+/* ---------- Hemiciclo: separadores, siglas e cadeira ativa ---------- */
+.hemiciclo:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+.separadores line {
+  stroke: var(--fundo);
+  stroke-width: 0.014;
+}
+.rotulos-hemiciclo text {
+  font-size: 0.055px;
+  font-weight: 650;
+  fill: var(--texto-2);
+}
+.cadeira.ativa {
+  stroke: var(--texto);
+  stroke-opacity: 1;
+  stroke-width: 2;
+}
+.amostra-hachura {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--hachura-fundo) 0 3px,
+    var(--hachura-linha) 3px 4px
+  );
+}
+.legenda-continua {
+  display: inline-block;
+  width: 140px;
+  height: 12px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin: 0 6px;
+  background: linear-gradient(
+    to right,
+    var(--faixa-1),
+    var(--faixa-2),
+    var(--faixa-3),
+    var(--faixa-4),
+    var(--faixa-5),
+    var(--faixa-6),
+    var(--faixa-7)
+  );
+}
+.ficha-cadeira {
+  min-height: 3.4em;
+  margin-top: 6px;
+  font-size: 0.875rem;
+}
+.ficha-cadeira strong {
+  font-size: 0.9375rem;
+}
+.fileira-a-parte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 4px;
+}
+.fileira-a-parte span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--borda-forte);
+}
+.fileira-a-parte .vaga {
+  background: transparent;
+  border-style: dashed;
+}
+.aviso-lacuna {
+  margin: 8px 0 0;
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+  border-left: 3px solid var(--borda-forte);
+  padding-left: 10px;
+}
+.pagina {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4px 16px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+.pagina > * {
+  grid-area: auto;
+}
+.tabela-rolagem {
+  max-height: 70vh;
+  overflow: auto;
+}
+.posicao-celula {
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+.cor-partido {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: baseline;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%);
+}

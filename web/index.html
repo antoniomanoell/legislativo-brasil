@@ -4,16 +4,107 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Congresso em Números</title>
+    <meta
+      name="description"
+      content="Composição da Câmara dos Deputados desde 1991: partidos, posição ideológica com fonte acadêmica e quem estava em exercício."
+    />
     <meta name="robots" content="noindex" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Tema escolhido antes, aplicado antes da primeira pintura (ver src/design/tema.ts).
+      try {
+        var t = localStorage.getItem('tema');
+        if (t === 'claro' || t === 'escuro') document.documentElement.dataset.tema = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
-    <main class="texto">
-      <h1>Congresso em Números</h1>
-      <p>Em construção (Fase 0). Veja a <a href="estilo.html">amostra de estilo</a>.</p>
+    <a class="pular" href="#tabela-acesso">Pular para a tabela acessível</a>
+    <header class="topo topo-pagina">
+      <h1 class="marca">
+        <svg class="marca-icone" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="var(--acento-forte)" />
+          <path
+            d="M7 23a9 9 0 0 1 18 0M11.5 23a4.5 4.5 0 0 1 9 0"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-dasharray="0.1 4.6"
+          /></svg
+        ><span>Congresso em Números</span>
+      </h1>
+      <nav aria-label="Seções">
+        <a href="./" aria-current="page">Início</a> <a href="evolucao.html">Evolução</a>
+        <a href="partidos.html">Partidos</a> <a href="metodologia.html">Metodologia</a>
+        <button type="button" id="tema" class="botao-icone" aria-label="Usar tema escuro"></button>
+      </nav>
+    </header>
+
+    <main class="pagina">
+      <div class="barra-viz">
+        <div class="visao" role="group" aria-label="Composição">
+          <button type="button" data-tipo="eleitos" aria-pressed="false">Eleitos</button>
+          <button type="button" data-tipo="exercicio" aria-pressed="true">
+            Em exercício (1º/fev)
+          </button>
+        </div>
+        <div class="visao" role="group" aria-label="Forma de ver">
+          <button type="button" data-visao="hemiciclo" aria-pressed="true">Hemiciclo</button>
+          <button type="button" data-visao="tabela" id="tabela-acesso" aria-pressed="false">
+            Tabela
+          </button>
+        </div>
+      </div>
+
+      <div id="resumo" class="resumo" role="group" aria-label="Resumo do momento"></div>
+
+      <section id="area-hemiciclo" class="bloco" aria-labelledby="titulo-momento">
+        <div class="bloco-cabeca">
+          <h2 class="bloco-titulo" id="titulo-momento">Câmara dos Deputados</h2>
+          <span id="ajuda-hemiciclo"></span>
+          <p class="bloco-dica">Passe o mouse ou toque numa cadeira; no teclado, use as setas.</p>
+        </div>
+        <div id="hemiciclo"></div>
+        <p id="ficha" class="ficha-cadeira" aria-live="polite"></p>
+        <div id="fora-da-ordem"></div>
+        <div id="legenda" class="legenda"></div>
+        <p class="nota-hemiciclo">
+          A posição das cadeiras é representativa; não corresponde ao assento real no plenário (só
+          os líderes têm lugar marcado, na primeira fila).
+        </p>
+      </section>
+
+      <section id="area-tabela" class="bloco" hidden aria-labelledby="titulo-tabela">
+        <h2 class="bloco-titulo" id="titulo-tabela">Deputados</h2>
+        <div class="tabela-rolagem" id="tabela-deputados"></div>
+      </section>
+
+      <section id="slider" class="bloco slider" aria-label="Linha do tempo">
+        <div class="slider-linha">
+          <button type="button" class="play" aria-label="Animar ao longo do tempo"></button>
+          <input type="range" min="0" max="0" step="1" aria-label="Momento" />
+          <output class="slider-rotulo" aria-live="polite"></output>
+        </div>
+        <p id="aviso-lacuna" class="aviso-lacuna"></p>
+      </section>
+
+      <section class="bloco" aria-labelledby="titulo-partidos">
+        <h2 class="bloco-titulo" id="titulo-partidos">Cadeiras por partido</h2>
+        <div id="tabela-partidos"></div>
+      </section>
     </main>
-    <script type="module">
-      import './src/design/mapa.css';
-    </script>
+
+    <footer class="rodape">
+      <p id="rodape-fontes"></p>
+      <p>
+        O site descreve a composição; não comenta nem avalia partidos ou governos.
+        <a href="metodologia.html">Metodologia</a>.
+      </p>
+    </footer>
+    <div id="erro" class="erro" role="alert" hidden>
+      Não foi possível carregar os dados. Verifique a conexão e recarregue a página.
+    </div>
+    <script type="module" src="/src/pages/inicio.ts"></script>
   </body>
 </html>
