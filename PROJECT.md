@@ -62,6 +62,8 @@ O site será **separado** do projeto irmão "mapa de indicadores socioeconômico
 | D9 | Hemiciclo | Cadeiras **ordenadas por pontuação ideológica** (esquerda → direita) |
 | D10 | Design | Reutilizar a **identidade visual** do site do mapa (cores, fontes, componentes) |
 | D11 | Site | Separado do mapa por enquanto; arquitetura compatível com fusão futura |
+| D12 | Eleitos (2026-10-23) | **Situação atual no TSE**, com data de geração registrada e aviso de retotalizações e decisões judiciais |
+| D13 | Fotos (2026-10-23) | Fotos de 1º/fev **só a partir de 2003**; de 1991 a 2002, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada |
 
 ---
 
@@ -226,7 +228,7 @@ Poder360, Congresso em Foco, Agência Câmara, Agência Senado, DIAP. Úteis par
 ### 7.2 Composição
 
 - **Eleitos:** resultado oficial de cada eleição, pelo partido de eleição.
-- **Em exercício em 1º/fev de cada ano:** quem estava efetivamente no exercício do mandato nessa data (titular ou suplente), pelo partido de filiação nessa data.
+- **Em exercício em 1º/fev de cada ano (de 2003 em diante — D13):** quem estava efetivamente no exercício do mandato nessa data (titular ou suplente), pelo partido de filiação nessa data.
   - Se 1º/fev cair antes da posse de uma nova legislatura no mesmo dia, considerar a composição **após** a posse [registrar em DECISIONS].
 - **Invariante:** em cada foto, o total de cadeiras ocupadas ≤ total de cadeiras da legislatura; vagas eventualmente desocupadas aparecem como "vaga".
 - **Validação cruzada:** o partido registrado em cada voto nominal (dados de votação) deve bater com o histórico de filiação na data do voto. Divergências vão para um relatório `reports/divergencias_filiacao.csv`.

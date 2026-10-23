@@ -62,3 +62,22 @@ Formato de cada entrada:
 - **Decisão:** o CI roda lint, formatação, tipos, testes unitários e build (pipeline e web). Os testes
   de fumaça com Playwright, como no mapa, entram na Fase 1, quando houver páginas de verdade.
 - **Motivo:** hoje só existe a página de amostra; instalar navegador no CI não testaria nada útil.
+
+## 2026-10-23 — "Eleito" = situação atual no TSE (A14)
+- **Decisão:** a visão "eleitos" usa a situação atual de cada candidato nos arquivos do TSE
+  (`consulta_cand_AAAA`; em 1990, `votacao_candidato_uf_1990`), com o `DT_GERACAO` registrado e cópia
+  datada do arquivo guardada. A interface avisa que a composição reflete retotalizações e decisões
+  judiciais posteriores (ex.: 7 cadeiras de 2022 trocadas por decisão do STF em 2025).
+- **Alternativa descartada:** reconstruir o resultado da noite da eleição a partir de cópias antigas e
+  notícias.
+- **Motivo:** decidido pelo Antônio. É a fonte oficial, reproduzível e auditável.
+- **Consequência:** o Apêndice A do PROJECT.md vira só conferência (tolerância ±2); divergências
+  maiores são investigadas e explicadas.
+
+## 2026-10-23 — Fotos de 1º/fev só a partir de 2003 (A15)
+- **Decisão:** as fotos "em exercício em 1º/fev" começam em 2003. De 1991 a 2002, o site mostra apenas
+  os eleitos de 1990, 1994 e 1998, e a lacuna das fotos aparece sinalizada na interface.
+- **Alternativas descartadas:** pedir a filiação ao NIPE/Cebrap; curadoria manual de 12 anos de fotos.
+- **Motivo:** decidido pelo Antônio. A Câmara só tem histórico datado de partido e exercício a partir
+  da 52ª legislatura (2003); antes disso não há fonte aberta.
+
