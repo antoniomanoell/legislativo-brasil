@@ -6,7 +6,9 @@ from datetime import date
 import polars as pl
 
 from congresso.extract import camara, tse
+from congresso.extract import ideologia as fontes_ideologia
 from congresso.paths import MANUAIS, PROCESSADOS, RELATORIOS
+from congresso.transform import ideologia as ideo
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
 from congresso.transform.fotos import foto, ler_eventos
 from congresso.transform.partidos import atribuir_partido, atribuir_partido_camara
@@ -116,4 +118,61 @@ def fotos(*, atualizar: bool = False) -> None:
     for r in resumo.filter(pl.col("sem_exercicio") > 0).iter_rows(named=True):
         print(
             f"  {r['data']}: {r['em_exercicio']} em exercício, {r['sem_exercicio']} cadeiras vagas"
+        )
+
+
+# Legislatura de cada eleição (a eleição de ano A forma a legislatura que começa em A + 1).
+LEGISLATURA_DA_ELEICAO = {1990 + 4 * i: 49 + i for i in range(10)}
+
+
+def ideologia(*, atualizar: bool = False) -> None:
+    """Pontuação ideológica por partido e legislatura (BLS 49ª–56ª; Bolognesi 2022 57ª–58ª)."""
+    siglas = pl.read_csv(
+        MANUAIS / "ideologia_siglas.csv", schema_overrides={"ano_medicao": pl.Int16}
+    )
+    tabela = pl.concat(
+        [
+            ideo.de_bls(pl.read_csv(fontes_ideologia.bls(atualizar=atualizar)), siglas),
+            ideo.de_bolognesi(pl.read_csv(MANUAIS / "bolognesi_2022.csv"), siglas),
+        ]
+    ).sort("legislatura", "partido_id")
+    problemas = ideo.conferir(tabela)
+    if problemas:
+        raise FalhaDeValidacao("Ideologia:\n" + "\n".join(problemas))
+    tabela.write_parquet(PROCESSADOS / "ideologia.parquet")
+
+    # Cobertura: % das cadeiras (eleitos e fotos) cujo partido não tem pontuação na legislatura.
+    eleitos = pl.read_parquet(PROCESSADOS / "eleitos.parquet").select(
+        pl.col("ano").cast(pl.String).alias("visao"),
+        pl.col("ano").replace_strict(LEGISLATURA_DA_ELEICAO).cast(pl.Int16).alias("legislatura"),
+        "partido_id",
+    )
+    fotos_ = pl.read_parquet(PROCESSADOS / "fotos.parquet").select(
+        pl.col("data").cast(pl.String).alias("visao"),
+        pl.col("legislatura").cast(pl.Int16),
+        "partido_id",
+    )
+    cobertura = (
+        pl.concat([eleitos, fotos_])
+        .join(
+            tabela.select("legislatura", "partido_id", "pontuacao"),
+            on=["legislatura", "partido_id"],
+            how="left",
+        )
+        .group_by("visao", "legislatura")
+        .agg(
+            pl.len().alias("cadeiras"),
+            pl.col("pontuacao").is_null().sum().alias("nao_classificadas"),
+        )
+        .with_columns(
+            (100 * pl.col("nao_classificadas") / pl.col("cadeiras")).round(1).alias("pct")
+        )
+        .sort("visao")
+    )
+    cobertura.write_csv(RELATORIOS / "ideologia_cobertura.csv")
+    print(f"ideologia: {tabela.height} pontuações; cadeiras não classificadas por visão:")
+    for r in cobertura.iter_rows(named=True):
+        print(
+            f"  {r['visao']} ({r['legislatura']}ª): "
+            f"{r['nao_classificadas']} de {r['cadeiras']} ({r['pct']}%)"
         )

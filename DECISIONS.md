@@ -173,3 +173,21 @@ Formato de cada entrada:
   no PRD em 09/11/2023). "S.PART." vira o partido especial `sem_partido`.
 - **Motivo:** fidelidade à fonte da composição; o atraso é da Câmara, não do projeto.
 
+## 2026-10-23 — Uma só escala por legislatura; ausentes da BLS ficam "não classificado"
+- **Decisão:** nas legislaturas 49ª–56ª só a BLS é usada. Partido que a BLS não mediu fica "não
+  classificado", inclusive na 55ª e na 56ª. A decisão A2 (Bolognesi 2022 para ausentes na 56ª) e a
+  regra 7.4.2 deixam de ter efeito; Bolognesi 2018 não é usado.
+- **Alternativas descartadas:** Bolognesi na legislatura inteira (contraria 7.4.1); Bolognesi só nos
+  ausentes (duas escalas no mesmo hemiciclo, que não se ordenam sem conversão — rejeitada em A7).
+- **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"). Afeta de 3% a 4% das cadeiras.
+
+## 2026-10-23 — Herança de pontuação só pela linhagem definida pelos autores da BLS
+- **Decisão:** um partido recebe a pontuação de outra sigla da BLS só quando os autores definem as duas
+  como a mesma linhagem (apêndice do dataset): PDS ← "PP" (1993); PCB ← "CID" (1993; "o PPS foi uma
+  rebatização do histórico PCB"); PPR ← "PP" (1997, eleitos de 1994); PL eleito em 2006 ← "PL" (2009;
+  os autores tratam PL e PR como uma linhagem). PTR e PST ficam "não classificado": o PP de 1993 é
+  partido novo, nascido de fusão; o mesmo vale para o PP de 1993 diante da onda de 1997.
+- **Alternativa descartada:** herdar de qualquer sucessor (fusões incluídas).
+- **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"); generaliza A1. Cada herança está
+  em `data/manual/ideologia_siglas.csv`, com nota que o site exibe.
+

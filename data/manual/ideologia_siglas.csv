@@ -1,0 +1,146 @@
+fonte_id,ano_medicao,sigla_fonte,partido_id,observacao,fonte
+bls,1993,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,CID,pcb1922,"PCB eleito em 1990, rebatizado PPS em 1992; os autores tratam o PPS como continuação do PCB","Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PL,pl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PP,pds,PDS eleito em 1990; a BLS mede a linhagem PDS/PPR como 'PP' (DECISIONS A1),"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PP,ppr,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PPold,pp1993,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PRN,prn,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1993,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PL,pl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,1997,PP,ppr,"PPR eleito em 1994, fundido no PPB em 1995; mesma linhagem 'PP' dos autores","Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PL,pl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2001,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PL,pl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2005,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PL,pr,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PSOL,psol,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2009,PV,pv,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PL,pr,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PSOL,psol,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PV,pv,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2013,PSD,psd2011,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PL,pr,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PSOL,psol,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PV,pv,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PSD,psd2011,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PODE,ptn,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PROS,pros,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,PSC,psc,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,REDE,rede,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,REP,prb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2017,SD,sd,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,CID,pps,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,DEM,pfl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,MDB,pmdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PCDOB,pcdob,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PDT,pdt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PSB,psb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PSDB,psdb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PT,pt,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PTB,ptb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PL,pr,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PP,ppb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PSOL,psol,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PSD,psd2011,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PODE,ptn,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PROS,pros,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PSC,psc,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,REP,prb,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,SD,sd,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,NOVO,novo,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bls,2021,PSL,psl,,"Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"
+bolognesi,2022,PSOL,psol,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PCdoB,pcdob,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PT,pt,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PSB,psb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,REDE,rede,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PDT,pdt,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PV,pv,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,SDD,sd,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,CDD,pps,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,AVANTE,ptdob,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,MDB,pmdb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PMN,pmn,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PSDB,psdb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PSD,psd2011,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PMB,pmb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PODE,ptn,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PROS,pros,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PRTB,prtb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,AGIR,prn,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PTB,ptb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PROGRE,ppb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,DC,psdc,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,REP,prb,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PSC,psc,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,UNIAO,uniao,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PATRI,pen,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,NOVO,novo,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bolognesi,2022,PL,pr,,Bolognesi et al. (2025) — https://doi.org/10.1590/1807-0191202531120
+bls,2009,PL,pl,"PL eleito em 2006, fundido no PR em 19/12/2006, antes da posse; os autores tratam PL e PR como a mesma linhagem","Zucco & Power, BLS — https://doi.org/10.7910/DVN/6KVTUV; linhagens: BLS9_Appendix.pdf (mesmo dataset)"

@@ -31,9 +31,12 @@ def test_um_partido_por_numero_em_cada_eleicao():
     [
         "partidos.csv",
         "partidos_tse.csv",
+        "partidos_camara.csv",
         "linhagens.csv",
         "renomeacoes.csv",
         "bancadas_referencia.csv",
+        "ideologia_siglas.csv",
+        "bolognesi_2022.csv",
     ],
 )
 def test_todo_registro_manual_tem_fonte(arquivo):
