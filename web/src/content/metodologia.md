@@ -1,0 +1,98 @@
+<!-- RASCUNHO: revisar com Antônio -->
+
+# Metodologia
+
+Este site mostra como a Câmara dos Deputados esteve composta desde 1991 (49ª legislatura, a primeira
+eleita sob a Constituição de 1988). Ele descreve a composição; não avalia partidos, parlamentares
+ou governos. Toda classificação tem fonte nomeada, e o que não tem fonte aparece como lacuna.
+
+## Duas formas de ver a composição
+
+**Eleitos.** Os deputados eleitos em cada eleição geral (1990 a 2026), pelo partido pelo qual foram
+eleitos. A fonte é o Tribunal Superior Eleitoral (TSE). Os arquivos do TSE mostram a situação
+**atual** de cada candidato: já incluem retotalizações e decisões judiciais posteriores à eleição
+(por exemplo, a troca de sete cadeiras eleitas em 2022 após decisão do Supremo Tribunal Federal em
+2025). Por isso os números podem diferir em uma ou duas cadeiras dos divulgados na noite da eleição.
+Os eleitos de 2026 são provisórios até a diplomação.
+
+**Em exercício em 1º de fevereiro.** Quem estava efetivamente no exercício do mandato (titular ou
+suplente) no fim do dia 1º de fevereiro de cada ano, pelo partido daquela data. A fonte é o
+histórico de cada deputado nos Dados Abertos da Câmara. Em anos de posse, a foto mostra a
+composição já empossada. Quando uma cadeira não tinha ninguém em exercício (licença sem suplente
+empossado, cassação, falecimento), ela aparece como vaga.
+
+**Lacuna de 1991 a 2002.** A Câmara só tem registro datado de exercício e de partido a partir de
+2003. Não há fonte aberta que permita reconstruir quem estava em exercício, e por qual partido,
+antes disso. Para esse período, o site mostra apenas os eleitos de 1990, 1994 e 1998.
+
+## Partidos
+
+Cada partido tem uma identificação própria, independente da sigla. Um partido que muda de nome
+continua sendo o mesmo partido; uma fusão cria um partido novo; uma incorporação mantém o partido
+que incorpora. Partidos homônimos de épocas diferentes são partidos diferentes (por exemplo, o PSD
+de 1987, incorporado ao PTB em 2003, e o PSD fundado em 2011). As datas de fusões, incorporações e
+mudanças de nome vêm do TSE, que registra os eventos a partir de 1995; os anteriores estão marcados
+como "a confirmar".
+
+A opção "seguir linhagem" soma as cadeiras de partidos fundidos ou incorporados às do partido em que
+eles terminaram.
+
+## Posição ideológica
+
+A posição ideológica é a de cada **partido** em cada **legislatura**, sempre com a fonte visível.
+Ela vem de pesquisas acadêmicas, não das votações: no Brasil, a principal divisão nas votações tende
+a ser entre governo e oposição, e não entre esquerda e direita (Zucco & Lauderdale, 2011).
+
+**Fontes.**
+
+- Legislaturas 49ª a 56ª (1991–2023): *Brazilian Legislative Surveys* (BLS), de Cesar Zucco e
+  Timothy Power, pesquisa feita com os próprios parlamentares, uma vez por legislatura. Usa-se a
+  onda realizada durante a legislatura (1993 para a 49ª, 1997 para a 50ª, e assim por diante até
+  2021 para a 56ª). A escala vai de −1 (esquerda) a +1 (direita).
+- Legislaturas 57ª e 58ª (2023–2031): Bolognesi, Ribeiro, Codato e Silva, pesquisa feita em 2022 com
+  cientistas políticos, numa escala de 0 (extrema-esquerda) a 10 (extrema-direita). Para a 58ª, que
+  começa em 2027, a medição é de 2022; ela será substituída quando houver medição mais recente.
+
+**Faixas.** Os rótulos (extrema-esquerda, esquerda, centro-esquerda, centro, centro-direita,
+direita, extrema-direita) são os publicados por Bolognesi et al., com os cortes definidos pelos
+autores na escala de 0 a 10, aplicados à média ponderada que eles publicam. A BLS não publica
+rótulos, e as duas escalas medem coisas diferentes, de formas diferentes. Testamos uma conversão
+entre elas com os partidos medidos pelas duas pesquisas em datas próximas: a ordem dos partidos
+coincide muito, mas cerca de um em cada quatro partidos cairia numa faixa diferente da publicada.
+Por isso as escalas **não são convertidas**: até a 56ª legislatura o site mostra a pontuação da
+BLS, sem rótulo; a partir da 57ª, a pontuação e o rótulo de Bolognesi et al. Os gráficos marcam a
+quebra entre as duas fontes.
+
+**Não classificado.** Partido que a fonte da legislatura não mediu aparece como "não classificado",
+fora da ordenação do hemiciclo. Nenhuma pontuação é estimada, interpolada ou emprestada de outra
+fonte. A única exceção são partidos que os próprios autores da BLS tratam como a mesma linhagem de
+um partido medido: o PDS (eleito em 1990, medido como parte da linhagem PDS/PPR), o PCB (eleito em
+1990 e rebatizado PPS em 1992), o PPR eleito em 1994 e o PL eleito em 2006 (fundido no PR antes da
+posse). Cada um desses casos é indicado junto da pontuação.
+
+**Uma limitação de qualquer série longa.** Nos anos 1980 e 1990, políticos de direita evitavam se
+declarar assim (Rodrigues, 1987). Parte do que parece mudança de posição ao longo do tempo pode ser
+mudança na disposição de se declarar, e não do partido.
+
+## Hemiciclo
+
+Cada bolinha é uma cadeira. Os partidos classificados vão da esquerda para a direita pela pontuação
+da legislatura; dentro de cada partido, os deputados estão em ordem alfabética. A cor mostra a
+posição do partido, não o partido: partidos na mesma faixa têm a mesma cor e são separados por
+traços e siglas. A posição das cadeiras é representativa: no Plenário Ulysses Guimarães os
+deputados não têm lugar fixo, exceto os líderes, na primeira fila.
+
+## Fontes
+
+- Tribunal Superior Eleitoral — Portal de Dados Abertos (dadosabertos.tse.jus.br). Licença CC-BY.
+- Câmara dos Deputados — Dados Abertos (dadosabertos.camara.leg.br). Domínio público, citada a
+  fonte.
+- Zucco, C.; Power, T. J. The Ideology of Brazilian Parties and Presidents: A Research Note on
+  Coalitional Presidentialism Under Stress. *Latin American Politics and Society*, v. 66, n. 1,
+  p. 178–188, 2024. Dados: Harvard Dataverse, doi:10.7910/DVN/6KVTUV (CC0).
+- Bolognesi, B.; Ribeiro, E.; Codato, A.; Silva, B. F. O desaparecimento do centro ideológico no
+  sistema partidário brasileiro: a classificação mais atualizada dos experts. *Opinião Pública*,
+  v. 31, e31120, 2025. Dados: Harvard Dataverse, doi:10.7910/DVN/MFIXKW (CC0).
+- Zucco, C.; Lauderdale, B. Distinguishing between Influences on Brazilian Legislative Behavior.
+  *Legislative Studies Quarterly*, v. 36, n. 3, 2011.
+- Rodrigues, L. M. *Quem é quem na Constituinte*. São Paulo: OESP/Maltese, 1987.

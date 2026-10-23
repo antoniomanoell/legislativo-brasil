@@ -24,10 +24,10 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Início: hemiciclo + linha do tempo (eleitos × em exercício) + tabela acessível + estado na URL
 - [x] Evolução: % de cadeiras por partido ao longo do tempo; por faixa só onde há rótulo (A7)
 - [x] Partidos: página básica (linhagem, tamanho, pontuação por legislatura com fonte)
-- [ ] Metodologia: rascunho (`<!-- RASCUNHO: revisar com Antônio -->`)
+- [x] Metodologia: rascunho (`<!-- RASCUNHO: revisar com Antônio -->`)
 - [ ] Testes de fumaça (Playwright, desktop e celular) e CI
 - [ ] Resumo da fase para o Antônio
 
 ## Próximo passo exato
 
-Metodologia (rascunho): `web/metodologia.html` + `web/src/content/metodologia.md` (marcado RASCUNHO), renderizado com marked como no mapa.
+Testes de fumaça: `web/e2e/fumaca.spec.ts` + `web/playwright.config.ts` (como no mapa) e passos no CI.
