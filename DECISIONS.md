@@ -153,3 +153,23 @@ Formato de cada entrada:
 - **Alternativa descartada:** identificar o partido pela sigla do arquivo do TSE.
 - **Motivo:** a sigla do TSE não é confiável no tempo; o número, por eleição, é.
 
+## 2026-10-23 — Fotos de 1º/fev: regra de exercício e de partido
+- **Decisão:** em exercício na data = o último evento do histórico da Câmara até o **fim do dia** 1º/fev,
+  na legislatura vigente e a partir do início dela, tem situação "Exercício", desconsiderando eventos
+  de troca de partido ou de nome. O partido é o do último evento de qualquer tipo até a data. Em anos
+  de posse (2003, 2007, ...), o fim do dia faz a foto mostrar a composição já empossada (§7.2).
+- **Motivo:** a API registra trocas de partido também para quem está fora do mandato, às vezes com
+  data anterior à legislatura e situação "Exercício" (ex.: id 74140, 31/03/2022, na 57ª), o que punha
+  40 deputados da BA em exercício para 39 vagas em 2023, 2024 e 2026.
+- **Consequência:** algumas fotos têm menos de 513 em exercício (ex.: 486 em 2006), por licenças com
+  suplente ainda não empossado, cassações e falecimentos; a diferença aparece como cadeira vaga
+  (`reports/fotos_cadeiras.csv`). O filtro da própria API dá números próximos (497 em 2005, contra
+  494 nossos).
+
+## 2026-10-23 — Siglas da Câmara mapeadas como registradas
+- **Decisão:** `data/manual/partidos_camara.csv` liga a sigla registrada pela Câmara ao partido, com
+  período de validade quando a sigla é ambígua ("PL" até 2006 = PL antigo; de 2019 = ex-PR). O site
+  mostra o que a Câmara registrou, mesmo com atraso (ex.: "PATRIOTA" em 1º/fev/2024, depois da fusão
+  no PRD em 09/11/2023). "S.PART." vira o partido especial `sem_partido`.
+- **Motivo:** fidelidade à fonte da composição; o atraso é da Câmara, não do projeto.
+

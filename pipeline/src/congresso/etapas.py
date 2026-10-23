@@ -1,12 +1,15 @@
 """Etapas do pipeline, na ordem em que rodam. Cada uma lê de data/raw (baixando se preciso),
 grava em data/processed e escreve suas conferências em reports/."""
 
+from datetime import date
+
 import polars as pl
 
-from congresso.extract import tse
+from congresso.extract import camara, tse
 from congresso.paths import MANUAIS, PROCESSADOS, RELATORIOS
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
-from congresso.transform.partidos import atribuir_partido
+from congresso.transform.fotos import foto, ler_eventos
+from congresso.transform.partidos import atribuir_partido, atribuir_partido_camara
 from congresso.validate.eleitos import conferir_limites, conferir_referencia, conferir_vagas
 
 
@@ -56,4 +59,61 @@ def eleitos(*, atualizar: bool = False) -> None:
         print(
             f"  ALERTA {r['ano']} {r['sigla_partido']}: TSE {r['tse']}, "
             f"Apêndice A {r['referencia']} (investigar)"
+        )
+
+
+# Eleição que formou cada legislatura com histórico datado.
+ELEICAO_DA_LEGISLATURA = {52: 2002, 53: 2006, 54: 2010, 55: 2014, 56: 2018, 57: 2022}
+PRIMEIRA_FOTO, TOTAL_CADEIRAS = 2003, 513
+
+
+def fotos(*, atualizar: bool = False) -> None:
+    """Deputados em exercício em 1º/fev de cada ano, de 2003 até o ano corrente (Câmara)."""
+    ids: set[int] = set()
+    for leg in camara.LEGISLATURAS_COM_HISTORICO:
+        caminho = camara.deputados_da_legislatura(leg, atualizar=atualizar)
+        ids |= {d["id"] for d in pl.read_json(caminho).iter_rows(named=True)}
+    eventos = ler_eventos(camara.historicos(sorted(ids), atualizar=atualizar))
+
+    ultimo_ano = max(eventos["data_hora"]).year
+    dias = [date(a, 2, 1) for a in range(PRIMEIRA_FOTO, ultimo_ano + 1)]
+    tabela = pl.concat([foto(eventos, d) for d in dias])
+    try:
+        tabela = atribuir_partido_camara(tabela, pl.read_csv(MANUAIS / "partidos_camara.csv"))
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+
+    # Conferências (PROJECT.md, 10.1): ninguém duas vezes na mesma foto; nenhuma UF acima das vagas.
+    if tabela.select("data", "id_deputado").is_duplicated().any():
+        raise FalhaDeValidacao("Deputado repetido numa foto")
+    vagas = pl.concat(
+        [
+            ler_vagas(tse.vagas(ano, atualizar=atualizar), ano).with_columns(
+                pl.lit(leg).alias("legislatura")
+            )
+            for leg, ano in ELEICAO_DA_LEGISLATURA.items()
+        ]
+    ).drop("ano")
+    por_uf = (
+        tabela.group_by("data", "legislatura", "uf")
+        .len("em_exercicio")
+        .join(vagas, on=["legislatura", "uf"], how="left")
+    )
+    acima = por_uf.filter(pl.col("em_exercicio") > pl.col("vagas"))
+    if acima.height:
+        raise FalhaDeValidacao(f"UF com mais deputados em exercício que vagas: {acima.rows()}")
+
+    PROCESSADOS.mkdir(parents=True, exist_ok=True)
+    tabela.write_parquet(PROCESSADOS / "fotos.parquet")
+    resumo = (
+        por_uf.group_by("data")
+        .agg(pl.col("em_exercicio").sum(), pl.col("vagas").sum().alias("cadeiras"))
+        .with_columns((pl.col("cadeiras") - pl.col("em_exercicio")).alias("sem_exercicio"))
+        .sort("data")
+    )
+    resumo.write_csv(RELATORIOS / "fotos_cadeiras.csv")
+    print(f"fotos: {len(dias)} datas ({dias[0]} a {dias[-1]}); {tabela.height} linhas")
+    for r in resumo.filter(pl.col("sem_exercicio") > 0).iter_rows(named=True):
+        print(
+            f"  {r['data']}: {r['em_exercicio']} em exercício, {r['sem_exercicio']} cadeiras vagas"
         )

@@ -1,8 +1,11 @@
+from datetime import date
+from itertools import pairwise
+
 import polars as pl
 import pytest
 
 from congresso.paths import MANUAIS
-from congresso.transform.partidos import atribuir_partido
+from congresso.transform.partidos import atribuir_partido, atribuir_partido_camara
 
 
 def _ler(nome):
@@ -71,3 +74,47 @@ def test_numero_sem_partido_para():
 def test_sigla_do_tse_mudou_para():
     with pytest.raises(ValueError, match="mudou"):
         atribuir_partido(_eleitos("13", "PTX"), _mapa())
+
+
+def _mapa_camara():
+    return pl.DataFrame(
+        {
+            "sigla_camara": ["PL", "PL", "PT"],
+            "valido_desde": [None, "2019-02-09", None],
+            "valido_ate": ["2006-12-18", None, None],
+            "partido_id": ["pl", "pr", "pt"],
+        },
+        schema_overrides={"valido_desde": pl.String, "valido_ate": pl.String},
+    )
+
+
+def _fotos(*linhas):
+    return pl.DataFrame(
+        [{"data": date.fromisoformat(d), "sigla_partido": s} for d, s in linhas],
+    )
+
+
+def test_mesma_sigla_partidos_diferentes_conforme_a_data():
+    r = atribuir_partido_camara(_fotos(("2005-02-01", "PL"), ("2020-02-01", "PL")), _mapa_camara())
+    assert r["partido_id"].to_list() == ["pl", "pr"]
+
+
+def test_sigla_fora_do_periodo_para():
+    with pytest.raises(ValueError, match="sem partido único"):
+        atribuir_partido_camara(_fotos(("2010-02-01", "PL")), _mapa_camara())
+
+
+def test_sigla_desconhecida_para():
+    with pytest.raises(ValueError, match="sem partido único"):
+        atribuir_partido_camara(_fotos(("2010-02-01", "XYZ")), _mapa_camara())
+
+
+def test_mapa_da_camara_nao_tem_periodos_sobrepostos():
+    mapa = _ler("partidos_camara.csv").with_columns(
+        pl.col("valido_desde").str.to_date().fill_null(date(1900, 1, 1)),
+        pl.col("valido_ate").str.to_date().fill_null(date(2999, 12, 31)),
+    )
+    for sigla, grupo in mapa.group_by("sigla_camara"):
+        periodos = sorted(grupo.select("valido_desde", "valido_ate").rows())
+        for (_, fim), (inicio, _) in pairwise(periodos):
+            assert fim < inicio, sigla
