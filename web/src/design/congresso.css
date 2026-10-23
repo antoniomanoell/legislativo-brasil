@@ -7,7 +7,9 @@
   height: auto;
 }
 .cadeira {
-  /* Contorno leve: as faixas do centro são claras e sumiriam no fundo do painel. */
+  /* Contorno leve: as faixas do centro são claras e sumiriam no fundo do painel. Espessura em
+     pixels, não nas unidades do SVG (o semicírculo tem raio 1). */
+  vector-effect: non-scaling-stroke;
   stroke: var(--texto-2);
   stroke-opacity: 0.35;
   stroke-width: 0.6;
@@ -141,11 +143,13 @@
   border-radius: 8px;
 }
 .separadores line {
-  stroke: var(--fundo);
-  stroke-width: 0.014;
+  stroke: var(--texto);
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
 .rotulos-hemiciclo text {
-  font-size: 0.055px;
+  font-size: 0.042px;
   font-weight: 650;
   fill: var(--texto-2);
 }

@@ -44,27 +44,13 @@ export function desenharHemiciclo(
     'aria-label': `Hemiciclo com ${ordem.length} cadeiras de partidos classificados, da esquerda para a direita. Use as setas para percorrer as cadeiras.`,
   });
 
-  // Separadores entre partidos: uma linha radial no ângulo médio entre o último deputado de um
-  // partido e o primeiro do seguinte.
-  const separadores = el('g', { class: 'separadores' });
+  // Siglas dos partidos maiores, junto ao arco, no ângulo médio do partido.
   const rotulos = el('g', { class: 'rotulos-hemiciclo', 'aria-hidden': 'true' });
   let inicio = 0;
-  composicao.classificados.forEach((grupo, gi) => {
+  for (const grupo of composicao.classificados) {
     const fim = inicio + grupo.deputados.length;
     const primeiro = cadeiras[inicio];
     const ultimo = cadeiras[fim - 1];
-    if (gi > 0 && primeiro) {
-      const anterior = cadeiras[inicio - 1];
-      const ang = anterior ? (anterior.angulo + primeiro.angulo) / 2 : primeiro.angulo;
-      separadores.append(
-        el('line', {
-          x1: 0.33 * Math.cos(ang),
-          y1: -0.33 * Math.sin(ang),
-          x2: 1.05 * Math.cos(ang),
-          y2: -1.05 * Math.sin(ang),
-        }),
-      );
-    }
     if (primeiro && ultimo && grupo.deputados.length / ordem.length >= FRACAO_ROTULO) {
       const ang = (primeiro.angulo + ultimo.angulo) / 2;
       const x = 1.11 * Math.cos(ang);
@@ -78,7 +64,34 @@ export function desenharHemiciclo(
       rotulos.append(texto);
     }
     inicio = fim;
-  });
+  }
+
+  // Separadores em degrau: a fronteira entre partidos não é radial (cada fileira tem um número
+  // diferente de cadeiras). Em cada fileira, um traço curto no vão entre a última cadeira de um
+  // partido e a primeira do seguinte, sem cortar nenhuma cadeira.
+  const separadores = el('g', { class: 'separadores', 'aria-hidden': 'true' });
+  const porFileira = new Map<number, number[]>();
+  cadeiras.forEach((c, i) => porFileira.set(c.fileira, [...(porFileira.get(c.fileira) ?? []), i]));
+  const meiaAltura = (cadeiras[0]?.r ?? 0) * 1.15;
+  for (const indices of porFileira.values()) {
+    for (let k = 1; k < indices.length; k++) {
+      const a = cadeiras[indices[k - 1] as number];
+      const b = cadeiras[indices[k] as number];
+      const ga = ordem[indices[k - 1] as number]?.grupo;
+      const gb = ordem[indices[k] as number]?.grupo;
+      if (!a || !b || ga === gb) continue;
+      const ang = (a.angulo + b.angulo) / 2;
+      const raio = Math.hypot(a.x, a.y);
+      separadores.append(
+        el('line', {
+          x1: (raio - meiaAltura) * Math.cos(ang),
+          y1: -(raio - meiaAltura) * Math.sin(ang),
+          x2: (raio + meiaAltura) * Math.cos(ang),
+          y2: -(raio + meiaAltura) * Math.sin(ang),
+        }),
+      );
+    }
+  }
 
   const circulos = cadeiras.map((c, i) => {
     const item = ordem[i] as (typeof ordem)[number];

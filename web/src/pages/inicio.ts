@@ -68,7 +68,6 @@ function pontosDaLegislatura() {
   return ideologia[String(estado.momento.legislatura)] ?? {};
 }
 
-
 function desenharResumo(): void {
   const m = estado.momento;
   const fora = composicao.naoClassificados.reduce((s, g) => s + g.deputados.length, 0);
@@ -292,4 +291,3 @@ iniciar().catch((erro: unknown) => {
   console.error(erro);
   $('#erro').hidden = false;
 });
-
