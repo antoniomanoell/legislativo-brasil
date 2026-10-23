@@ -307,3 +307,13 @@
 .celula-calor {
   background: color-mix(in srgb, var(--barra) calc(var(--alfa) * 100%), transparent);
 }
+
+/* O mapa esconde .visao a partir de 960px (lá mapa e ranking ficam lado a lado). Aqui os
+   controles segmentados escolhem eleitos × em exercício e hemiciclo × tabela: sempre visíveis. */
+.pagina .visao {
+  display: inline-flex;
+}
+.pagina .barra-viz {
+  justify-content: flex-start;
+  gap: 8px 16px;
+}

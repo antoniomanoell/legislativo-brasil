@@ -25,9 +25,9 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Evolução: % de cadeiras por partido ao longo do tempo; por faixa só onde há rótulo (A7)
 - [x] Partidos: página básica (linhagem, tamanho, pontuação por legislatura com fonte)
 - [x] Metodologia: rascunho (`<!-- RASCUNHO: revisar com Antônio -->`)
-- [ ] Testes de fumaça (Playwright, desktop e celular) e CI
+- [x] Testes de fumaça (Playwright, desktop e celular) e CI
 - [ ] Resumo da fase para o Antônio
 
 ## Próximo passo exato
 
-Testes de fumaça: `web/e2e/fumaca.spec.ts` + `web/playwright.config.ts` (como no mapa) e passos no CI.
+Resumo da Fase 1 para o Antônio (o que foi feito, pendências, decisões tomadas).

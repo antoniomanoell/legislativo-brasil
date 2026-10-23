@@ -58,7 +58,7 @@ Formato de cada entrada:
 - **Motivo:** algoritmo pedido na seção 8; os testes garantem total exato, ordem e ausência de
   sobreposição para 81, 503 e 513 cadeiras.
 
-## 2026-10-23 — CI sem testes de navegador na Fase 0
+## 2026-10-23 — CI sem testes de navegador na Fase 0 (superada na Fase 1: o CI roda Playwright)
 - **Decisão:** o CI roda lint, formatação, tipos, testes unitários e build (pipeline e web). Os testes
   de fumaça com Playwright, como no mapa, entram na Fase 1, quando houver páginas de verdade.
 - **Motivo:** hoje só existe a página de amostra; instalar navegador no CI não testaria nada útil.

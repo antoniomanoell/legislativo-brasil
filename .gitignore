@@ -18,3 +18,5 @@ Thumbs.db
 
 # Saídas intermediárias do pipeline (regeneráveis)
 data/processed/*.parquet
+web/test-results/
+web/playwright-report/
