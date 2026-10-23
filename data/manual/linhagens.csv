@@ -1,0 +1,22 @@
+de_partido_id,para_partido_id,tipo,data,processo_tse,confirmado_no_tse,fonte
+pds,ppr,fusão,1993,,não,"PROJECT.md, Apêndice B (anterior a 1995, sem registro no TSE)"
+pdc,ppr,fusão,1993,,não,"PROJECT.md, Apêndice B (anterior a 1995, sem registro no TSE)"
+ptr,pp1993,fusão,1993,,não,"PROJECT.md, Apêndice B (anterior a 1995, sem registro no TSE)"
+pst52,pp1993,fusão,1993,,não,"PROJECT.md, Apêndice B (anterior a 1995, sem registro no TSE)"
+pcb1922,pps,transformação,1992,,não,"PROJECT.md, Apêndice B (anterior a 1995, sem registro no TSE)"
+ppr,ppb,fusão,1995-11-16,RGP 277 (312-46.1995.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pp1993,ppb,fusão,1995-11-16,RGP 277 (312-46.1995.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+psd1987,ptb,incorporação,2003-02-20,PET 1304 (413-05.2003.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pst18,pl,incorporação,2003-04-01,PET 1307 (883-36.2003.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pl,pr,fusão,2006-12-19,RPP 305 (29782-39.2006.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+prona,pr,fusão,2006-12-19,RPP 305 (29782-39.2006.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pan,ptb,incorporação,2007-03-15,PET 2456 (31136-02.2006.6.00.0000),sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+prp,pen,incorporação,2019-03-28,PET 0601953-14.2018,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+ppl,pcdob,incorporação,2019-05-28,PET 0601972-20.2018,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+phs,ptn,incorporação,2019-09-19,PET 0602013-84.2018,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pfl,uniao,fusão,2022-02-08,RPP 0600641-95.2021,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+psl,uniao,fusão,2022-02-08,RPP 0600641-95.2021,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pros,sd,incorporação,2023-02-14,PetCiv 0601967-56.2022,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+psc,ptn,incorporação,2023-06-15,PetCiv 0600013-38.2023,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+ptb,prd,fusão,2023-11-09,RPP 0601913-90.2022,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
+pen,prd,fusão,2023-11-09,RPP 0601913-90.2022,sim,https://www.tse.jus.br/partidos/partidos-registrados-no-tse

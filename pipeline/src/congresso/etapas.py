@@ -6,6 +6,7 @@ import polars as pl
 from congresso.extract import tse
 from congresso.paths import MANUAIS, PROCESSADOS, RELATORIOS
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
+from congresso.transform.partidos import atribuir_partido
 from congresso.validate.eleitos import conferir_limites, conferir_referencia, conferir_vagas
 
 
@@ -33,6 +34,13 @@ def eleitos(*, atualizar: bool = False) -> None:
     if problemas:
         raise FalhaDeValidacao("Eleitos não batem com as vagas do TSE:\n" + "\n".join(problemas))
 
+    mapa = pl.read_csv(
+        MANUAIS / "partidos_tse.csv", schema_overrides={"ano": pl.Int16, "nr_partido": pl.String}
+    )
+    try:
+        tabela = atribuir_partido(tabela, mapa)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
     PROCESSADOS.mkdir(parents=True, exist_ok=True)
     tabela.write_parquet(PROCESSADOS / "eleitos.parquet")
 

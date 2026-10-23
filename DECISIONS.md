@@ -139,3 +139,17 @@ Formato de cada entrada:
   (tolerância ±2) e grava `reports/eleitos_x_apendice_a.csv`.
 - **Motivo:** conferência contra fonte oficial independente; o Apêndice A é compilação secundária.
 
+## 2026-10-23 — Partidos: ID estável por entidade jurídica e mapeamento pelo número
+- **Decisão:** cada partido tem um `partido_id` estável (`data/manual/partidos.csv`). Renomeação mantém
+  o ID (`renomeacoes.csv`); fusão cria partido novo; incorporação mantém o ID do incorporador; ambos
+  registrados como arestas em `linhagens.csv` (com processo do TSE quando posterior a 1995). Homônimos
+  são partidos diferentes (ex.: `psd1987` × `psd2011`, `pcb1922` × o PCB de número 21, `pl` × `pr`,
+  `pp1993` × `ppb`, `pst52` × `pst18`).
+- Os eleitos recebem o partido pela tabela curada `partidos_tse.csv` (eleição, número → partido e sigla
+  da época). Em cada eleição um número pertence a um só partido, mas o TSE reaproveita números entre
+  partidos (17: PDC, PTRB, PSL; 25: PFL/DEM, PRD; 44: PRP, União; 30: PGT, Novo; 18: PST, Rede) e
+  regrava siglas antigas com o nome atual (ex.: "PATRIOTA" no arquivo de 2014, quando era o PEN).
+  O pipeline para se um eleito não tiver mapeamento ou se a sigla do arquivo mudar.
+- **Alternativa descartada:** identificar o partido pela sigla do arquivo do TSE.
+- **Motivo:** a sigla do TSE não é confiável no tempo; o número, por eleição, é.
+
