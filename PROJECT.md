@@ -55,7 +55,7 @@ O site será **separado** do projeto irmão "mapa de indicadores socioeconômico
 | D2 | Ordem de construção | **Câmara primeiro**; Senado numa fase posterior (mas o modelo de dados já nasce preparado para as duas Casas) |
 | D3 | Início da série | **1991** (49ª legislatura). A 48ª (eleita em 1986, Constituinte) fica fora |
 | D4 | Composição | **Duas visões:** (a) **eleitos** de cada eleição; (b) **foto anual em 1º de fevereiro**, contando os deputados **em exercício** nessa data (captura trocas de partido e suplentes) |
-| D5 | Ideologia | **Pontuação contínua por partido e por legislatura**, com **rótulo derivado de faixas fixas**. Fonte principal: Power & Zucco (Brazilian Legislative Surveys); complementar: Bolognesi, Ribeiro, Codato (& Silva) |
+| D5 | Ideologia | **Pontuação contínua por partido e por legislatura**, com **rótulo de faixa só onde a fonte o publica** (Bolognesi, 2018+); nas legislaturas só com BLS, pontuação sem rótulo (alterado em 2026-10-23, ver DECISIONS A7). Fonte principal: Power & Zucco (Brazilian Legislative Surveys); complementar: Bolognesi, Ribeiro, Codato (& Silva) |
 | D6 | Rótulos | **Sete faixas acadêmicas:** extrema-esquerda, esquerda, centro-esquerda, centro, centro-direita, direita, extrema-direita (+ "não classificado") |
 | D7 | Votações | **Ingerir todas as votações nominais**; calcular indicadores para todo o período disponível; permitir consulta do voto individual; destacar votações por **critério objetivo**, nunca por curadoria |
 | D8 | Base de governo | Incluir camada de coalizão (partidos com ministério) para contrastar com ideologia e com o comportamento de voto |
@@ -64,6 +64,8 @@ O site será **separado** do projeto irmão "mapa de indicadores socioeconômico
 | D11 | Site | Separado do mapa por enquanto; arquitetura compatível com fusão futura |
 | D12 | Eleitos (2026-10-23) | **Situação atual no TSE**, com data de geração registrada e aviso de retotalizações e decisões judiciais |
 | D13 | Fotos (2026-10-23) | Fotos de 1º/fev **só a partir de 2003**; de 1991 a 2002, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada |
+| D14 | Votações (2026-10-23) | Sem dados do Cebrap: votos a partir de 2001, governismo a partir de 2003; 1991–2000 como lacuna |
+| D15 | Paleta (2026-10-23) | Paleta A (roxo ↔ laranja); não classificado em hachura |
 
 ---
 
@@ -251,6 +253,8 @@ Poder360, Congresso em Foco, Agência Câmara, Agência Senado, DIAP. Úteis par
 2. Partido ausente na onda BLS correspondente: usar Bolognesi et al. **somente se** houver medição próxima (2018 para a 55ª/56ª; 2022 para a 56ª/57ª); caso contrário, **"não classificado"**.
 3. Legislaturas 57ª e 58ª: Bolognesi et al. 2022, ou nova onda BLS se existir [confirmar]. Para a 58ª, sinalizar "medição de 2022 aplicada a legislatura iniciada em 2027".
 4. Nunca interpolar entre ondas. Nunca herdar pontuação de outro partido da linhagem sem regra aprovada pelo Antônio.
+
+> **Decidido em 2026-10-23 (DECISIONS A7, A17):** não haverá conversão BLS → Bolognesi; rótulo de faixa só onde Bolognesi publica (usando a média ponderada publicada). O texto abaixo fica como registro do problema.
 
 **Faixas (sete) — PONTO QUE EXIGE APROVAÇÃO DO ANTÔNIO ANTES DO LANÇAMENTO:**
 

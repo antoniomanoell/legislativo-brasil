@@ -81,3 +81,47 @@ Formato de cada entrada:
 - **Motivo:** decidido pelo Antônio. A Câmara só tem histórico datado de partido e exercício a partir
   da 52ª legislatura (2003); antes disso não há fonte aberta.
 
+## 2026-10-23 — Rótulos ideológicos só onde a fonte os publica (A7)
+- **Decisão:** não converter a escala da BLS para a de Bolognesi. Nas legislaturas medidas só pela BLS
+  (49ª–55ª), o site mostra a pontuação BLS (−1 a +1, com erro-padrão), ordena o hemiciclo por ela e
+  colore numa escala contínua com os mesmos dois matizes da paleta, **sem rótulo de faixa**. Onde há
+  Bolognesi, mostra pontuação e rótulo publicados. A troca de método é marcada na interface. O gráfico
+  de % de cadeiras por faixa só existe onde há rótulo; antes disso, a evolução usa a distribuição das
+  pontuações.
+- **Alternativa descartada:** conversão linear BLS → Bolognesi com os pares medidos pelas duas fontes.
+- **Motivo:** decidido pelo Antônio após o teste: a conversão tem correlação alta (r = 0,96 e 0,98),
+  mas erro típico de 0,50 a 0,66 ponto contra faixas de ~1,5 ponto; só 15 de 20 (2017×2018) e 13 de
+  18 (2021×2022) partidos caem na mesma faixa; a inclinação muda entre os pares (4,28 e 4,70), o que
+  tornaria a extrapolação até 1993 frágil. Altera a decisão D5.
+
+## 2026-10-23 — Bolognesi 2022: rótulo da média ponderada, como publicado (A17)
+- **Decisão:** usar a coluna "ideologia categórica" e a "média ponderada" da Tabela 1 de Bolognesi,
+  Ribeiro, Codato & Silva (2025). A média simples de 2022 fica na página de metodologia.
+- **Alternativa descartada:** aplicar os cortes à média simples (mudaria PSD, Republicanos, PSC e
+  União de faixa, criando rótulos que os autores não publicaram).
+- **Motivo:** decidido pelo Antônio; fidelidade à fonte nomeada.
+
+## 2026-10-23 — Onda BLS de 1993 para a 49ª legislatura (A1)
+- **Decisão:** seguir a correspondência dos autores (onda 1993 → 49ª). O PDC, ausente da onda de 1993,
+  fica "não classificado". O PDS recebe a pontuação da linhagem PDS/PPR ("PP" na BLS), com nota visível.
+- **Alternativa descartada:** usar a onda de 1990 (mede a 48ª).
+- **Motivo:** decidido pelo Antônio; é o mapeamento do código de replicação de Zucco & Power.
+
+## 2026-10-23 — 56ª legislatura: Bolognesi 2022 para partido ausente da BLS 2021 (A2)
+- **Decisão:** Bolognesi 2022 (afeta Avante, Patriota, PV e Rede).
+- **Alternativa descartada:** Bolognesi 2018.
+- **Motivo:** decidido pelo Antônio; 2022 está a 1 ano da onda BLS de 2021, que mede o restante da
+  legislatura, e já reflete as fusões do período.
+
+## 2026-10-23 — Paleta A (roxo ↔ laranja) para as faixas (A9)
+- **Decisão:** paleta A de `web/src/design/paletas.ts`, nos tons de cada tema; "não classificado" em
+  hachura.
+- **Alternativas descartadas:** B (verde-azulado ↔ ocre) e C (magenta ↔ verde-azulado).
+- **Motivo:** decidido pelo Antônio; única que passa em todas as checagens de daltonismo e contraste
+  nos dois temas.
+
+## 2026-10-23 — Sem dados do Cebrap (A16)
+- **Decisão:** não pedir dados ao NIPE/Cebrap. Votos individuais a partir de 2001 e governismo a
+  partir de 2003 (Câmara); 1991–2000 aparece como lacuna sinalizada.
+- **Motivo:** decidido pelo Antônio. O banco está fora do ar e não tem licença de redistribuição.
+

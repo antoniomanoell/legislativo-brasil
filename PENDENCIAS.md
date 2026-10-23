@@ -8,23 +8,23 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
 
 | # | Questão | Contexto (verificado em 2026-10-23) | Status |
 |---|---|---|---|
-| A1 | Qual onda BLS vale para a 49ª (eleitos 1990, fotos de 1991 e 1992)? | A onda de 1993 (regra 7.4) tem PRN, PDS/PPR (como "PP") e o PP de 1993, mas **não tem o PDC**, fundido no PPR em 1993. A onda de 1990, mais próxima dos eleitos de 1990, tem o PDC, mas mede a 48ª (assim mapeiam os próprios autores). | aberta |
-| A2 | Na 56ª, qual Bolognesi tem prioridade (2018 ou 2022) para partido ausente da BLS 2021? | Ausentes da BLS 2021 com bancada: Avante, Patriota, PV, Rede. | aberta |
+| A1 | Qual onda BLS vale para a 49ª (eleitos 1990, fotos de 1991 e 1992)? | A onda de 1993 (regra 7.4) tem PRN, PDS/PPR (como "PP") e o PP de 1993, mas **não tem o PDC**, fundido no PPR em 1993. A onda de 1990, mais próxima dos eleitos de 1990, tem o PDC, mas mede a 48ª (assim mapeiam os próprios autores). | **decidida: onda 1993; PDC não classificado** |
+| A2 | Na 56ª, qual Bolognesi tem prioridade (2018 ou 2022) para partido ausente da BLS 2021? | Ausentes da BLS 2021 com bancada: Avante, Patriota, PV, Rede. | **decidida: Bolognesi 2022** |
 | A3 | Voto "Artigo 17" (presidente da sessão) no governismo e na presença | Aparece como valor de voto nos dados da Câmara. Proposta: excluir do denominador e da presença. | aberta |
 | A4 | Abstenção e obstrução contam como "votantes" no Índice de Rice? | | aberta |
 | A5 | Como identificar votação de mérito de PEC em 1º/2º turno | Não há campo estruturado. A PEC é identificável (`proposicoesAfetadas`), o turno e o mérito só pelo texto ("em primeiro turno", ausência de "Requerimento", "destaque"). Proposta: regra de texto + revisão manual da lista, registrada em DECISIONS. | aberta |
 | A6 | Impeachments (1992 e 2016) | **Nenhum dos dois tem voto individual nos Dados Abertos**; só o placar (2016: Sim 367, Não 137, Abst. 7, Ausências 2). Opções: (a) mostrar só o placar oficial; (b) transcrever o voto nominal do Diário da Câmara, como curadoria documentada. | aberta |
-| A7 | Crosswalk BLS × Bolognesi e cortes das sete faixas | Escalas diferentes: BLS de −1 a +1 (estimada); Bolognesi de 0 a 10 (média de experts). Pares disponíveis: 20 (BLS 2017 × B. 2018) e 18 (BLS 2021 × B. 2022). Cortes literais confirmados (PROJECT.md §6.2). | aberta |
+| A7 | Crosswalk BLS × Bolognesi e cortes das sete faixas | Escalas diferentes: BLS de −1 a +1 (estimada); Bolognesi de 0 a 10 (média de experts). Pares disponíveis: 20 (BLS 2017 × B. 2018) e 18 (BLS 2021 × B. 2022). Cortes literais confirmados (PROJECT.md §6.2). | **decidida: sem conversão; rótulo só onde a fonte publica** |
 | A8 | Abstenção/obstrução (e falta) no governismo | Opções documentadas: (A) Basômetro/Poder360 — abstenção e obstrução contra, ausência fora; (B) Congresso em Foco — abstenção, obstrução e falta contra; (C) obstrução a favor quando o governo orienta "Não"; (D) só Sim/Não no denominador; (E) qualquer das anteriores restrita a votações de mérito com disputa ≥ 20% (DIAP). | aberta |
-| A9 | Paleta das faixas ideológicas | Três candidatas em `web/estilo.html`; a A (roxo ↔ laranja) passa em todas as checagens. | aberta |
+| A9 | Paleta das faixas ideológicas | Três candidatas em `web/estilo.html`; a A (roxo ↔ laranja) passa em todas as checagens. | **decidida: paleta A** |
 | A10 | Nome do site e domínio | | aberta |
 | A11 | Hospedagem (o mapa usa Vercel) | | aberta |
 | A12 | Licença dos dados derivados | Câmara: domínio público com citação. TSE: CC-BY. BLS e Bolognesi: CC0. **IPEA: proíbe uso comercial.** **Cebrap: sem licença de redistribuição.** | aberta |
 | A13 | Curadoria das coalizões pós-meados de 2020 | O IPEA para em meados de 2020; não há atualização acadêmica. | aberta |
 | A14 | O que é "eleito"? | O TSE mostra a situação **atual** (ex.: as 7 cadeiras de 2022 trocadas por decisão do STF em 2025), mas não registra cassações depois da diplomação (Deltan segue "eleito"). Opções: (a) situação atual do TSE, com nota; (b) resultado original, reconstruído de cópias datadas e notícias. | **decidida (2026-10-23): (a) situação atual do TSE** |
 | A15 | Fotos de 1º/fev de 1991 a 2002 | A Câmara **não tem** filiação datada nem exercício datado antes de 2003. Opções: (a) pedir a filiação ao NIPE/Cebrap (só sob pedido, site fora do ar); (b) curadoria manual; (c) lançar com fotos só a partir de 2003 e, antes disso, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada. | **decidida (2026-10-23): (c)** |
-| A16 | Votações de 1991 a 2000 (e 2001–2002 sem orientação) | Só o Cebrap tem, mas o site está fora do ar e não há licença de redistribuição. Opções: (a) escrever ao NIPE/Cebrap pedindo autorização; (b) lançar com votações a partir de 2003 (governismo) e 2001 (votos), com a lacuna visível. | aberta |
-| A17 | Rótulos de Bolognesi 2022: média ponderada (como publicado) ou média bruta? | Aplicando os cortes à média bruta mudam 4 partidos: PSD (direita → centro-direita), Republicanos, PSC e União (extrema-direita → direita). | aberta |
+| A16 | Votações de 1991 a 2000 (e 2001–2002 sem orientação) | Só o Cebrap tem, mas o site está fora do ar e não há licença de redistribuição. Opções: (a) escrever ao NIPE/Cebrap pedindo autorização; (b) lançar com votações a partir de 2003 (governismo) e 2001 (votos), com a lacuna visível. | **decidida: sem Cebrap; lacuna 1991–2000** |
+| A17 | Rótulos de Bolognesi 2022: média ponderada (como publicado) ou média bruta? | Aplicando os cortes à média bruta mudam 4 partidos: PSD (direita → centro-direita), Republicanos, PSC e União (extrema-direita → direita). | **decidida: média ponderada publicada** |
 | A18 | Gabinetes do IPEA: 52 (CSV) ou 43 (Nota Técnica 53)? | O CSV não tem datas; a NT tem o mês de início de cada gabinete e outra divisão. | aberta |
 
 ## B. Itens [confirmar] do PROJECT.md
