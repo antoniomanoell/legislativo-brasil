@@ -44,7 +44,7 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 
 ## Fase 2 — em andamento (governos e coalizões)
 
-- [ ] Transcrever o Quadro 2 da NT 53 (IPEA) → `data/manual/gabinetes_ipea.csv`, com página
+- [x] Transcrever o Quadro 2 da NT 53 (IPEA) → `data/manual/gabinetes_ipea.csv`, com página
 - [ ] Tabela de governos (§7.5, datas confirmadas) → `data/manual/governos.csv`
 - [ ] Curadoria pós-meados de 2020 → `data/manual/coalizoes_pos2020.csv` (cada linha com fonte; validar com o Antônio)
 - [ ] Etapa `governos` no pipeline: base formal em cada momento (% de cadeiras), conferida com os valores do IPEA (§7.5)
@@ -53,4 +53,4 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 
 ## Próximo passo exato
 
-Baixar a NT 53 e transcrever o Quadro 2 (gabinetes, mês de início, partidos com ministério).
+Curadoria pós-2020 (agente pesquisando) em paralelo com `data/manual/governos.csv` e a etapa `governos`.
