@@ -55,3 +55,11 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
 - Rótulo da orientação do Governo: normalizar "GOV." e "Governo".
 - TSE 1998: deduplicar substitutos que dividem o número com o titular.
 - Senado: votações de 2015–2016 incompletas ou com datas erradas; validar ano a ano na Fase 4.
+- Eleitos (2026-10-23): duas bancadas fora da tolerância de ±2 contra o Apêndice A — **1990 PDS** (TSE 45,
+  Apêndice 42) e **2010 PP** (TSE 44, Apêndice 41). Vale o TSE (A14); falta explicar a diferença.
+- O TSE grava siglas de formas diferentes conforme o ano ("PCdoB", "PC DO B", "PC do B", "PCDOB") e
+  reescreve siglas antigas com o nome atual (ex.: "PATRIOTA" no arquivo de 2014, quando o partido era
+  o PEN). A tabela de partidos tem de mapear sigla do arquivo → partido na data da eleição.
+- O arquivo de vagas de 1994 do TSE não tem deputado federal; nesse ano a conferência usa só o total
+  (513) e os limites constitucionais por UF.
+

@@ -125,3 +125,17 @@ Formato de cada entrada:
   partir de 2003 (Câmara); 1991–2000 aparece como lacuna sinalizada.
 - **Motivo:** decidido pelo Antônio. O banco está fora do ar e não tem licença de redistribuição.
 
+## 2026-10-23 — Polars para transformar, Parquet para guardar
+- **Decisão:** as transformações usam polars (como no `mapa-brasil`) e gravam Parquet em
+  `data/processed/` (fora do git, regenerável). Downloads com httpx e cache em `data/raw/`.
+- **Alternativa descartada:** DuckDB, citado na seção 8 do PROJECT.md.
+- **Motivo:** mesma ferramenta do mapa, que o Antônio já mantém; o volume (até ~639 MB de votos em
+  CSV) é tratável com polars. DuckDB pode entrar depois se alguma consulta pedir SQL.
+
+## 2026-10-23 — Eleitos: conferência por UF e exceção de 1994
+- **Decisão:** a etapa `eleitos` para o pipeline se o número de eleitos por UF diferir das vagas do
+  TSE (`consulta_vagas`). Em 1994, cujo arquivo de vagas não traz deputado federal, confere o total de
+  513 (LC 78/1993) e o limite de 8 a 70 por UF (CF, art. 45, § 1º). Contra o Apêndice A, só alerta
+  (tolerância ±2) e grava `reports/eleitos_x_apendice_a.csv`.
+- **Motivo:** conferência contra fonte oficial independente; o Apêndice A é compilação secundária.
+

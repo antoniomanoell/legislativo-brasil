@@ -15,3 +15,6 @@ data/raw/
 # Sistema
 .DS_Store
 Thumbs.db
+
+# Saídas intermediárias do pipeline (regeneráveis)
+data/processed/*.parquet

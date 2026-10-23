@@ -3,7 +3,7 @@ from congresso.paths import RAIZ
 
 
 def test_fase_sem_pipeline():
-    assert main(["--fase", "1"]) == 2
+    assert main(["--fase", "5"]) == 2
 
 
 def test_raiz_do_repositorio():

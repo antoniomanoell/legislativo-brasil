@@ -3,7 +3,10 @@ name = "congresso"
 version = "0.1.0"
 description = "Pipeline de dados do Congresso em Números"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "httpx>=0.28.1",
+    "polars>=2.0.0",
+]
 
 [project.scripts]
 congresso = "congresso.cli:main"
