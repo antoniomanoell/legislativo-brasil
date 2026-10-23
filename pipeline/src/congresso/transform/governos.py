@@ -27,6 +27,9 @@ def ler_gabinetes(tabela: pl.DataFrame) -> pl.DataFrame:
         .list.eval(pl.element().filter(pl.element() != ""))
         .alias("partidos"),
         "fonte",
+        (pl.col("observacao") if "observacao" in tabela.columns else pl.lit(None, pl.String)).alias(
+            "observacao"
+        ),
     ).sort("inicio")
 
 

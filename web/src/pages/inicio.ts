@@ -229,6 +229,13 @@ function baseDoMomento(): BaseNoMomento | undefined {
     : undefined;
 }
 
+function fonteDoGabinete(nome: string): string {
+  const g = governos.gabinetes.find((x) => x.gabinete === nome);
+  return g?.fonte.startsWith('Curadoria')
+    ? 'curadoria do projeto pelo critério do IPEA'
+    : 'IPEA (Almeida, 2021)';
+}
+
 function desenharLinhaBase(): void {
   const el = $('#linha-base');
   const base = baseDoMomento();
@@ -237,12 +244,12 @@ function desenharLinhaBase(): void {
   const governo = governos.governos.find((g) => g.governo_id === base.governo);
   const nomeGoverno = governo ? `Governo ${governo.presidente}` : 'Governo';
   if (base.gabinete === null || base.cadeiras_base === null) {
-    el.innerHTML = `${esc(nomeGoverno)} · base formal: sem dados nesta data (a série de gabinetes do IPEA termina em dez/2020; a curadoria posterior está em preparação). <a href="governos.html">Governos</a>`;
+    el.innerHTML = `${esc(nomeGoverno)} · base formal: sem dados nesta data. <a href="governos.html">Governos</a>`;
     return;
   }
   const siglas =
     base.partidos.map((id) => siglaEm(id, estado.momento.id, partidos)).join(', ') || 'nenhum';
-  el.innerHTML = `${esc(nomeGoverno)} · base formal (partidos com ministro, gabinete ${esc(base.gabinete)}): ${esc(siglas)} — ${base.cadeiras_base} cadeiras (${pct(base.cadeiras_base, estado.momento.cadeiras)}). Fonte: IPEA (Almeida, 2021).
+  el.innerHTML = `${esc(nomeGoverno)} · base formal (partidos com ministro, gabinete ${esc(base.gabinete)}): ${esc(siglas)} — ${base.cadeiras_base} cadeiras (${pct(base.cadeiras_base, estado.momento.cadeiras)}). Fonte: ${fonteDoGabinete(base.gabinete)}.
     <label><input type="checkbox" id="destacar-base"${estado.destacarBase ? ' checked' : ''}> destacar no hemiciclo</label>`;
   ($('#destacar-base') as HTMLInputElement).addEventListener('change', (e) => {
     estado.destacarBase = (e.target as HTMLInputElement).checked;

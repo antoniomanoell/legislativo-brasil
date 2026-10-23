@@ -46,11 +46,11 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 
 - [x] Transcrever o Quadro 2 da NT 53 (IPEA) → `data/manual/gabinetes_ipea.csv`, com página
 - [x] Tabela de governos (§7.5, datas confirmadas) → `data/manual/governos.csv`
-- [ ] Curadoria pós-meados de 2020 → `data/manual/coalizoes_pos2020.csv` (cada linha com fonte; validar com o Antônio)
+- [x] Curadoria pós-meados de 2020 (até 30/03/2026; casos de julgamento aguardam validação do Antônio) → `data/manual/coalizoes_pos2020.csv` (cada linha com fonte; validar com o Antônio)
 - [x] Etapa `governos` no pipeline (só IPEA até dez/2020; falta incluir a curadoria pós-2020): base formal em cada momento (% de cadeiras), conferida com os valores do IPEA (§7.5)
 - [x] Web: página Governos e indicação da base formal no Início (com IPEA; falta a curadoria pós-2020)
 - [ ] Testes, CI e resumo para o Antônio
 
 ## Próximo passo exato
 
-Revisar o relatório do agente de curadoria pós-2020 (scratchpad/coalizoes), levar ao Antônio os casos de julgamento e transcrever para data/manual/gabinetes_pos2020.csv (coluna cobertura_ate).
+PAUSADO pelo Antônio. Ao retomar: apresentar a ele os casos de julgamento da curadoria pós-2020 (União Brasil, Waldez Góes, Wolney/PDT, Marina/Rede, PP e Republicanos em 2023) e o efeito na base de Lula 3 (202 cadeiras em fev/2023 pelo critério estrito); depois, resumo da Fase 2.

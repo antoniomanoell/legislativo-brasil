@@ -127,17 +127,23 @@ async function iniciar(): Promise<void> {
         .map((x) => {
           const b = x.base_no_inicio;
           const cadeiras = b ? `${b.cadeiras} (${pct(b.cadeiras, 513)})` : '—';
+          const nota = x.observacao
+            ? `<tr class="linha-nota"><td></td><td colspan="4">${esc(x.observacao)}</td></tr>`
+            : '';
           return `<tr><td>${esc(x.gabinete)}</td><td>${esc(dataCurta(x.inicio))}</td><td>${EVENTO[x.evento]}</td>
-            <td>${siglas(x.partidos, x.inicio, partidos)}</td><td class="num">${cadeiras}</td></tr>`;
+            <td>${siglas(x.partidos, x.inicio, partidos)}</td><td class="num">${cadeiras}</td></tr>${nota}`;
         })
         .join('');
       const tabela = gabs.length
         ? `<div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Gabinete</th><th scope="col">Início</th><th scope="col">Origem</th><th scope="col">Partidos com ministro</th><th scope="col">Cadeiras no início</th></tr></thead><tbody>${linhas}</tbody></table></div>`
-        : `<p class="aviso-lacuna">Sem dados de gabinete: a série do IPEA termina em dez/2020, e a curadoria do período posterior está em preparação.</p>`;
+        : `<p class="aviso-lacuna">Sem dados de gabinete para este governo.</p>`;
+      const curadoria = gabs.some((x) => x.fonte.startsWith('Curadoria'))
+        ? `<p class="aviso-lacuna">Gabinetes a partir de 2021: curadoria do projeto, ministro a ministro, pelo mesmo critério do IPEA, com fonte para cada nomeação; cobre até ${esc(dataCurta(gov.cobertura_ate))}.</p>`
+        : '';
       return `<section class="bloco" aria-labelledby="gov-${g.governo_id}">
         <h2 class="bloco-titulo" id="gov-${g.governo_id}">${esc(g.presidente)} — ${esc(dataCurta(g.inicio))} a ${esc(dataCurta(g.fim))}</h2>
         <p class="bloco-dica">Partido do presidente: ${esc(g.partido_presidente)}${g.observacao ? ` · ${esc(g.observacao)}` : ''}</p>
-        ${tabela}</section>`;
+        ${tabela}${curadoria}</section>`;
     })
     .join('');
   $('#conteudo').outerHTML = `<div id="conteudo" class="pagina-governos">
@@ -145,7 +151,7 @@ async function iniciar(): Promise<void> {
       <div class="bloco-cabeca"><h1 class="bloco-titulo">Base formal dos governos</h1><span id="ajuda-base"></span></div>
       <p class="bloco-dica">Cadeiras na Câmara dos partidos com ministro, em cada 1º de fevereiro. A base formal não mede como esses partidos votaram; isso entra com as votações.</p>
       <div id="grafico-base"></div>
-      <p class="aviso-lacuna">Fonte dos gabinetes: IPEA, Atlas do Estado Brasileiro (Almeida, Nota Técnica 53, 2021), de mar/1985 a dez/2020. Barras tracejadas: sem dados. Cadeiras no início do gabinete só a partir de 2003, quando começa o registro datado da Câmara.</p>
+      <p class="aviso-lacuna">Gabinetes: IPEA, Atlas do Estado Brasileiro (Almeida, Nota Técnica 53, 2021), de mar/1985 a dez/2020; depois, curadoria do projeto pelo mesmo critério, até ${esc(dataCurta(gov.cobertura_ate))}. Barras tracejadas: sem dados. Cadeiras no início do gabinete só a partir de 2003, quando começa o registro datado da Câmara.</p>
     </section>
     ${secoes}</div>`;
   $('#grafico-base').append(grafico(cat, gov));

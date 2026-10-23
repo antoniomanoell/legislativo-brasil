@@ -66,3 +66,12 @@ def test_gabinetes_do_ipea_coerentes():
     assert g["inicio"].is_sorted()
     partidos = set(pl.read_csv(MANUAIS / "partidos.csv")["partido_id"])
     assert set(g["partidos"].explode().drop_nulls()) <= partidos
+
+
+def test_curadoria_pos2020_coerente():
+    g = ler_gabinetes(pl.read_csv(MANUAIS / "gabinetes_pos2020.csv"))
+    partidos = set(pl.read_csv(MANUAIS / "partidos.csv")["partido_id"])
+    assert set(g["partidos"].explode().drop_nulls()) <= partidos
+    assert not g["so_mes"].any(), "a curadoria precisa de data exata"
+    ipea = ler_gabinetes(pl.read_csv(MANUAIS / "gabinetes_ipea.csv"))
+    assert g["inicio"].min() > ipea["inicio"].max()

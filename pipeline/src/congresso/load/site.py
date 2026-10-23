@@ -219,6 +219,7 @@ def publicar_governos(
                 "partidos": g["partidos"],
                 "governo": governo_de_gabinete(g["gabinete"]),
                 "fonte": g["fonte"],
+                "observacao": g["observacao"],
                 "base_no_inicio": None
                 if conf is None
                 else {

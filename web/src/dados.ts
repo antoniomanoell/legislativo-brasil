@@ -84,6 +84,8 @@ export interface Gabinete {
   partidos: string[];
   governo: string | null;
   fonte: string;
+  /** Na curadoria pós-2020: quem tem ministro e não foi contado, e por quê. */
+  observacao: string | null;
   base_no_inicio: { data: string; cadeiras: number; em_exercicio: number } | null;
 }
 

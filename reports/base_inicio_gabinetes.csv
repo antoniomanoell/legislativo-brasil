@@ -22,3 +22,11 @@ Temer-4,2018-07-01,true,pmdb;pfl;ppb;pr;psd2011;prb,241,509,47.0
 Bolsonaro-1,2019-02-01,true,psl,51,512,9.9
 Bolsonaro-2,2019-11-01,true,"",0,512,0.0
 Bolsonaro-3,2020-04-01,true,"",0,509,0.0
+Bolsonaro-4,2021-02-12,false,prb,32,511,6.2
+Bolsonaro-5,2021-04-06,false,prb;pr,74,510,14.4
+Bolsonaro-6,2021-07-28,false,prb;pr;ppb,115,512,22.4
+Bolsonaro-7,2022-03-27,false,pr;ppb,111,512,21.6
+Bolsonaro-8,2022-03-31,false,ppb,51,512,9.9
+Lula 3-1,2023-02-01,false,pt;pmdb;psd2011;psb;pdt;pcdob;psol,202,513,39.4
+Lula 3-2,2023-09-13,false,pt;pmdb;psd2011;psb;pdt;pcdob;psol,206,512,40.2
+Lula 3-3,2025-05-06,false,pt;pmdb;psd2011;psb;pcdob;psol,190,509,37.0
