@@ -23,11 +23,11 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Etapa `publicar`: JSON para o site em `web/public/data/` (momentos, partidos, ideologia)
 - [x] Início: hemiciclo + linha do tempo (eleitos × em exercício) + tabela acessível + estado na URL
 - [x] Evolução: % de cadeiras por partido ao longo do tempo; por faixa só onde há rótulo (A7)
-- [ ] Partidos: página básica (linhagem, tamanho, pontuação por legislatura com fonte)
+- [x] Partidos: página básica (linhagem, tamanho, pontuação por legislatura com fonte)
 - [ ] Metodologia: rascunho (`<!-- RASCUNHO: revisar com Antônio -->`)
 - [ ] Testes de fumaça (Playwright, desktop e celular) e CI
 - [ ] Resumo da fase para o Antônio
 
 ## Próximo passo exato
 
-Página Partidos: `web/partidos.html` + `web/src/pages/partidos.ts` (lista; ficha com linhagem, cadeiras por momento e pontuação por legislatura com fonte).
+Metodologia (rascunho): `web/metodologia.html` + `web/src/content/metodologia.md` (marcado RASCUNHO), renderizado com marked como no mapa.

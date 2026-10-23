@@ -7,6 +7,7 @@ export default defineConfig({
       input: {
         index: resolve(import.meta.dirname, 'index.html'),
         evolucao: resolve(import.meta.dirname, 'evolucao.html'),
+        partidos: resolve(import.meta.dirname, 'partidos.html'),
         estilo: resolve(import.meta.dirname, 'estilo.html'),
       },
     },
