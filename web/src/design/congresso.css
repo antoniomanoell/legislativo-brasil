@@ -1,0 +1,102 @@
+/* O que é só deste site, por cima do visual comum (mapa.css). Mesmos tokens, mesmos temas. */
+
+/* ---------- Hemiciclo ---------- */
+.hemiciclo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cadeira {
+  /* Contorno leve: as faixas do centro são claras e sumiriam no fundo do painel. */
+  stroke: var(--texto-2);
+  stroke-opacity: 0.35;
+  stroke-width: 0.6;
+}
+.cadeira:hover {
+  stroke: var(--texto);
+  stroke-opacity: 1;
+  stroke-width: 1.5;
+}
+.nota-hemiciclo {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+  color: var(--texto-2);
+}
+.nao-classificados {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--borda-forte);
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+
+/* ---------- Página de amostra (estilo.html) ---------- */
+.amostra-pagina {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4px 16px 32px;
+  display: grid;
+  /* minmax(0, …): sem isto a tabela (nomes sem quebra) alarga a grade além da tela no celular. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+/* .slider e .resumo do mapa trazem grid-area da tela do mapa; aqui não valem. */
+.amostra-pagina > * {
+  grid-area: auto;
+}
+.amostra-pagina > section > h2 {
+  margin: 0 0 8px;
+  font-size: 1.0625rem;
+}
+.amostra-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.tokens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  font-size: 0.75rem;
+}
+.token {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.token code {
+  overflow-wrap: anywhere;
+}
+.token .amostra {
+  flex: none;
+  width: 28px;
+  height: 20px;
+}
+.paletas {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 960px) {
+  .paletas {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.paleta-validacao {
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+.painel-demo {
+  position: relative;
+  inset: auto;
+  max-height: none;
+  border-radius: var(--raio);
+  border: 1px solid var(--borda);
+  box-shadow: var(--sombra-2);
+  z-index: auto;
+}

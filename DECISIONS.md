@@ -33,3 +33,31 @@ Formato de cada entrada:
   Node 24, formato deste DECISIONS.md.
 - **Motivo:** arquitetura compatível com fusão futura (D11) e um único conjunto de ferramentas para o
   Antônio manter.
+
+## 2026-10-23 — Estrutura do pipeline como pacote `congresso`
+- **Decisão:** o pipeline é o pacote `pipeline/src/congresso/` (subpastas `extract/`, `transform/`,
+  `load/`, `validate/`), com testes em `pipeline/tests/` e a linha de comando `uv run congresso --fase N`.
+- **Alternativa descartada:** `python -m pipeline.run --fase 1` e `tests/` na raiz, como no esboço da
+  seção 8 do PROJECT.md.
+- **Motivo:** é o layout do `mapa-brasil` (pacote em `src/`, CLI via `project.scripts`, `uv`). Mesmas
+  subpastas e mesmo comportamento do esboço.
+
+## 2026-10-23 — Visual do mapa copiado sem alterações
+- **Decisão:** `style.css`, `tema.ts` e `ajuda.ts` do mapa entram em `web/src/design/` sem edição
+  (`mapa.css`, `tema.ts`, `ajuda.ts`); o que é só deste site fica em `congresso.css`. Detalhes e
+  commit de origem em `web/src/design/DESIGN.md`.
+- **Alternativa descartada:** extrair só os tokens e reescrever os componentes.
+- **Motivo:** visual idêntico por construção e fusão futura trivial; o CSS do mapa tem 5 KB gzip,
+  dentro do orçamento de 500 KB.
+
+## 2026-10-23 — Hemiciclo: geometria
+- **Decisão:** fileiras = round(0,6·√N) (513 → 14, 503 → 13, 81 → 5); raio interno 0,4 do externo;
+  cadeiras por fileira proporcionais ao raio, arredondadas pelo método dos maiores restos; cadeiras
+  ordenadas por ângulo, da esquerda para a direita (`web/src/charts/hemiciclo.ts`, com testes).
+- **Motivo:** algoritmo pedido na seção 8; os testes garantem total exato, ordem e ausência de
+  sobreposição para 81, 503 e 513 cadeiras.
+
+## 2026-10-23 — CI sem testes de navegador na Fase 0
+- **Decisão:** o CI roda lint, formatação, tipos, testes unitários e build (pipeline e web). Os testes
+  de fumaça com Playwright, como no mapa, entram na Fase 1, quando houver páginas de verdade.
+- **Motivo:** hoje só existe a página de amostra; instalar navegador no CI não testaria nada útil.

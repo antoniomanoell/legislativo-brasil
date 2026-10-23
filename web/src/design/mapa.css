@@ -1,0 +1,1478 @@
+/* Importado sem alterações de antoniomanoell/mapa-brasil, web/src/style.css, commit ce627fa
+   (2026-10-23). Não editar aqui: mudanças no visual comum vão no mapa e são copiadas de novo.
+   O que é só deste site fica em congresso.css. Ver DESIGN.md. */
+
+/* Mobile-first. Dois temas (claro e escuro) nos mesmos tokens; o mapa e os gráficos leem as cores
+   daqui (src/tema.ts). Contraste AA: texto principal e secundário passam de 4,5:1 sobre o fundo
+   dos painéis nos dois temas. */
+:root {
+  color-scheme: light;
+  --fundo-pagina: #f3f5f8;
+  --fundo: #ffffff;
+  --fundo-2: #f1f3f6;
+  --fundo-3: #e4e8ee;
+  --chip: #ffffff;
+  --texto: #151a22;
+  --texto-2: #566070;
+  --borda: #e2e6ec;
+  --borda-forte: #c9d0da;
+  --acento: #1b5bc7;
+  --acento-forte: #1b5bc7;
+  --acento-suave: rgb(27 91 199 / 9%);
+  --selecao: #e7effc;
+  --barra: #4f8fd6;
+  --aviso-fundo: #fff4e5;
+  --aviso-borda: #b15928;
+  --sombra-1: 0 1px 2px rgb(16 24 40 / 5%), 0 1px 3px rgb(16 24 40 / 7%);
+  --sombra-2: 0 12px 32px rgb(16 24 40 / 14%), 0 2px 6px rgb(16 24 40 / 6%);
+  --serie-1: #08519c;
+  --serie-2: #6a3d9a;
+  --serie-brasil: #6b6b6b;
+  --serie-ref: #b15928;
+  --mapa-contorno-sel: #111111;
+  --hachura-fundo: #e6e6e6;
+  --hachura-linha: #a3a3a3;
+  --foco: #ffbf47;
+  --raio: 14px;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  color: var(--texto);
+  background: var(--fundo-pagina);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tema escuro: segue o sistema, salvo escolha explícita no botão (data-tema no <html>). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema='claro']) {
+    color-scheme: dark;
+    --fundo-pagina: #0d1117;
+    --fundo: #161b22;
+    --fundo-2: #1d242d;
+    --fundo-3: #2a323d;
+    --chip: #2a323d;
+    --texto: #e6edf3;
+    --texto-2: #9ea9b7;
+    --borda: #262e38;
+    --borda-forte: #3a4452;
+    --acento: #82b4ff;
+    --acento-forte: #2f6fe0;
+    --acento-suave: rgb(130 180 255 / 13%);
+    --selecao: #1c2c45;
+    --barra: #4f8fe0;
+    --aviso-fundo: #33261a;
+    --aviso-borda: #e6955a;
+    --sombra-1: 0 1px 2px rgb(0 0 0 / 40%);
+    --sombra-2: 0 12px 32px rgb(0 0 0 / 55%);
+    --serie-1: #6baed6;
+    --serie-2: #b39ddb;
+    --serie-brasil: #9a9a9a;
+    --serie-ref: #e6955a;
+    --mapa-contorno-sel: #ffffff;
+    --hachura-fundo: #262d36;
+    --hachura-linha: #4a5462;
+  }
+}
+:root[data-tema='escuro'] {
+  color-scheme: dark;
+  --fundo-pagina: #0d1117;
+  --fundo: #161b22;
+  --fundo-2: #1d242d;
+  --fundo-3: #2a323d;
+  --chip: #2a323d;
+  --texto: #e6edf3;
+  --texto-2: #9ea9b7;
+  --borda: #262e38;
+  --borda-forte: #3a4452;
+  --acento: #82b4ff;
+  --acento-forte: #2f6fe0;
+  --acento-suave: rgb(130 180 255 / 13%);
+  --selecao: #1c2c45;
+  --barra: #4f8fe0;
+  --aviso-fundo: #33261a;
+  --aviso-borda: #e6955a;
+  --sombra-1: 0 1px 2px rgb(0 0 0 / 40%);
+  --sombra-2: 0 12px 32px rgb(0 0 0 / 55%);
+  --serie-1: #6baed6;
+  --serie-2: #b39ddb;
+  --serie-brasil: #9a9a9a;
+  --serie-ref: #e6955a;
+  --mapa-contorno-sel: #ffffff;
+  --hachura-fundo: #262d36;
+  --hachura-linha: #4a5462;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Nada passa da largura da tela: sem rolagem para o lado no celular. */
+html {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo-pagina);
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--acento);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.so-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pular {
+  position: absolute;
+  left: -999px;
+}
+.pular:focus {
+  left: 16px;
+  top: 8px;
+  z-index: 10;
+  background: var(--fundo);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* ---------- Cabeçalho ---------- */
+.topo {
+  padding: 14px 16px 10px;
+}
+.topo h1,
+.marca {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--texto);
+}
+.marca a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+.marca-icone {
+  flex: none;
+}
+.subtitulo {
+  margin: 2px 0 8px;
+  color: var(--texto-2);
+  font-size: 0.8125rem;
+}
+/* A data entra via JS: algarismos de largura fixa, para o texto não mudar de largura. */
+#atualizado {
+  font-variant-numeric: tabular-nums;
+}
+.topo nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.875rem;
+}
+.topo nav a {
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--texto-2);
+  font-weight: 500;
+  text-decoration: none;
+}
+.topo nav a:hover {
+  background: var(--fundo-3);
+  color: var(--texto);
+}
+.botao-icone {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-left: 6px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--fundo);
+  color: var(--texto-2);
+  box-shadow: var(--sombra-1);
+  cursor: pointer;
+}
+.botao-icone:hover {
+  color: var(--texto);
+  border-color: var(--borda-forte);
+}
+
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.campo {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--texto-2);
+  flex: 1 1 200px;
+  /* Sem isto o <select> cresce até o nome mais longo e empurra a página para além da tela. */
+  min-width: 0;
+}
+.campo select {
+  width: 100%;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  margin-top: 4px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--texto);
+  padding: 7px 34px 7px 12px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 10px;
+  background-color: var(--fundo);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%238a94a3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  box-shadow: var(--sombra-1);
+  appearance: none;
+  min-height: 38px;
+  cursor: pointer;
+}
+.campo select:hover {
+  border-color: var(--texto-2);
+}
+.campo select:focus-visible {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px var(--acento-suave);
+}
+
+.conteudo {
+  padding: 4px 16px 12px;
+}
+
+/* Palco: cabeçalho, mapa (ou ranking), legenda e slider ocupam exatamente a altura da tela; o mapa
+   fica com o espaço que sobra. Fonte e rodapé ficam abaixo, para quem rolar. */
+.palco {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 520px;
+}
+.palco .topo {
+  flex: none;
+  width: 100%;
+}
+.palco .conteudo {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.viz {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Painéis ---------- */
+.bloco {
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-1);
+  padding: 10px 14px;
+}
+.bloco-cabeca {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
+  margin-bottom: 4px;
+}
+.bloco-titulo {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+/* Nome curto do recorte no título do mapa: só no celular (ver o bloco de até 599px). */
+.nome-curto {
+  display: none;
+}
+.bloco-dica {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+#mapa-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.barra-viz {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* O botão "Sobre" fica junto do Mapa/Ranking: à direita, o painel do estado o cobriria. */
+  gap: 4px 12px;
+  margin-bottom: 8px;
+}
+
+/* ---------- Cartões-resumo: grade 2 × 2 no celular, uma linha de 4 no computador ---------- */
+.resumo {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 8px;
+  /* Altura exata dos cartões: a grade entra via JS sem deslocar o mapa (CLS). */
+  min-height: 147px;
+}
+.cartao {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 12px;
+  line-height: 1.3;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: var(--fundo);
+  box-shadow: var(--sombra-1);
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+}
+.cartao-br {
+  box-shadow:
+    inset 3px 0 0 var(--acento-forte),
+    var(--sombra-1);
+}
+button.cartao {
+  cursor: pointer;
+}
+button.cartao:hover {
+  border-color: var(--borda-forte);
+}
+.cartao[aria-pressed='true'] {
+  border-color: var(--acento);
+  background: var(--selecao);
+}
+.cartao-rotulo {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+}
+.cartao-valor {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.cartao-unidade {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--texto-2);
+}
+.th-unidade {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.cartao-detalhe {
+  max-width: 100%;
+  font-size: 0.75rem;
+  color: var(--texto-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Controles segmentados (Mapa/Ranking e recortes) ---------- */
+.visao,
+.recortes {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--borda);
+  border-radius: 11px;
+  background: var(--fundo-3);
+}
+.recortes {
+  flex-wrap: nowrap;
+  max-width: 100%;
+  overflow-x: auto;
+  min-height: 34px;
+}
+.visao button,
+.recortes button {
+  flex: none;
+  white-space: nowrap;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  min-height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--texto-2);
+  cursor: pointer;
+}
+.visao button {
+  padding: 4px 16px;
+}
+.visao button:hover,
+.recortes button:hover {
+  color: var(--texto);
+}
+.visao button[aria-pressed='true'],
+.recortes button[aria-pressed='true'] {
+  background: var(--chip);
+  color: var(--texto);
+  box-shadow: var(--sombra-1);
+}
+
+.botao-sobre {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--acento);
+  padding: 6px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.botao-sobre:hover {
+  background: var(--acento-suave);
+}
+.abaixo {
+  padding: 4px 16px 8px;
+}
+
+/* ---------- Mapa ---------- */
+.mapa {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 200px;
+}
+.rotulo-uf {
+  pointer-events: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--texto);
+  text-shadow:
+    0 0 2px var(--fundo),
+    0 0 2px var(--fundo);
+}
+.rotulo-uf.escuro {
+  color: #fff;
+  text-shadow:
+    0 0 2px #08306b,
+    0 0 2px #08306b;
+}
+.maplibregl-ctrl-group:not(:empty) {
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  box-shadow: var(--sombra-1);
+}
+.maplibregl-ctrl-group button + button {
+  border-top-color: var(--borda);
+}
+:root[data-tema='escuro'] .maplibregl-ctrl-icon {
+  filter: invert(1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema='claro']) .maplibregl-ctrl-icon {
+    filter: invert(1);
+  }
+}
+.dica {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background: var(--fundo);
+  color: var(--texto);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  box-shadow: var(--sombra-2);
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.dica-valor {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.dica-meta {
+  color: var(--texto-2);
+}
+.dica-flags {
+  margin: 4px 0 0;
+  padding-left: 16px;
+  color: var(--texto-2);
+}
+
+.legenda {
+  flex: none;
+  font-size: 0.8125rem;
+  margin-top: 4px;
+  /* Espaço reservado: legenda e slider entram via JS sem deslocar a página. */
+  min-height: 3.2em;
+}
+.legenda-titulo {
+  margin: 0 0 4px;
+  color: var(--texto-2);
+}
+.legenda ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+.legenda li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.amostra {
+  display: inline-block;
+  width: 18px;
+  height: 12px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 8%);
+}
+
+/* ---------- Linha do tempo ---------- */
+.slider {
+  flex: none;
+  margin-top: 8px;
+  padding-block: 4px;
+  /* Altura do painel já com o conteúdo, que entra via JS. */
+  min-height: 73px;
+}
+.slider-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+}
+.slider input[type='range'] {
+  flex: 1;
+  min-width: 120px;
+  height: 24px;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+.slider input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--acento-forte) var(--progresso, 100%),
+    var(--fundo-3) var(--progresso, 100%)
+  );
+}
+.slider input[type='range']::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  margin-top: -6px;
+  border: 2px solid var(--acento-forte);
+  border-radius: 50%;
+  background: var(--fundo);
+  box-shadow: var(--sombra-1);
+  appearance: none;
+}
+.slider input[type='range']::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--fundo-3);
+}
+.slider input[type='range']::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--acento-forte);
+}
+.slider input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--acento-forte);
+  border-radius: 50%;
+  background: var(--fundo);
+}
+.play {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--acento-forte);
+  color: #fff;
+  box-shadow: var(--sombra-1);
+  cursor: pointer;
+  flex: none;
+}
+.play:hover {
+  filter: brightness(1.1);
+}
+/* O rótulo ("2014 · PNAD Contínua (2012–)") fica numa linha própria acima do slider, senão
+   espreme o slider até sumir em telas estreitas. */
+.slider-rotulo {
+  order: -1;
+  flex-basis: 100%;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9375rem;
+}
+.segmentos {
+  margin: 8px 0 0;
+  padding: 6px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+.segmentos label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+}
+.segmentos input {
+  accent-color: var(--acento-forte);
+}
+
+.rodape-viz {
+  margin-top: 4px;
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+.rodape-viz p {
+  margin: 4px 0;
+}
+
+/* ---------- Ranking ---------- */
+.ranking-area {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.ranking-rolagem {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.ranking {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.ranking th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--fundo);
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+  border-bottom: 1px solid var(--borda);
+  padding: 6px 4px;
+}
+.ranking td {
+  padding: 1px 4px;
+  border-bottom: 1px solid var(--borda);
+}
+.ranking tbody tr:hover {
+  background: var(--fundo-2);
+}
+.ranking tr.selecionada,
+.ranking tr.selecionada:hover {
+  background: var(--selecao);
+}
+.ranking .pos {
+  width: 2.5ch;
+  color: var(--texto-2);
+  font-variant-numeric: tabular-nums;
+}
+.ranking .valor {
+  width: 55%;
+}
+/* Barra e número na mesma linha. */
+.valor-linha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.valor-linha .barra-trilho {
+  flex: 1;
+  min-width: 40px;
+}
+.valor-linha .num {
+  flex: none;
+  white-space: nowrap;
+}
+.ranking .sem-dado {
+  color: var(--texto-2);
+}
+.link-uf {
+  font: inherit;
+  font-weight: 500;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--texto);
+  cursor: pointer;
+  text-align: left;
+  /* Nome numa linha só: "Mato Grosso do Sul" quebrado dobra a altura da linha. A barra encolhe. */
+  white-space: nowrap;
+}
+.area-uf {
+  margin-left: 6px;
+  font-size: 0.75rem;
+  color: var(--texto-2);
+  white-space: nowrap;
+}
+.link-uf:hover {
+  color: var(--acento);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.barra-trilho {
+  position: relative;
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--fundo-3);
+}
+.barra {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: var(--barra);
+}
+.ref-br {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--texto);
+  opacity: 0.55;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* ---------- Painel do estado e gaveta "Sobre": folha inferior no celular ---------- */
+.painel {
+  position: fixed;
+  inset: auto 0 0 0;
+  max-height: 75vh;
+  overflow: auto;
+  background: var(--fundo);
+  color: var(--texto);
+  border-top: 1px solid var(--borda);
+  border-radius: 20px 20px 0 0;
+  box-shadow: var(--sombra-2);
+  padding: 8px 18px 18px;
+  z-index: 5;
+}
+.painel-cabeca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: -8px;
+  z-index: 1;
+  background: var(--fundo);
+  padding-top: 6px;
+}
+.painel-titulo {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.fechar {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--fundo-2);
+  color: var(--texto-2);
+  cursor: pointer;
+}
+.fechar:hover {
+  background: var(--fundo-3);
+  color: var(--texto);
+}
+.painel-sub {
+  margin: 0 0 10px;
+  color: var(--texto-2);
+  font-size: 0.875rem;
+}
+.painel-valores {
+  display: flex;
+  gap: 28px;
+  margin: 0 0 8px;
+}
+.painel-valores dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+}
+.painel-valores dd {
+  margin: 0;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.painel-legenda {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0;
+  font-size: 0.8125rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+}
+.painel-legenda li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.traco {
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--cor);
+}
+.traco.tracejado {
+  background: repeating-linear-gradient(90deg, var(--cor) 0 5px, transparent 5px 8px);
+}
+.ponto-vazado {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--acento);
+  border-radius: 50%;
+}
+.painel-notas {
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+.painel-notas ul {
+  padding-left: 16px;
+  margin: 8px 0 0;
+}
+.painel-notas li {
+  margin-bottom: 4px;
+}
+.painel-sobre {
+  font-size: 0.875rem;
+}
+/* Ajuda "?" (popover nativo, no centro da tela). */
+.ajuda {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--borda-forte);
+  border-radius: 50%;
+  background: var(--fundo);
+  color: var(--texto-2);
+  font: inherit;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  align-self: center;
+}
+.ajuda:hover {
+  color: var(--acento);
+  border-color: var(--acento);
+}
+.ajuda-pop {
+  max-width: min(360px, calc(100vw - 32px));
+  margin: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  background: var(--fundo);
+  color: var(--texto);
+  box-shadow: var(--sombra-2);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.ajuda-pop::backdrop {
+  background: rgb(0 0 0 / 20%);
+}
+.cartao-com-ajuda {
+  position: relative;
+}
+.cartao-com-ajuda .ajuda {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+}
+/* O rótulo não passa por baixo do botão "?". */
+.cartao-com-ajuda .cartao-rotulo {
+  max-width: 100%;
+  padding-right: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* O título recebe o foco ao abrir o painel (para leitores de tela); não precisa do contorno. */
+.painel-titulo:focus {
+  outline: none;
+}
+.grafico {
+  color: var(--texto-2);
+}
+
+.rodape {
+  padding: 16px 16px 28px;
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+  border-top: 1px solid var(--borda);
+}
+
+.erro {
+  position: fixed;
+  inset: auto 16px 16px;
+  z-index: 7;
+  padding: 12px 16px;
+  background: var(--aviso-fundo);
+  color: var(--texto);
+  border: 1px solid var(--aviso-borda);
+  border-radius: 12px;
+  box-shadow: var(--sombra-2);
+}
+
+/* ---------- Páginas de texto ---------- */
+.topo-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.topo-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.texto {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+.texto h1 {
+  font-size: 1.75rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.texto h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  margin-top: 1.8em;
+}
+.texto h3 {
+  font-size: 1.0625rem;
+}
+.voltar {
+  font-size: 0.9375rem;
+}
+.aviso-rascunho {
+  background: var(--aviso-fundo);
+  border-left: 4px solid var(--aviso-borda);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9375rem;
+}
+.ficha-intro,
+.ficha-versao {
+  font-size: 0.875rem;
+  color: var(--texto-2);
+}
+.ficha-segmento {
+  border-top: 1px solid var(--borda);
+  padding-top: 4px;
+}
+.ficha-segmento dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  font-size: 0.9375rem;
+}
+.ficha-segmento dt {
+  color: var(--texto-2);
+}
+.ficha-segmento dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.selo {
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--fundo-2);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+/* Gaveta "Sobre este indicador": por cima do painel do estado. */
+.gaveta-sobre {
+  z-index: 6;
+  max-height: 85vh;
+}
+.texto-gaveta {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.texto-gaveta h2 {
+  font-size: 1.0625rem;
+  margin: 1.2em 0 0.4em;
+}
+.texto-gaveta h3 {
+  font-size: 0.9375rem;
+}
+.competencias {
+  border-top: 1px solid var(--borda);
+  margin-top: 1.5em;
+}
+.aviso-competencias {
+  font-size: 0.875rem;
+  color: var(--texto-2);
+  border-left: 3px solid var(--borda-forte);
+  padding-left: 10px;
+}
+.ficha-link {
+  font-size: 0.875rem;
+}
+
+/* Até o layout lado a lado, os recortes ficam no seletor do cabeçalho e a barra tem só Mapa/Ranking
+   e o "Sobre", numa linha. */
+@media (max-width: 959px) {
+  .barra-viz {
+    justify-content: space-between;
+  }
+  /* Celular e tablet: o palco tem no mínimo a altura da tela, mas cresce quando o conteúdo não
+     cabe (iPhone com as barras do Safari), em vez de o mapa e a legenda vazarem sob o slider. */
+  .palco {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  .mapa {
+    min-height: 260px;
+  }
+  .ranking-rolagem {
+    max-height: 60vh;
+    max-height: 60dvh;
+  }
+}
+@media (max-width: 479px) {
+  .rotulo-uf {
+    font-size: 9px;
+  }
+  .bloco-dica {
+    display: none;
+  }
+  #ranking .bloco-dica {
+    display: block;
+  }
+}
+
+/* Celular: cabeçalho compacto para sobrar altura para o mapa. */
+@media (max-width: 599px) {
+  .subtitulo {
+    display: none;
+  }
+  .topo {
+    padding-bottom: 6px;
+  }
+  .topo-linha {
+    margin-bottom: 8px;
+  }
+  .topo nav a {
+    padding: 6px 8px;
+  }
+  .controles {
+    gap: 6px 8px;
+  }
+  .controles .campo {
+    flex: 1 1 140px;
+  }
+  .controles .campo:first-child {
+    flex-basis: 100%;
+  }
+  /* Os rótulos dos seletores ficam só para leitores de tela: o valor de cada um já diz o que é
+     ("Escolher estado…"). O texto fica em 16px, senão o iPhone dá zoom ao tocar no campo. */
+  .campo-rotulo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .campo select {
+    margin-top: 0;
+  }
+  /* Legenda: título numa linha (texto completo no title) e as faixas em até duas linhas, com a
+     altura reservada, para o mapa não mudar de tamanho quando ela chega (CLS). */
+  .legenda {
+    min-height: 65px;
+  }
+  .legenda-titulo {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Textos e caixas menores, para o mapa ganhar altura. Os seletores ficam em 16px (ver acima). */
+  .topo {
+    padding: 10px 12px 6px;
+  }
+  .topo-linha {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .marca,
+  .topo h1 {
+    font-size: 1rem;
+    gap: 8px;
+  }
+  .marca-icone {
+    width: 26px;
+    height: 26px;
+  }
+  .topo nav {
+    font-size: 0.8125rem;
+  }
+  .topo nav a {
+    padding: 4px 6px;
+  }
+  .botao-icone {
+    width: 32px;
+    height: 32px;
+    margin-left: 2px;
+  }
+  .campo select {
+    padding: 5px 30px 5px 10px;
+    min-height: 34px;
+  }
+  .conteudo {
+    padding: 2px 12px 10px;
+  }
+  .resumo {
+    gap: 6px;
+    margin-bottom: 6px;
+    min-height: 129px;
+  }
+  .cartao {
+    padding: 3px 10px;
+  }
+  .cartao-rotulo {
+    font-size: 0.625rem;
+  }
+  .cartao-valor {
+    font-size: 1rem;
+  }
+  .cartao-detalhe {
+    font-size: 0.6875rem;
+  }
+  .barra-viz {
+    margin-bottom: 6px;
+  }
+  .visao button {
+    font-size: 0.8125rem;
+    padding: 3px 10px;
+    min-height: 28px;
+  }
+  .botao-sobre {
+    font-size: 0.8125rem;
+    padding: 4px 6px;
+  }
+  .bloco {
+    padding: 8px 10px;
+  }
+  .bloco-titulo {
+    font-size: 0.875rem;
+  }
+  .nome-longo {
+    display: none;
+  }
+  .nome-curto {
+    display: inline;
+  }
+  .legenda {
+    font-size: 0.75rem;
+    min-height: 61px;
+  }
+  .slider {
+    margin-top: 6px;
+  }
+  .slider-rotulo {
+    font-size: 0.8125rem;
+  }
+  .play {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Páginas de texto no computador: o texto vira um painel sobre o fundo da página. */
+@media (min-width: 800px) {
+  .texto {
+    margin: 8px auto 32px;
+    padding: 32px 40px;
+    background: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+    box-shadow: var(--sombra-1);
+  }
+}
+
+/* Desktop: gaveta lateral. */
+@media (min-width: 960px) {
+  .conteudo {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  /* O mapa fica com a altura que sobra; por isso, no computador, cabeçalho, legenda e linha do
+     tempo ficam numa linha cada. Título e seletores dividem a mesma linha. */
+  .topo {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'titulo controles nav'
+      'sub controles nav';
+    align-items: center;
+    column-gap: 32px;
+    padding-bottom: 10px;
+  }
+  .topo-pagina {
+    display: flex;
+  }
+  .topo-linha {
+    display: contents;
+  }
+  .topo h1 {
+    grid-area: titulo;
+    align-self: end;
+  }
+  .subtitulo {
+    grid-area: sub;
+    align-self: start;
+    margin: 0 0 0 40px;
+  }
+  .topo nav {
+    grid-area: nav;
+  }
+  .controles {
+    grid-area: controles;
+    /* Os seletores encolhem em vez de quebrar linha (a quebra dobrava a altura do cabeçalho). */
+    flex-wrap: nowrap;
+  }
+  /* Rótulo à esquerda do seletor, não acima. */
+  .controles .campo {
+    flex: 0 1 340px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  .campo-rotulo {
+    flex: none;
+  }
+  .campo select {
+    margin-top: 0;
+    min-height: 36px;
+    font-size: 0.9375rem;
+  }
+  .legenda {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 16px;
+    /* Até 1400px a legenda ocupa duas linhas; a altura fica reservada (CLS). */
+    min-height: 40px;
+  }
+  .legenda-titulo {
+    margin: 0;
+  }
+  .slider {
+    min-height: 48px;
+  }
+  .slider-linha {
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
+  .slider-rotulo {
+    flex: none;
+    flex-basis: auto;
+    min-width: 16ch;
+  }
+  .painel.gaveta-sobre {
+    width: 480px;
+  }
+  /* Mapa e ranking lado a lado; a alternância Mapa/Ranking some. */
+  .viz {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'resumo resumo'
+      'barra barra'
+      'mapa ranking'
+      'slider slider';
+    column-gap: 16px;
+  }
+  .resumo {
+    grid-area: resumo;
+    min-height: 59px;
+    gap: 12px;
+    margin-bottom: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  /* Cartão em duas linhas: rótulo em cima; valor e detalhe lado a lado. */
+  .cartao {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 10px;
+    padding: 6px 16px;
+  }
+  .cartao-rotulo {
+    grid-column: 1 / -1;
+  }
+  .cartao-valor {
+    font-size: 1.25rem;
+  }
+  /* Os recortes entram via JS: a barra reserva a altura deles, e o "Sobre" vem antes, para não ser
+     empurrado quando chegam. */
+  .barra-viz {
+    grid-area: barra;
+    min-height: 38px;
+  }
+  .barra-viz .botao-sobre {
+    order: -1;
+  }
+  .visao {
+    display: none;
+  }
+  #mapa-area {
+    grid-area: mapa;
+  }
+  /* À direita, a dica não anda quando o título do mapa muda. */
+  #mapa-area .bloco-dica {
+    margin-left: auto;
+  }
+  .ranking-area {
+    grid-area: ranking;
+  }
+  .slider {
+    grid-area: slider;
+  }
+  .painel {
+    inset: 0 0 0 auto;
+    width: 420px;
+    max-height: none;
+    border-radius: 0;
+    border-top: 0;
+    border-left: 1px solid var(--borda);
+    box-shadow: var(--sombra-2);
+    padding-top: 14px;
+  }
+}
+
+/* Telas largas: mais espaço para o painel do mapa, onde a legenda cabe numa linha. */
+@media (min-width: 1400px) {
+  .conteudo,
+  .topo {
+    max-width: 1320px;
+  }
+  .legenda {
+    min-height: 1.6em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

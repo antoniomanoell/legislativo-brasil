@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amostra de estilo — Congresso em Números</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      // Tema escolhido antes, aplicado antes da primeira pintura (ver src/design/tema.ts).
+      try {
+        var t = localStorage.getItem('tema');
+        if (t === 'claro' || t === 'escuro') document.documentElement.dataset.tema = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <header class="topo topo-pagina">
+      <p class="marca">
+        <a href="./"
+          ><svg class="marca-icone" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+            <rect width="32" height="32" rx="9" fill="var(--acento-forte)" />
+            <path
+              d="M7 23a9 9 0 0 1 18 0M11.5 23a4.5 4.5 0 0 1 9 0"
+              fill="none"
+              stroke="#fff"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-dasharray="0.1 4.6"
+            /></svg
+          ><span>Congresso em Números</span></a
+        >
+      </p>
+      <nav aria-label="Seções">
+        <a href="#paletas">Paletas</a> <a href="#componentes">Componentes</a>
+        <button type="button" id="tema" class="botao-icone" aria-label="Usar tema escuro"></button>
+      </nav>
+    </header>
+
+    <main class="amostra-pagina">
+      <p class="aviso-rascunho" role="note">
+        Página interna de amostra (Fase 0). Mostra os componentes importados do Indicadores BR e as
+        paletas candidatas para as faixas ideológicas. Os hemiciclos usam
+        <strong>dados fictícios</strong>, só para avaliar as cores.
+      </p>
+
+      <section id="paletas" class="bloco">
+        <h2>Paletas candidatas para as faixas ideológicas</h2>
+        <p class="bloco-dica">
+          Troque o tema no botão do cabeçalho: cada paleta tem tons próprios para o tema escuro.
+          "Não classificado" usa a hachura do mapa, fora da ordenação.
+        </p>
+        <div id="paletas-lista" class="paletas"></div>
+      </section>
+
+      <section id="componentes" class="bloco">
+        <h2>Cores do tema</h2>
+        <div id="tokens" class="tokens"></div>
+      </section>
+
+      <section class="bloco">
+        <h2>Tipografia</h2>
+        <div
+          class="texto"
+          style="margin: 0; padding: 0; background: none; border: 0; box-shadow: none"
+        >
+          <h1>Título de página (1,75rem)</h1>
+          <h2>Seção (1,25rem)</h2>
+          <h3>Subseção</h3>
+          <p>
+            Corpo de texto em <code>system-ui</code>, 1,0625rem, entrelinha 1,65. Números em tabela
+            usam algarismos de largura fixa: <span class="num">513 · 503 · 81</span>.
+            <a href="#">Link</a>.
+          </p>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>Controles</h2>
+        <div class="amostra-linha">
+          <label class="campo" style="flex: 0 1 260px"
+            ><span class="campo-rotulo">Casa</span>
+            <select>
+              <option>Câmara dos Deputados</option>
+              <option>Senado Federal</option>
+            </select></label
+          >
+          <div class="visao" role="group" aria-label="Composição">
+            <button type="button" aria-pressed="true">Eleitos</button>
+            <button type="button" aria-pressed="false">Em exercício (1º/fev)</button>
+          </div>
+          <a class="botao-sobre" href="#"
+            ><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+              <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4" />
+              <path
+                d="M8 7.2v4M8 4.8v.1"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              /></svg
+            >Metodologia</a
+          >
+          <span id="ajuda-demo"></span>
+          <span class="selo">fonte: Bolognesi et al., 2022</span>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>Cartões-resumo</h2>
+        <div class="resumo" style="min-height: 0">
+          <div class="cartao cartao-br">
+            <span class="cartao-rotulo">Cadeiras</span><span class="cartao-valor">513</span
+            ><span class="cartao-detalhe">57ª legislatura</span>
+          </div>
+          <div class="cartao">
+            <span class="cartao-rotulo">Partidos</span><span class="cartao-valor">20</span
+            ><span class="cartao-detalhe">com ao menos 1 cadeira</span>
+          </div>
+          <button type="button" class="cartao" aria-pressed="true">
+            <span class="cartao-rotulo">Selecionado</span><span class="cartao-valor">—</span
+            ><span class="cartao-detalhe">cartão clicável</span>
+          </button>
+          <div class="cartao">
+            <span class="cartao-rotulo">Não classificados</span><span class="cartao-valor">—</span
+            ><span class="cartao-detalhe">sem pontuação</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloco slider">
+        <div class="slider-linha">
+          <button type="button" class="play" aria-label="Animar ao longo do tempo">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+              <path d="M4 2.5v11l9-5.5z" fill="currentColor" />
+            </svg>
+          </button>
+          <input
+            id="slider-demo"
+            type="range"
+            min="1991"
+            max="2026"
+            step="1"
+            value="2023"
+            aria-label="Ano"
+          />
+          <output class="slider-rotulo" id="slider-rotulo" aria-live="polite"></output>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>Tabela</h2>
+        <table class="ranking">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Partido</th>
+              <th scope="col">Cadeiras</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pos">1</td>
+              <td><button type="button" class="link-uf">Partido fictício A</button></td>
+              <td class="valor">
+                <span class="valor-linha"
+                  ><span class="barra-trilho"><span class="barra" style="width: 80%"></span></span
+                  ><span class="num">100</span></span
+                >
+              </td>
+            </tr>
+            <tr class="selecionada">
+              <td class="pos">2</td>
+              <td>
+                <button type="button" class="link-uf">Partido fictício B (selecionado)</button>
+              </td>
+              <td class="valor">
+                <span class="valor-linha"
+                  ><span class="barra-trilho"><span class="barra" style="width: 50%"></span></span
+                  ><span class="num">62</span></span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="bloco">
+        <h2>Painel de detalhes</h2>
+        <p class="bloco-dica">
+          No site, abre como folha inferior no celular e gaveta lateral no computador. Aqui,
+          embutido.
+        </p>
+        <aside class="painel painel-demo" aria-label="Exemplo de painel">
+          <div class="painel-cabeca">
+            <h3 class="painel-titulo">Deputado fictício</h3>
+            <button type="button" class="fechar" aria-label="Fechar">×</button>
+          </div>
+          <p class="painel-sub">Partido fictício · UF · centro-direita (6,2)</p>
+          <dl class="painel-valores">
+            <div>
+              <dt>Governismo</dt>
+              <dd>—</dd>
+            </div>
+            <div>
+              <dt>Presença</dt>
+              <dd>—</dd>
+            </div>
+          </dl>
+          <div class="painel-notas">Fonte da classificação sempre visível junto do rótulo.</div>
+        </aside>
+      </section>
+
+      <section class="bloco">
+        <h2>Avisos</h2>
+        <p class="aviso-rascunho" role="note">
+          Rascunho: este texto ainda não foi revisado pelo mantenedor.
+        </p>
+        <p class="aviso-competencias">Nota de contexto em tom neutro, com borda à esquerda.</p>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>Visual importado do Indicadores BR (antoniomanoell/mapa-brasil, commit ce627fa).</p>
+    </footer>
+    <script type="module" src="/src/pages/estilo.ts"></script>
+  </body>
+</html>
