@@ -7,7 +7,8 @@ import polars as pl
 
 from congresso.extract import camara, tse
 from congresso.extract import ideologia as fontes_ideologia
-from congresso.paths import MANUAIS, PROCESSADOS, RELATORIOS
+from congresso.load.site import publicar as gravar_site
+from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import ideologia as ideo
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
 from congresso.transform.fotos import foto, ler_eventos
@@ -176,3 +177,20 @@ def ideologia(*, atualizar: bool = False) -> None:
             f"  {r['visao']} ({r['legislatura']}ª): "
             f"{r['nao_classificadas']} de {r['cadeiras']} ({r['pct']}%)"
         )
+
+
+def publicar(*, atualizar: bool = False) -> None:
+    """JSON para o site em web/public/data, a partir das tabelas processadas e curadas."""
+    catalogo = gravar_site(
+        eleitos=pl.read_parquet(PROCESSADOS / "eleitos.parquet"),
+        fotos=pl.read_parquet(PROCESSADOS / "fotos.parquet"),
+        ideologia=pl.read_parquet(PROCESSADOS / "ideologia.parquet"),
+        partidos=pl.read_csv(MANUAIS / "partidos.csv"),
+        renomeacoes=pl.read_csv(MANUAIS / "renomeacoes.csv"),
+        linhagens=pl.read_csv(MANUAIS / "linhagens.csv"),
+        destino=PUBLICADOS,
+    )
+    tamanho = sum(p.stat().st_size for p in PUBLICADOS.rglob("*.json"))
+    print(
+        f"publicar: {len(catalogo['momentos'])} momentos; {tamanho / 1024:.0f} KB em {PUBLICADOS}"
+    )
