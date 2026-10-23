@@ -220,3 +220,18 @@ Formato de cada entrada:
   indispensáveis para saber a base em cada momento, e só ela descreve o método. O CSV diverge da NT
   e não documenta a diferença.
 
+## 2026-10-23 — Base formal = partidos com ministro; os % do IPEA citados no §7.5 medem outra coisa
+- **Decisão:** a "base formal" do site é a soma das cadeiras dos partidos com ministro no gabinete
+  vigente (critério da Nota Técnica 53). Os percentuais do §7.5 do PROJECT.md servem só como
+  referência, sem exigência de igualdade: no texto do Atlas eles medem a aliança eleitoral ou a base
+  aliada, que inclui partidos sem ministério (Dilma 1: 72,5% somando PSC, PRB e "partidos de menor
+  expressão"; Bolsonaro: 16,5% somando o apoio formal do PR). Onde os conceitos coincidem, os números
+  batem (Lula 1: 48,3% × 48,5%; Lula 2: 69,4% × 70%). A comparação fica em
+  `reports/base_inicio_gabinetes.csv`.
+- Gabinetes iniciados em janeiro de ano de posse da Câmara são conferidos com a composição de 1º/fev
+  (a legislatura que vai conviver com eles), não com a que está saindo.
+- A série do IPEA cobre de mar/1985 a dez/2020 (Nota Técnica 53). Depois disso a base vem só da
+  curadoria (`data/manual/gabinetes_pos2020.csv`); sem ela, o site mostra "sem dados", sem estender
+  o último gabinete do IPEA.
+- **Motivo:** fidelidade ao critério declarado (PROJECT.md 3.2: base formal = critério ministerial).
+

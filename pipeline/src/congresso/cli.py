@@ -9,6 +9,7 @@ from congresso import etapas
 # Etapas de cada fase, na ordem. A Fase 0 é só verificação de fontes (SOURCES.md).
 FASES: dict[int, list[Callable[..., None]]] = {
     1: [etapas.eleitos, etapas.fotos, etapas.ideologia, etapas.publicar],
+    2: [etapas.governos, etapas.publicar],
 }
 
 

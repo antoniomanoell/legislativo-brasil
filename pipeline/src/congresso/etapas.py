@@ -9,6 +9,7 @@ from congresso.extract import camara, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.load.site import publicar as gravar_site
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
+from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
 from congresso.transform.fotos import foto, ler_eventos
@@ -193,4 +194,73 @@ def publicar(*, atualizar: bool = False) -> None:
     tamanho = sum(p.stat().st_size for p in PUBLICADOS.rglob("*.json"))
     print(
         f"publicar: {len(catalogo['momentos'])} momentos; {tamanho / 1024:.0f} KB em {PUBLICADOS}"
+    )
+
+
+# A Nota Técnica 53 cobre "o período de março de 1985 a dezembro de 2020". Depois disso, só com a
+# curadoria própria (data/manual/gabinetes_pos2020.csv); sem ela, a base fica sem dados.
+FIM_IPEA = date(2020, 12, 31)
+
+
+def governos(*, atualizar: bool = False) -> None:
+    """Base formal de governo (partidos com ministério) em cada foto de 1º/fev e no início de
+    cada gabinete desde 2003, com as cadeiras desses partidos."""
+    gabinetes = gov.ler_gabinetes(pl.read_csv(MANUAIS / "gabinetes_ipea.csv"))
+    fim_cobertura = FIM_IPEA
+    pos2020 = MANUAIS / "gabinetes_pos2020.csv"
+    if pos2020.exists():
+        extra = pl.read_csv(pos2020)
+        gabinetes = pl.concat([gabinetes, gov.ler_gabinetes(extra)]).sort("inicio")
+        fim_cobertura = date.fromisoformat(str(extra["cobertura_ate"].max()))
+    governos_tab = pl.read_csv(MANUAIS / "governos.csv", try_parse_dates=True)
+
+    def governo_em(dia: date) -> str | None:
+        g = governos_tab.filter((pl.col("inicio") <= dia) & (pl.col("fim") >= dia))
+        return g["governo_id"][0] if g.height else None
+
+    fotos_ = pl.read_parquet(PROCESSADOS / "fotos.parquet")
+    linhas = []
+    for (dia,), grupo in fotos_.sort("data").group_by("data", maintain_order=True):
+        if dia > fim_cobertura:
+            b = {"data": dia, "gabinete": None, "partidos": [], "cadeiras_base": None}
+            b["ocupadas"] = grupo.height
+        else:
+            try:
+                b = gov.base_formal(grupo, gabinetes, dia)
+            except ValueError as erro:
+                raise FalhaDeValidacao(str(erro)) from erro
+        linhas.append({**b, "governo_id": governo_em(dia), "momento": dia.isoformat()})
+    base = pl.DataFrame(linhas)
+    base.write_parquet(PROCESSADOS / "base_governo.parquet")
+
+    # Composição no início de cada gabinete desde 2003 (o histórico datado da Câmara começa na
+    # posse de 01/02/2003), para conferir com os percentuais citados pelo IPEA (§7.5).
+    eventos = ler_eventos(camara.PASTA / "historico")
+    mapa = pl.read_csv(MANUAIS / "partidos_camara.csv")
+    conferencia = []
+    for g in gabinetes.filter(pl.col("inicio") >= date(2003, 1, 1)).iter_rows(named=True):
+        if g["inicio"] > fim_cobertura:
+            continue
+        # Gabinete que começa em janeiro de ano de posse da Câmara (1º/fev): a comparação é com a
+        # legislatura que vai trabalhar com ele, não com a que está saindo.
+        dia = g["inicio"]
+        if dia.month == 1 and dia.year in {2003, 2007, 2011, 2015, 2019, 2023}:
+            dia = date(dia.year, 2, 1)
+        compo = atribuir_partido_camara(foto(eventos, dia), mapa)
+        na_base = compo.filter(pl.col("partido_id").is_in(g["partidos"])).height
+        conferencia.append(
+            {
+                "gabinete": g["gabinete"],
+                "data_calculo": dia,
+                "so_mes": g["so_mes"],
+                "partidos": ";".join(g["partidos"]),
+                "cadeiras_base": na_base,
+                "em_exercicio": compo.height,
+                "pct_base": round(100 * na_base / 513, 1),
+            }
+        )
+    pl.DataFrame(conferencia).write_csv(RELATORIOS / "base_inicio_gabinetes.csv")
+    print(
+        f"governos: base em {base.filter(pl.col('gabinete').is_not_null()).height} fotos "
+        f"(até {fim_cobertura}); {len(conferencia)} gabinetes conferidos desde 2003"
     )

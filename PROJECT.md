@@ -285,7 +285,7 @@ A EC 111/2021 moveu a posse presidencial para **5 de janeiro**, a partir da elei
 
 **Base formal:** partidos com ministério que os representa, por período (critério IPEA/Acir Almeida). Exibir como % de cadeiras na foto correspondente.
 
-Valores de referência do IPEA para validação (% da Câmara): FHC 1 — 35,5% (aliança eleitoral) → 56% (+PMDB) → 77% (+PPB, mai/1996); FHC 2 — 75% → 45,5% (saída do PFL, mar/2002); Lula 1 — 48,5% → 62,5% → 68%; Lula 2 — 70%; Dilma 1 — 72,5% → 78,5% → 62,5%; Dilma 2 — 59,5% → 64% → 41% (mar/2016); Temer — 65,5%; Bolsonaro — 16,5% (início). Esses valores usam a composição da época calculada pelo IPEA; diferenças pequenas em relação ao nosso cálculo são esperadas e devem ser explicadas em `DECISIONS.md`.
+Valores de referência do IPEA para validação (% da Câmara): FHC 1 — 35,5% (aliança eleitoral) → 56% (+PMDB) → 77% (+PPB, mai/1996); FHC 2 — 75% → 45,5% (saída do PFL, mar/2002); Lula 1 — 48,5% → 62,5% → 68%; Lula 2 — 70%; Dilma 1 — 72,5% → 78,5% → 62,5%; Dilma 2 — 59,5% → 64% → 41% (mar/2016); Temer — 65,5%; Bolsonaro — 16,5% (início). Esses valores usam a composição da época calculada pelo IPEA; diferenças pequenas em relação ao nosso cálculo são esperadas e devem ser explicadas em `DECISIONS.md`. **Verificado em 2026-10-23:** no Atlas, esses percentuais medem a aliança eleitoral ou a base aliada (que inclui partidos sem ministério), não só os partidos com ministro; servem de referência, não de conferência exata (ver DECISIONS).
 
 ### 7.6 Indicadores de votação
 
