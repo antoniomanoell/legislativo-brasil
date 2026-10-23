@@ -25,7 +25,7 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
 | A15 | Fotos de 1º/fev de 1991 a 2002 | A Câmara **não tem** filiação datada nem exercício datado antes de 2003. Opções: (a) pedir a filiação ao NIPE/Cebrap (só sob pedido, site fora do ar); (b) curadoria manual; (c) lançar com fotos só a partir de 2003 e, antes disso, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada. | **decidida (2026-10-23): (c)** |
 | A16 | Votações de 1991 a 2000 (e 2001–2002 sem orientação) | Só o Cebrap tem, mas o site está fora do ar e não há licença de redistribuição. Opções: (a) escrever ao NIPE/Cebrap pedindo autorização; (b) lançar com votações a partir de 2003 (governismo) e 2001 (votos), com a lacuna visível. | **decidida: sem Cebrap; lacuna 1991–2000** |
 | A17 | Rótulos de Bolognesi 2022: média ponderada (como publicado) ou média bruta? | Aplicando os cortes à média bruta mudam 4 partidos: PSD (direita → centro-direita), Republicanos, PSC e União (extrema-direita → direita). | **decidida: média ponderada publicada** |
-| A18 | Gabinetes do IPEA: 52 (CSV) ou 43 (Nota Técnica 53)? | O CSV não tem datas; a NT tem o mês de início de cada gabinete e outra divisão. | aberta |
+| A18 | Gabinetes do IPEA: 52 (CSV) ou 43 (Nota Técnica 53)? | O CSV não tem datas; a NT tem o mês de início de cada gabinete e outra divisão. | **decidida: Nota Técnica 53** |
 
 ## B. Itens [confirmar] do PROJECT.md
 

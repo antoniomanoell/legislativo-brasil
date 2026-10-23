@@ -211,3 +211,12 @@ Formato de cada entrada:
 - **Motivo:** pedido do Antônio; a repetição poluía o texto. O princípio 1.1.2 (fonte nomeada e
   visível) continua atendido: a fonte está sempre na mesma tela que a classificação.
 
+## 2026-10-23 — Gabinetes do IPEA: a Nota Técnica 53, não o CSV (A18)
+- **Decisão:** a base formal de governo até meados de 2020 vem do Quadro 2 da Nota Técnica Diest
+  nº 53 (Almeida, 2021; DOI 10.38116/ntdiest53): 43 gabinetes, com mês de início e partidos com
+  ministério, transcrito em `data/manual/` com página de origem.
+- **Alternativa descartada:** o CSV do Atlas do Estado (52 gabinetes, sem datas, siglas atuais).
+- **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"). Só a NT tem datas, que são
+  indispensáveis para saber a base em cada momento, e só ela descreve o método. O CSV diverge da NT
+  e não documenta a diferença.
+

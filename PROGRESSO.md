@@ -42,7 +42,15 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
   a Câmara publicar a 58ª legislatura; onda 10 da BLS quando for publicada (B9).
 - **A investigar:** PDS 1990 (TSE 45 × 42) e PP 2010 (TSE 44 × 41) contra o Apêndice A.
 
+## Fase 2 — em andamento (governos e coalizões)
+
+- [ ] Transcrever o Quadro 2 da NT 53 (IPEA) → `data/manual/gabinetes_ipea.csv`, com página
+- [ ] Tabela de governos (§7.5, datas confirmadas) → `data/manual/governos.csv`
+- [ ] Curadoria pós-meados de 2020 → `data/manual/coalizoes_pos2020.csv` (cada linha com fonte; validar com o Antônio)
+- [ ] Etapa `governos` no pipeline: base formal em cada momento (% de cadeiras), conferida com os valores do IPEA (§7.5)
+- [ ] Web: página Governos e indicação da base formal no Início
+- [ ] Testes, CI e resumo para o Antônio
+
 ## Próximo passo exato
 
-Aguardar a revisão do Antônio. Depois: Fase 2 (governos e coalizões: IPEA até meados de 2020 e
-curadoria a partir daí; decisão A18 sobre 52 × 43 gabinetes).
+Baixar a NT 53 e transcrever o Quadro 2 (gabinetes, mês de início, partidos com ministério).
