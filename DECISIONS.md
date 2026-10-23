@@ -191,3 +191,23 @@ Formato de cada entrada:
 - **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"); generaliza A1. Cada herança está
   em `data/manual/ideologia_siglas.csv`, com nota que o site exibe.
 
+## 2026-10-23 — Paleta vermelho (esquerda) ↔ azul (direita), em vez de roxo ↔ laranja (revê A9)
+- **Decisão:** as faixas usam vermelho nas posições à esquerda e azul nas posições à direita, com cinza
+  no centro (claro: #901e1c #ce5950 #ff988d #dbdbdb #80beff #3d84db #004d9f; escuro: #ffbbb1 #e77f75
+  #ad524a #424242 #3d73b6 #67a4f1 #a8d8ff). Na BLS, a escala contínua usa os mesmos tons.
+- **Alternativa descartada:** paleta A (roxo ↔ laranja), escolhida antes para evitar cores de marca.
+- **Motivo:** decidido pelo Antônio: é a convenção mais reconhecível (vermelho = esquerda) e a leitura
+  fica imediata. Passa em todas as checagens de daltonismo e contraste nos dois temas (pior par
+  vizinho ΔE 11,8 no claro e 12,1 no escuro; meta ≥ 8). Risco aceito: alguns partidos usam vermelho
+  ou azul na própria marca; por isso a identidade do partido continua vindo de sigla e separadores,
+  e a legenda deixa claro que a cor é a posição, não o partido. Altera a orientação da seção 9 do
+  PROJECT.md ("evitar cores de marca partidária").
+
+## 2026-10-23 — Fonte da posição: uma vez por contexto
+- **Decisão:** a fonte da posição ideológica aparece uma vez em cada contexto — na legenda do
+  hemiciclo, numa linha acima de cada tabela e no título de cada painel da Evolução —, e não em cada
+  dica ou linha. Na ficha do partido, onde a fonte muda de uma legislatura para outra, ela continua
+  como coluna.
+- **Motivo:** pedido do Antônio; a repetição poluía o texto. O princípio 1.1.2 (fonte nomeada e
+  visível) continua atendido: a fonte está sempre na mesma tela que a classificação.
+

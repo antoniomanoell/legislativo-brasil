@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { compor, emOrdem } from '../src/composicao';
 import type { Deputado, Pontuacao } from '../src/dados';
-import { corContinua, descrever } from '../src/ideologia';
+import { corContinua, descrever, linhaDeFonte } from '../src/ideologia';
 
 const dep = (nome: string, partido: string, sigla = partido.toUpperCase()): Deputado => ({
   nome,
@@ -54,13 +54,15 @@ describe('ideologia', () => {
     expect(corContinua(5, cores)).toBe('#ffffff');
   });
 
-  it('descreve com fonte, e sem rótulo na BLS', () => {
-    expect(descrever(ponto(6.2, 'centro-direita'))).toBe(
-      'centro-direita (6,2) — fonte: Bolognesi et al., 2022',
-    );
-    expect(descrever(ponto(-0.69))).toBe(
-      '-0,69 na escala −1 a +1, sem rótulo de faixa — fonte: Zucco & Power, BLS 2021',
-    );
+  it('descreve sem repetir a fonte, e sem rótulo na BLS', () => {
+    expect(descrever(ponto(6.2, 'centro-direita'))).toBe('centro-direita (6,2)');
+    expect(descrever(ponto(-0.69))).toBe('-0,69');
     expect(descrever(undefined)).toMatch(/^não classificado/);
+  });
+
+  it('a fonte aparece numa linha própria', () => {
+    expect(linhaDeFonte([ponto(6.2, 'centro-direita')])).toBe(
+      'Posição ideológica: Bolognesi et al., 2022 (escala 0 a 10, faixas dos autores).',
+    );
   });
 });

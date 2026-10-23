@@ -106,7 +106,7 @@ function ficha(
       const erro =
         x.erro_padrao !== null ? ` (erro-padrão ${formatarNumero(x.erro_padrao, 3)})` : '';
       return `<tr><td>${leg}ª</td><td>${esc(nomeFonte(x))} — sigla na fonte: ${esc(x.sigla_fonte)}</td>
-        <td class="num">${formatarNumero(x.pontuacao, casas)}${erro}</td><td>${x.faixa ? esc(x.faixa) : 'sem rótulo (escala −1 a +1)'}</td>
+        <td class="num">${formatarNumero(x.pontuacao, casas)}${erro}</td><td>${x.faixa ? esc(x.faixa) : '—'}</td>
         <td class="posicao-celula">${x.nota ? esc(x.nota) : ''}</td></tr>`;
     })
     .join('');
@@ -124,7 +124,7 @@ function ficha(
     <h2>Posição ideológica por legislatura</h2>
     ${posicoes ? `<div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Legislatura</th><th scope="col">Fonte</th><th scope="col">Pontuação</th><th scope="col">Faixa</th><th scope="col">Nota</th></tr></thead><tbody>${posicoes}</tbody></table></div>` : '<p>Sem medição nas fontes usadas.</p>'}
     ${semMedicao.length ? `<p class="aviso-lacuna">Não classificado nas legislaturas ${semMedicao.map((l) => `${l}ª`).join(', ')}: a fonte daquela legislatura não mediu este partido.</p>` : ''}
-    <p class="bloco-dica">As escalas da BLS (−1 a +1) e de Bolognesi et al. (0 a 10) não são comparáveis entre si. <a href="metodologia.html">Metodologia</a></p>
+    <p class="bloco-dica">A BLS usa uma escala de −1 (esquerda) a +1 (direita) e não publica faixas (—); Bolognesi et al. usam 0 a 10, com faixas. As duas escalas não são comparáveis entre si. <a href="metodologia.html">Metodologia</a></p>
     <h2>Cadeiras</h2>
     ${tabelaCadeiras('Eleitos', cadeiras('eleitos'))}
     ${tabelaCadeiras('Em exercício em 1º de fevereiro', cadeiras('exercicio'))}`;

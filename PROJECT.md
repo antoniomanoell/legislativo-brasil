@@ -65,7 +65,7 @@ O site será **separado** do projeto irmão "mapa de indicadores socioeconômico
 | D12 | Eleitos (2026-10-23) | **Situação atual no TSE**, com data de geração registrada e aviso de retotalizações e decisões judiciais |
 | D13 | Fotos (2026-10-23) | Fotos de 1º/fev **só a partir de 2003**; de 1991 a 2002, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada |
 | D14 | Votações (2026-10-23) | Sem dados do Cebrap: votos a partir de 2001, governismo a partir de 2003; 1991–2000 como lacuna |
-| D15 | Paleta (2026-10-23) | Paleta A (roxo ↔ laranja); não classificado em hachura |
+| D15 | Paleta (2026-10-23) | Vermelho (esquerda) ↔ azul (direita), cinza no centro; não classificado em hachura (revisto em 2026-10-23; antes, roxo ↔ laranja) |
 
 ---
 

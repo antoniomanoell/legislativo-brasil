@@ -37,7 +37,9 @@ test('hemiciclo navegável pelo teclado', async ({ page }) => {
   await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
   await page.locator('#hemiciclo svg').focus();
   await page.keyboard.press('ArrowRight');
-  await expect(page.locator('#ficha')).toContainText('fonte: Bolognesi et al., 2022');
+  await expect(page.locator('#ficha')).not.toBeEmpty();
+  await expect(page.locator('#ficha')).not.toContainText('fonte:');
+  await expect(page.locator('#legenda')).toContainText('Bolognesi et al., 2022');
 });
 
 test('tabela acessível lista todos os deputados', async ({ page }) => {

@@ -19,7 +19,7 @@ import {
 import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, formatarNumero, pct } from '../formato';
-import { coresDasFaixas, corDe, FAIXAS, nomeFonte } from '../ideologia';
+import { coresDasFaixas, corDe, FAIXAS } from '../ideologia';
 import { somarPorLinhagem } from '../linhagem';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
@@ -162,7 +162,7 @@ function painel(alvo: HTMLElement, momentos: Momento[], escala: Escala, titulo: 
         no(
           'title',
           {},
-          `${m.ano}: ${sigla}, ${n} cadeiras — ${formatarNumero(p.pontuacao, p.fonte_id === 'bls' ? 2 : 1)} (${nomeFonte(p)})`,
+          `${m.ano}: ${sigla}, ${n} cadeiras — ${formatarNumero(p.pontuacao, p.fonte_id === 'bls' ? 2 : 1)}`,
         ),
       );
       svg.append(c);

@@ -18,7 +18,7 @@ import {
 import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
-import { coresDasFaixas, corDe, descrever, FAIXAS, nomeFonte } from '../ideologia';
+import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
@@ -142,7 +142,8 @@ function desenharTabelaDeputados(): void {
         `<tr><td>${esc(d.nome)}</td><td>${esc(d.uf)}</td><td>${esc(d.sigla)}</td><td class="posicao-celula">${esc(descrever(pontos[d.partido]))}</td></tr>`,
     )
     .join('');
-  $('#tabela-deputados').innerHTML = `<table class="ranking">
+  $('#tabela-deputados').innerHTML =
+    `<p class="bloco-dica">${esc(linhaDeFonte(Object.values(pontos)))}</p><table class="ranking">
     <caption class="so-leitor">${esc(estado.momento.rotulo)} — deputados em ordem alfabética</caption>
     <thead><tr><th scope="col">Nome</th><th scope="col">UF</th><th scope="col">Partido</th><th scope="col">Posição do partido</th></tr></thead>
     <tbody>${linhas}</tbody></table>`;
@@ -161,9 +162,10 @@ function desenharTabelaPartidos(): void {
         <td class="posicao-celula">${esc(descrever(g.pontuacao))}</td></tr>`;
     })
     .join('');
-  $('#tabela-partidos').innerHTML = `<div class="tabela-rolagem"><table class="ranking">
+  $('#tabela-partidos').innerHTML =
+    `<p class="bloco-dica">${esc(linhaDeFonte(Object.values(pontosDaLegislatura())))}</p><div class="tabela-rolagem"><table class="ranking">
     <caption class="so-leitor">Cadeiras por partido — ${esc(m.rotulo)}, da esquerda para a direita; não classificados no fim</caption>
-    <thead><tr><th scope="col">Partido</th><th scope="col">Cadeiras</th><th scope="col">%</th><th scope="col">Posição (fonte)</th></tr></thead>
+    <thead><tr><th scope="col">Partido</th><th scope="col">Cadeiras</th><th scope="col">%</th><th scope="col">Posição</th></tr></thead>
     <tbody>${linhas}</tbody></table></div>`;
 }
 

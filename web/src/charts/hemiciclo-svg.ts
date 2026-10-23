@@ -36,7 +36,7 @@ export function desenharHemiciclo(
   const ordem = emOrdem(composicao);
   const cadeiras = hemiciclo(ordem.length);
   const svg = el('svg', {
-    viewBox: '-1.22 -1.2 2.44 1.26',
+    viewBox: '-1.36 -1.2 2.72 1.26',
     class: 'hemiciclo',
     tabindex: 0,
     role: 'group',

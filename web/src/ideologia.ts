@@ -62,12 +62,22 @@ export function nomeFonte(p: Pontuacao): string {
     : `Bolognesi et al., ${p.ano_medicao}`;
 }
 
-/** "centro-direita (6,2) — fonte: Bolognesi et al., 2022" (PROJECT.md, 1.1). */
+/** "centro-direita (6,2)" (Bolognesi) ou só o número (BLS, sem rótulo). Fonte e escala não entram
+ * aqui: aparecem uma vez por contexto (legenda, linha acima da tabela), não em cada texto. */
 export function descrever(p: Pontuacao | undefined): string {
   if (!p) return 'não classificado (sem medição na fonte para esta legislatura)';
   const casas = p.fonte_id === 'bls' ? 2 : 1;
   const valor = formatarNumero(p.pontuacao, casas);
-  const escala = p.fonte_id === 'bls' ? 'escala −1 a +1' : 'escala 0 a 10';
-  const posicao = p.faixa ? `${p.faixa} (${valor})` : `${valor} na ${escala}, sem rótulo de faixa`;
-  return `${posicao} — fonte: ${nomeFonte(p)}`;
+  return p.faixa ? `${p.faixa} (${valor})` : valor;
+}
+
+/** "Posição ideológica: Bolognesi et al., 2022 (escala 0 a 10, faixas dos autores)". */
+export function linhaDeFonte(pontos: Pontuacao[]): string {
+  const p = pontos[0];
+  if (!p) return 'Posição ideológica: sem fonte para esta legislatura.';
+  const escala =
+    p.fonte_id === 'bls'
+      ? 'escala −1 a +1, sem rótulo de faixa'
+      : 'escala 0 a 10, faixas dos autores';
+  return `Posição ideológica: ${nomeFonte(p)} (${escala}).`;
 }
