@@ -64,3 +64,25 @@ for (const caminho of [
     await semRolagemLateral(page);
   });
 }
+
+test('base formal na foto de 2010, com siglas da época e destaque no hemiciclo', async ({
+  page,
+}) => {
+  await page.goto('./?m=2010-02-01&b=1');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  const linha = page.locator('#linha-base');
+  await expect(linha).toContainText('gabinete Lula 2-3');
+  await expect(linha).toContainText('PRB');
+  await expect(linha).not.toContainText('REPUBLICANOS');
+  expect(await page.locator('#hemiciclo circle.esmaecida').count()).toBeGreaterThan(0);
+});
+
+test('Governos põe cada gabinete no governo certo', async ({ page }) => {
+  await page.goto('./governos.html');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page.locator('#gov-temer')).toBeAttached();
+  const temer = page.locator('section', { has: page.locator('#gov-temer') });
+  await expect(temer).toContainText('Temer-1');
+  const dilma2 = page.locator('section', { has: page.locator('#gov-dilma2') });
+  await expect(dilma2).not.toContainText('Temer-1');
+});

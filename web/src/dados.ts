@@ -66,6 +66,42 @@ export interface Partido {
 /** momento → partido → cadeiras. */
 export type Agregados = Record<string, Record<string, number>>;
 
+export interface Governo {
+  governo_id: string;
+  presidente: string;
+  inicio: string;
+  fim: string;
+  partido_presidente: string;
+  partido_id_inicio: string | null;
+  observacao: string | null;
+}
+
+export interface Gabinete {
+  gabinete: string;
+  /** AAAA-MM quando a fonte só dá o mês; AAAA-MM-DD quando dá o dia. */
+  inicio: string;
+  evento: 'A' | 'B' | 'C';
+  partidos: string[];
+  governo: string | null;
+  fonte: string;
+  base_no_inicio: { data: string; cadeiras: number; em_exercicio: number } | null;
+}
+
+export interface BaseNoMomento {
+  gabinete: string | null;
+  partidos: string[];
+  cadeiras_base: number | null;
+  ocupadas: number;
+  governo: string | null;
+}
+
+export interface Governos {
+  cobertura_ate: string;
+  governos: Governo[];
+  gabinetes: Gabinete[];
+  base_por_momento: Record<string, BaseNoMomento>;
+}
+
 const cache = new Map<string, Promise<unknown>>();
 
 function carregar<T>(caminho: string): Promise<T> {
@@ -84,4 +120,5 @@ export const carregarCatalogo = () => carregar<Catalogo>('catalogo.json');
 export const carregarIdeologia = () => carregar<Ideologia>('ideologia.json');
 export const carregarPartidos = () => carregar<Record<string, Partido>>('partidos.json');
 export const carregarAgregados = () => carregar<Agregados>('agregados.json');
+export const carregarGovernos = () => carregar<Governos>('governos.json');
 export const carregarMomento = (id: string) => carregar<Deputado[]>(`momentos/${id}.json`);

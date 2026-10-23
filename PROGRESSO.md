@@ -48,9 +48,9 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Tabela de governos (§7.5, datas confirmadas) → `data/manual/governos.csv`
 - [ ] Curadoria pós-meados de 2020 → `data/manual/coalizoes_pos2020.csv` (cada linha com fonte; validar com o Antônio)
 - [x] Etapa `governos` no pipeline (só IPEA até dez/2020; falta incluir a curadoria pós-2020): base formal em cada momento (% de cadeiras), conferida com os valores do IPEA (§7.5)
-- [ ] Web: página Governos e indicação da base formal no Início
+- [x] Web: página Governos e indicação da base formal no Início (com IPEA; falta a curadoria pós-2020)
 - [ ] Testes, CI e resumo para o Antônio
 
 ## Próximo passo exato
 
-Publicar governos no JSON do site (etapa `publicar`) e fazer a página Governos; curadoria pós-2020 com um agente (resultado em scratchpad/coalizoes, a revisar e transcrever para data/manual/gabinetes_pos2020.csv com coluna cobertura_ate).
+Revisar o relatório do agente de curadoria pós-2020 (scratchpad/coalizoes), levar ao Antônio os casos de julgamento e transcrever para data/manual/gabinetes_pos2020.csv (coluna cobertura_ate).

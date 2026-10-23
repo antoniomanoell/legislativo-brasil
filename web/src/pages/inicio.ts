@@ -7,8 +7,13 @@ import { desenharHemiciclo } from '../charts/hemiciclo-svg';
 import { compor, type Composicao } from '../composicao';
 import {
   carregarCatalogo,
+  carregarGovernos,
   carregarIdeologia,
   carregarMomento,
+  carregarPartidos,
+  type BaseNoMomento,
+  type Governos,
+  type Partido,
   type Catalogo,
   type Deputado,
   type Ideologia,
@@ -18,6 +23,7 @@ import {
 import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
+import { siglaEm } from '../siglas';
 import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
@@ -31,10 +37,14 @@ const PASSO_MS = 1200;
 interface Estado {
   momento: Momento;
   visao: 'hemiciclo' | 'tabela';
+  /** Esmaecer no hemiciclo quem não é da base formal do governo (só em fotos em exercício). */
+  destacarBase: boolean;
 }
 
 let catalogo: Catalogo;
 let ideologia: Ideologia;
+let governos: Governos;
+let partidos: Record<string, Partido>;
 let estado: Estado;
 let composicao: Composicao;
 let deputados: Deputado[] = [];
@@ -49,12 +59,17 @@ function lerUrl(): Estado {
   const exercicio = momentosDo('exercicio');
   const momento =
     catalogo.momentos.find((m) => m.id === p.get('m')) ?? (exercicio.at(-1) as Momento);
-  return { momento, visao: p.get('v') === 'tabela' ? 'tabela' : 'hemiciclo' };
+  return {
+    momento,
+    visao: p.get('v') === 'tabela' ? 'tabela' : 'hemiciclo',
+    destacarBase: p.get('b') === '1',
+  };
 }
 
 function gravarUrl(): void {
   const p = new URLSearchParams({ m: estado.momento.id });
   if (estado.visao === 'tabela') p.set('v', 'tabela');
+  if (estado.destacarBase) p.set('b', '1');
   history.replaceState(null, '', `?${p}`);
 }
 
@@ -200,18 +215,59 @@ async function mostrar(momento: Momento): Promise<void> {
   $('#titulo-momento').textContent = `${momento.rotulo} — ${momento.legislatura}ª legislatura`;
   desenharResumo();
   desenharSlider();
+  desenharLinhaBase();
   desenharTudoQueDependeDoTema();
   desenharTabelaDeputados();
   desenharFicha('');
 }
 
+/** Base formal do governo na data (só fotos em exercício): partidos com ministro (IPEA e
+ * curadoria) e suas cadeiras. Sem dados depois do fim da cobertura. */
+function baseDoMomento(): BaseNoMomento | undefined {
+  return estado.momento.tipo === 'exercicio'
+    ? governos.base_por_momento[estado.momento.id]
+    : undefined;
+}
+
+function desenharLinhaBase(): void {
+  const el = $('#linha-base');
+  const base = baseDoMomento();
+  el.hidden = !base;
+  if (!base) return;
+  const governo = governos.governos.find((g) => g.governo_id === base.governo);
+  const nomeGoverno = governo ? `Governo ${governo.presidente}` : 'Governo';
+  if (base.gabinete === null || base.cadeiras_base === null) {
+    el.innerHTML = `${esc(nomeGoverno)} · base formal: sem dados nesta data (a série de gabinetes do IPEA termina em dez/2020; a curadoria posterior está em preparação). <a href="governos.html">Governos</a>`;
+    return;
+  }
+  const siglas =
+    base.partidos.map((id) => siglaEm(id, estado.momento.id, partidos)).join(', ') || 'nenhum';
+  el.innerHTML = `${esc(nomeGoverno)} · base formal (partidos com ministro, gabinete ${esc(base.gabinete)}): ${esc(siglas)} — ${base.cadeiras_base} cadeiras (${pct(base.cadeiras_base, estado.momento.cadeiras)}). Fonte: IPEA (Almeida, 2021).
+    <label><input type="checkbox" id="destacar-base"${estado.destacarBase ? ' checked' : ''}> destacar no hemiciclo</label>`;
+  ($('#destacar-base') as HTMLInputElement).addEventListener('change', (e) => {
+    estado.destacarBase = (e.target as HTMLInputElement).checked;
+    gravarUrl();
+    desenharTudoQueDependeDoTema();
+  });
+}
+
 function desenharTudoQueDependeDoTema(): void {
-  desenharHemiciclo($('#hemiciclo'), composicao, coresDasFaixas(), (s) =>
-    desenharFicha(
-      s
-        ? `<strong>${esc(s.deputado.nome)}</strong> · ${esc(s.deputado.sigla)} · ${esc(s.deputado.uf)}<br>${esc(s.descricao)}`
-        : '',
-    ),
+  const base = baseDoMomento();
+  const destaque =
+    estado.destacarBase && base?.cadeiras_base !== null && base
+      ? new Set(base.partidos)
+      : undefined;
+  desenharHemiciclo(
+    $('#hemiciclo'),
+    composicao,
+    coresDasFaixas(),
+    (s) =>
+      desenharFicha(
+        s
+          ? `<strong>${esc(s.deputado.nome)}</strong> · ${esc(s.deputado.sigla)} · ${esc(s.deputado.uf)}<br>${esc(s.descricao)}`
+          : '',
+      ),
+    destaque,
   );
   desenharForaDaOrdem();
   desenharLegenda();
@@ -273,7 +329,12 @@ function ligarControles(): void {
 }
 
 async function iniciar(): Promise<void> {
-  [catalogo, ideologia] = await Promise.all([carregarCatalogo(), carregarIdeologia()]);
+  [catalogo, ideologia, governos, partidos] = await Promise.all([
+    carregarCatalogo(),
+    carregarIdeologia(),
+    carregarGovernos(),
+    carregarPartidos(),
+  ]);
   estado = lerUrl();
   $('#ajuda-hemiciclo').innerHTML = ajuda(
     'ajuda-hemiciclo-pop',

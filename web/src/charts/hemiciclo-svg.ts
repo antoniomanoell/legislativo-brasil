@@ -32,6 +32,8 @@ export function desenharHemiciclo(
   composicao: Composicao,
   cores: string[],
   aoMudar: (s: Selecao | undefined, origem: 'teclado' | 'ponteiro') => void,
+  /** Se informado, as cadeiras de outros partidos ficam esmaecidas (ex.: destacar a base formal). */
+  destaque?: Set<string>,
 ): void {
   const ordem = emOrdem(composicao);
   const cadeiras = hemiciclo(ordem.length);
@@ -99,7 +101,7 @@ export function desenharHemiciclo(
       cx: c.x,
       cy: -c.y,
       r: c.r,
-      class: 'cadeira',
+      class: destaque && !destaque.has(item.grupo.partido) ? 'cadeira esmaecida' : 'cadeira',
       fill: corDe(item.grupo.pontuacao, cores),
       'data-i': i,
     });

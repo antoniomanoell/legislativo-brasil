@@ -198,9 +198,15 @@ def publicar_governos(
     """governos.json: presidentes, gabinetes com partidos e base no início, e base em cada foto."""
     no_inicio = {r["gabinete"]: r for r in inicio_gabinetes.iter_rows(named=True)}
 
-    def governo_de(dia) -> str | None:
-        g = governos.filter((pl.col("inicio") <= dia) & (pl.col("fim") >= dia))
-        return g["governo_id"][0] if g.height else None
+    # O governo de cada gabinete vem do nome dado pela fonte ("Temer-1", "FHC 2-3"), não da data:
+    # o IPEA só dá o mês, e "mai/2016" começa antes do afastamento de Dilma (12/05/2016).
+    prefixos = dict(governos.select("prefixo_gabinete", "governo_id").iter_rows())
+
+    def governo_de_gabinete(nome: str) -> str | None:
+        for prefixo, governo in prefixos.items():
+            if nome.startswith((f"{prefixo}-", f"{prefixo} ")):
+                return governo
+        return None
 
     lista_gabinetes = []
     for g in gabinetes.iter_rows(named=True):
@@ -211,7 +217,7 @@ def publicar_governos(
                 "inicio": g["inicio"].isoformat()[: 7 if g["so_mes"] else 10],
                 "evento": g["evento"],
                 "partidos": g["partidos"],
-                "governo": governo_de(g["inicio"]),
+                "governo": governo_de_gabinete(g["gabinete"]),
                 "fonte": g["fonte"],
                 "base_no_inicio": None
                 if conf is None

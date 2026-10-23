@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Governos — Congresso em Números</title>
+    <meta
+      name="description"
+      content="Presidentes, gabinetes e partidos com ministério desde 1990, e as cadeiras desses partidos na Câmara."
+    />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      try {
+        var t = localStorage.getItem('tema');
+        if (t === 'claro' || t === 'escuro') document.documentElement.dataset.tema = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <header class="topo topo-pagina">
+      <p class="marca">
+        <a href="./"
+          ><svg class="marca-icone" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+            <rect width="32" height="32" rx="9" fill="var(--acento-forte)" />
+            <path
+              d="M7 23a9 9 0 0 1 18 0M11.5 23a4.5 4.5 0 0 1 9 0"
+              fill="none"
+              stroke="#fff"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-dasharray="0.1 4.6"
+            /></svg
+          ><span>Congresso em Números</span></a
+        >
+      </p>
+      <nav aria-label="Seções">
+        <a href="./">Início</a> <a href="evolucao.html">Evolução</a>
+        <a href="partidos.html">Partidos</a>
+        <a href="governos.html" aria-current="page">Governos</a>
+        <a href="metodologia.html">Metodologia</a>
+        <button type="button" id="tema" class="botao-icone" aria-label="Usar tema escuro"></button>
+      </nav>
+    </header>
+
+    <main class="pagina">
+      <div id="conteudo" class="bloco"><p>Carregando…</p></div>
+    </main>
+
+    <footer class="rodape">
+      <p>
+        Posição ideológica: Zucco &amp; Power, Brazilian Legislative Surveys (49ª–56ª legislaturas);
+        Bolognesi, Ribeiro, Codato &amp; Silva (57ª–58ª). Composição: TSE e Câmara dos Deputados.
+        <a href="metodologia.html">Metodologia</a>.
+      </p>
+    </footer>
+    <div id="erro" class="erro" role="alert" hidden>
+      Não foi possível carregar os dados. Verifique a conexão e recarregue a página.
+    </div>
+    <script type="module" src="/src/pages/governos.ts"></script>
+  </body>
+</html>
