@@ -157,3 +157,27 @@ def presenca(votos: pl.DataFrame, votacoes: pl.DataFrame, intervalos: pl.DataFra
         ],
         how="diagonal",
     ).with_columns(pl.col("presente").fill_null(False))
+
+
+# Destaque objetivo de PEC (PROJECT.md 7.7; DECISIONS A5): votação de PEC em 1º ou 2º turno que
+# não é destaque, requerimento nem admissibilidade ("turno único"). "Emenda" não exclui: a palavra
+# está em "proposta de emenda à Constituição", e emenda aglutinativa substitui o texto de mérito.
+TURNO = r"(primeiro|segundo|1[ºo°]|2[ºo°]) turno"
+NAO_MERITO = r"destaque|dtq|dvs|requerimento|turno [úu]nico"
+
+
+def destaques_pec(votacoes: pl.DataFrame, excecoes: pl.DataFrame) -> pl.DataFrame:
+    """Ids das votações de mérito de PEC; `excecoes` (id, acao: incluir|excluir) = revisão manual."""
+    texto = (
+        pl.coalesce(pl.col("descricao_abertura").replace("", None), pl.col("descricao"))
+        .fill_null("")
+        .str.to_lowercase()
+    )
+    regra = votacoes.filter(
+        pl.col("tipos").list.contains("PEC")
+        & texto.str.contains(TURNO)
+        & ~texto.str.contains(NAO_MERITO)
+    ).select("id")
+    incluir = excecoes.filter(pl.col("acao") == "incluir").select("id")
+    excluir = excecoes.filter(pl.col("acao") == "excluir")["id"]
+    return pl.concat([regra, incluir]).unique().filter(~pl.col("id").is_in(excluir.implode()))

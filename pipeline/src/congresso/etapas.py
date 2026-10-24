@@ -361,13 +361,22 @@ def votacoes(*, atualizar: bool = False) -> None:
     rice.write_parquet(PROCESSADOS / "rice.parquet")
     gov_ano.write_parquet(PROCESSADOS / "governismo_partido_ano.parquet")
 
+    excecoes = pl.read_csv(MANUAIS / "destaques_pec_excecoes.csv", infer_schema=False)
+    pecs = vot.destaques_pec(tab_v, excecoes)
+    tab_v.filter(pl.col("id").is_in(pecs["id"].implode())).select(
+        "id", "data", pl.col("proposicoes").list.join(", "), "descricao_abertura", "descricao"
+    ).sort("data").write_csv(RELATORIOS / "destaques_pec.csv")
+    tab_v = tab_v.with_columns(pl.col("id").is_in(pecs["id"].implode()).alias("destaque_pec"))
+    tab_v.write_parquet(PROCESSADOS / "votacoes.parquet")
+
     orientadas = tab_v.filter(pl.col("orientacao_governo").is_in(["Sim", "Não"])).height
     print(
         f"votacoes: {tab_v.height} votações nominais de plenário ({orientadas} com orientação "
         f"Sim/Não do Governo); {tab_votos.height} votos; presença em "
         f"{pres.height} pares deputado×votação ({pres['presente'].mean():.1%} presentes); "
         f"{lacunas.height} votos fora do histórico de exercício; "
-        f"{divergentes.height} de {comparacao.height} votos com partido diferente do histórico"
+        f"{divergentes.height} de {comparacao.height} votos com partido diferente do histórico; "
+        f"{pecs.height} votações de mérito de PEC em destaque"
     )
 
 

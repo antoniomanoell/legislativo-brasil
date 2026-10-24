@@ -126,3 +126,25 @@ def test_presenca_usa_os_periodos_de_exercicio():
         ("b", 3, False, True),
         ("b", 9, True, False),  # votou sem constar do histórico: conta como presente
     ]
+
+
+def test_destaques_pec():
+    from congresso.transform.votacoes import destaques_pec
+
+    votacoes = pl.DataFrame(
+        {
+            "id": ["a", "b", "c", "d", "e", "f"],
+            "tipos": [["PEC"], ["PEC"], ["PEC"], ["PEC"], ["PL"], ["PEC"]],
+            "descricao_abertura": [
+                "Votação em segundo turno.",
+                "Votação do DTQ 3: destaque para votação em separado (2º turno)",
+                "Votação, em turno único, do parecer de admissibilidade",
+                "Votação, em primeiro turno, da Emenda Aglutinativa nº 2.",
+                "Votação em primeiro turno.",
+                "",
+            ],
+            "descricao": ["", "", "", "", "", "Aprovada, em 1º turno, a Proposta de Emenda"],
+        }
+    )
+    excecoes = pl.DataFrame({"id": ["a"], "acao": ["excluir"]})
+    assert sorted(destaques_pec(votacoes, excecoes)["id"]) == ["d", "f"]

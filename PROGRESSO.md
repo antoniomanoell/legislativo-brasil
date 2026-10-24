@@ -61,7 +61,7 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
       data/manual/impeachment_*.csv, conferido com o placar
 - [ ] Indicadores: governismo e presença (deputado e partido, por ano/legislatura/gabinete) e
       coesão (Rice), conforme DECISIONS (A3, A4, A8)
-- [ ] Destaques: PEC em 1º/2º turno (A5) e impeachments
+- [~] Destaques: PEC em 1º/2º turno (A5) feito (244 votações, reports/destaques_pec.csv); falta impeachments (agente)
 - [x] Validação cruzada: partido no voto × filiação na data (reports/divergencias_filiacao.csv)
 - [ ] Publicar: JSON por votação, por deputado e agregados (decidir formato pelo tamanho)
 - [ ] Web: páginas Votações e Deputados; governismo na página Governos
