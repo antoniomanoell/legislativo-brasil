@@ -3,17 +3,25 @@
 # Metodologia
 
 Este site mostra como a Câmara dos Deputados e o Senado Federal estiveram compostos desde 1991
-(49ª legislatura, a primeira eleita sob a Constituição de 1988). Ele descreve a composição; não avalia partidos, parlamentares
-ou governos. Toda classificação tem fonte nomeada, e o que não tem fonte aparece como lacuna.
+(49ª legislatura, a primeira eleita sob a Constituição de 1988). Ele descreve a composição; não
+avalia partidos, parlamentares ou governos. Toda classificação tem fonte nomeada, e o que não tem
+fonte aparece como lacuna.
 
 ## Duas formas de ver a composição
 
+As regras abaixo são as da Câmara; o Senado tem diferenças, explicadas na seção "Senado".
+
 **Eleitos.** Os deputados eleitos em cada eleição geral (1990 a 2026), pelo partido pelo qual foram
-eleitos. A fonte é o Tribunal Superior Eleitoral (TSE). Os arquivos do TSE mostram a situação
-**atual** de cada candidato: já incluem retotalizações e decisões judiciais posteriores à eleição
-(por exemplo, a troca de sete cadeiras eleitas em 2022 após decisão do Supremo Tribunal Federal em
-2025). Por isso os números podem diferir em uma ou duas cadeiras dos divulgados na noite da eleição.
-Os eleitos de 2026 são provisórios até a diplomação.
+eleitos. Em federações partidárias (desde 2022), conta o partido do candidato, não a federação. A
+fonte é o Tribunal Superior Eleitoral (TSE). Os arquivos do TSE mostram a situação **atual** de cada
+candidato: já incluem retotalizações e decisões da Justiça Eleitoral posteriores à eleição. Por
+exemplo, em 2024 o Supremo Tribunal Federal mudou a regra de distribuição das sobras eleitorais e,
+em 2025, decidiu que a mudança valia também para a eleição de 2022; a Câmara declarou a perda de
+sete mandatos em 30/07/2025, e os arquivos do TSE já trazem os sete substitutos como eleitos. Já a
+cassação do registro depois da diplomação não aparece: Deltan Dallagnol (Podemos-PR), que teve o
+registro cassado pelo TSE em 16/05/2023, continua contado como eleito em 2022. Por isso os números
+podem diferir em algumas cadeiras por partido dos divulgados na época da eleição. Os eleitos de
+2026 são provisórios até a diplomação. Em 1990 a Câmara tinha 503 cadeiras; desde 1994, 513.
 
 **Em exercício em 1º de fevereiro.** Quem estava efetivamente no exercício do mandato (titular ou
 suplente) no fim do dia 1º de fevereiro de cada ano, pelo partido daquela data. A fonte é o

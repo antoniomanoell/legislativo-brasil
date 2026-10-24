@@ -160,6 +160,12 @@ não estava publicada em 2026-10-23.
 - DIAP, Análise do Governismo (jun/2023): https://www.diap.org.br/images/stories/analise_governismo_camara_2023-06.pdf
 - Agência Câmara (31/07/2025), perda de mandato de 7 deputados (sobras eleitorais de 2022):
   https://www.camara.leg.br/noticias/1184072-camara-declara-a-perda-de-mandato-de-sete-deputados-federais-e-convoca-novos-eleitos/
+- Conjur (26/06/2025), STF mantém a regra das sobras para 2022 (ADIs 7.228 e 7.263; decisão de 2024,
+  aplicação a 2022 decidida em março de 2025, embargos rejeitados em 24/06/2025):
+  https://www.conjur.com.br/2025-jun-26/stf-mantem-aplicacao-de-regra-de-divisao-das-sobras-eleitorais-nas-eleicoes-de-2022/
+- A Gazeta (05/2023), TSE cassa por unanimidade o registro de Deltan Dallagnol (16/05/2023):
+  https://www.agazeta.com.br/brasil/por-unanimidade-tse-cassa-mandato-do-deputado-deltan-dallagnol-0523
+  (no `consulta_cand_2022` do TSE ele segue "ELEITO POR QP", conferido em 2026-10-24).
 
 ---
 

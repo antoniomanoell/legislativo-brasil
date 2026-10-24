@@ -67,7 +67,8 @@ Formato de cada entrada:
 - **Decisão:** a visão "eleitos" usa a situação atual de cada candidato nos arquivos do TSE
   (`consulta_cand_AAAA`; em 1990, `votacao_candidato_uf_1990`), com o `DT_GERACAO` registrado e cópia
   datada do arquivo guardada. A interface avisa que a composição reflete retotalizações e decisões
-  judiciais posteriores (ex.: 7 cadeiras de 2022 trocadas por decisão do STF em 2025).
+  judiciais posteriores (ex.: 7 cadeiras de 2022 trocadas após a decisão do STF sobre as sobras,
+  aplicada a 2022 em 2025), mas não cassações de registro depois da diplomação (Deltan Dallagnol).
 - **Alternativa descartada:** reconstruir o resultado da noite da eleição a partir de cópias antigas e
   notícias.
 - **Motivo:** decidido pelo Antônio. É a fonte oficial, reproduzível e auditável.
