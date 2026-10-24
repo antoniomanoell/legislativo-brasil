@@ -1,5 +1,3 @@
-<!-- RASCUNHO: revisar com Antônio -->
-
 # Sobre
 
 O **Congresso em Números** mostra como a Câmara dos Deputados e o Senado Federal estiveram compostos
@@ -48,7 +46,7 @@ originais acima, todas de acesso público, e citá-las conforme os termos de cad
 
 ## Como citar
 
-> Congresso em Números. Disponível em: [endereço do site]. Acesso em: [data].
+> Congresso em Números. Disponível em: https://congressoemnumeros.vercel.app. Acesso em: [data].
 
 Ao usar um número do site, cite também a fonte original indicada na página (por exemplo, "Câmara dos
 Deputados — Dados Abertos" para votações da Câmara, ou Bolognesi et al. para a posição ideológica de
