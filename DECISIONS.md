@@ -360,3 +360,13 @@ Formato de cada entrada:
 - **Motivo:** o arquivo `consulta_vagas_2018` do TSE registra 1 vaga de senador em MT, mas foram
   eleitos 2 (como nas outras 26 UFs, renovação de 2/3). Erro do arquivo de vagas, registrado em
   PENDENCIAS.md.
+
+## 2026-10-24 — "O que foi votado": só textos e classificações oficiais, sem resumo do projeto
+- **Decisão (recomendação aceita pelo Antônio):** cada votação mostra, por proposição, a ementa, o
+  link para a página oficial e, quando a Casa publica: indexação (palavras-chave), temas
+  (classificação do Senado), inteiro teor (Câmara) e norma gerada (Senado). Fontes:
+  `/proposicoes/{id}` (Câmara) e `/materia/{código}` (Senado). Indexação do Senado fica como
+  publicada, em maiúsculas.
+- **Alternativas descartadas por ora:** resumo em linguagem simples gerado por IA para todas as
+  votações (milhares de textos sem revisão possível; risco de erro e de enquadramento num site que
+  se diz neutro); resumo revisado só para os destaques (PEC e impeachment) fica como opção futura.

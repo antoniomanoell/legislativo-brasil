@@ -61,6 +61,10 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
   a regra constitucional.
 - Senado: cinco senadores de 1991–1994 (Álvaro Pacheco, Carlos de Carli, Enéas Faria, Eva Blay, Oziel
   Carneiro) aparecem nos votos sem UF e fora das listas de legislatura da API; a UF fica como lacuna.
+- Resultado das votações: a fonte não registra resultado em 660 votações da Câmara e 86 do Senado
+  (aparecem como "sem resultado registrado"); em cerca de 100 da Câmara e 56 do Senado o resultado
+  contraria a maioria simples do placar (quórum qualificado, parecer contrário, texto destacado ou
+  erro da fonte) e a página mostra um aviso. Nenhum resultado foi corrigido à mão.
 - Senado: fotos de 1º/fev só em 13 anos (`reports/fotos_senado_lacunas.csv`); reavaliar se a API
   completar os exercícios de suplentes e da 48ª legislatura.
 - Eleitos (2026-10-23): duas bancadas fora da tolerância de ±2 contra o Apêndice A — **1990 PDS** (TSE 45,

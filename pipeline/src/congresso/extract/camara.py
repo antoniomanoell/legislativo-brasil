@@ -75,3 +75,24 @@ def historicos(ids: list[int], *, atualizar: bool = False) -> Path:
             if n % 200 == 0:
                 print(f"    {n}/{len(faltam)}")
     return pasta
+
+
+def proposicoes(ids: list[str], *, atualizar: bool = False) -> Path:
+    """Detalhe de cada proposição votada (indexação e inteiro teor), um JSON por id. Id que a API
+    não encontra fica gravado vazio, para não ser consultado de novo."""
+    pasta = PASTA / "proposicoes"
+    pasta.mkdir(parents=True, exist_ok=True)
+    with _cliente() as c:
+        for n, id_ in enumerate(ids, 1):
+            destino = pasta / f"{id_}.json"
+            if atualizar or not destino.exists():
+                try:
+                    dados = _get(c, f"{API}/proposicoes/{id_}")["dados"]
+                except httpx.HTTPStatusError as erro:
+                    if erro.response.status_code != 404:
+                        raise
+                    dados = {}
+                destino.write_text(json.dumps(dados, ensure_ascii=False), encoding="utf-8")
+            if n % 200 == 0:
+                print(f"  {n}/{len(ids)} proposições")
+    return pasta

@@ -17,6 +17,7 @@ from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
+from congresso.transform import materias
 from congresso.transform import senado as sen
 from congresso.transform import votacoes as vot
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
@@ -396,7 +397,13 @@ def publicar_votacoes(*, atualizar: bool = False) -> None:
     """Votações (arquivos anuais compactos e índice) e indicadores para o site."""
     votacoes_ = pl.read_parquet(PROCESSADOS / "votacoes.parquet")
     votos = pl.read_parquet(PROCESSADOS / "votos.parquet")
-    tamanho = gravar_votacoes(votacoes_, votos, PUBLICADOS)
+    ids = sorted(
+        {m["url"].rsplit("/", 1)[1] for ms in votacoes_["materias"].to_list() for m in ms or []},
+        key=int,
+    )
+    detalhes = materias.detalhes_camara(camara.proposicoes(ids, atualizar=atualizar), ids)
+    print(f"publicar_votacoes: detalhes de {len(detalhes)} de {len(ids)} proposições")
+    tamanho = gravar_votacoes(votacoes_, votos, PUBLICADOS, detalhes=detalhes)
     try:
         impeachments = publicar_impeachments(MANUAIS, PUBLICADOS)
     except ValueError as erro:
@@ -555,9 +562,9 @@ def votacoes_senado(*, atualizar: bool = False) -> None:
                 )
             )
             .alias("materias"),
-            pl.when(pl.col("resultado") == "A")
-            .then(pl.lit("1"))
-            .otherwise(pl.lit("0"))
+            # A = aprovada, R = rejeitada; qualquer outro código (ou vazio) fica sem resultado.
+            pl.col("resultado")
+            .replace_strict({"A": "1", "R": "0"}, default=None)
             .alias("aprovacao"),
             (
                 (pl.col("sigla_materia") == "PEC")
@@ -570,8 +577,16 @@ def votacoes_senado(*, atualizar: bool = False) -> None:
     sem_voto = abertas.filter(~pl.col("id").is_in(votos_publicos["id_votacao"].unique().implode()))
     abertas = abertas.join(sem_voto.select("id"), on="id", how="anti")
     abertas.write_parquet(PROCESSADOS / "votacoes_senado.parquet")
+    codigos = sorted(abertas["codigo_materia"].drop_nulls().unique().to_list(), key=int)
+    pasta_materias = fonte_senado.materias(codigos, atualizar=atualizar)
+    detalhes = materias.detalhes_senado(pasta_materias, codigos)
     tamanho = gravar_votacoes(
-        abertas, votos_publicos, PUBLICADOS, prefixo="senado", nome_indice="indice-senado.json"
+        abertas,
+        votos_publicos,
+        PUBLICADOS,
+        prefixo="senado",
+        nome_indice="indice-senado.json",
+        detalhes=detalhes,
     )
     presenca = tab_votos.filter(pl.col("esperado")).select(
         "id_votacao", "id_deputado", pl.col("votou").alias("presente")

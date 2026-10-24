@@ -116,6 +116,21 @@ export interface Governos {
   base_por_momento: Record<string, BaseNoMomento>;
 }
 
+/** Proposição votada, com textos e classificações publicados pela própria Casa. */
+export interface Materia {
+  rotulo: string;
+  ementa: string | null;
+  url: string;
+  /** Só nos arquivos anuais (página da votação): indexação oficial (palavras-chave). */
+  assuntos?: string | null;
+  /** Senado: classificação temática da matéria. */
+  temas?: string[];
+  /** Câmara: texto integral da proposição. */
+  inteiro_teor?: string | null;
+  /** Senado: norma gerada (lei, emenda constitucional, decreto legislativo...). */
+  norma?: { rotulo: string; url: string } | null;
+}
+
 export interface VotacaoResumo {
   id: string;
   data: string;
@@ -123,8 +138,9 @@ export interface VotacaoResumo {
   descricao: string;
   proposicoes: string[];
   /** O que está sendo votado: ementa e página oficial de cada proposição (Câmara ou Senado). */
-  materias?: { rotulo: string; ementa: string | null; url: string }[];
-  aprovada: boolean;
+  materias?: Materia[];
+  /** Resultado registrado pela fonte; null quando a fonte não registra resultado. */
+  aprovada: boolean | null;
   orientacao_governo: string | null;
   /** [Sim, Não, Abstenção, Obstrução] */
   placar: [number, number, number, number];

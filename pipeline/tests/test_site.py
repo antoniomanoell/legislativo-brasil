@@ -122,3 +122,24 @@ def test_publicar_votacoes_formato_compacto(tmp_path):
     assert v["pec"] is True and v["placar"] == [1, 1, 0, 0]
     indice = json.loads((tmp_path / "votacoes" / "indice.json").read_text("utf-8"))
     assert "v" not in indice[0]
+
+
+def test_resultado_vazio_na_fonte_fica_sem_resultado():
+    from congresso.load.votacoes_site import _meta
+
+    base = {
+        "id": "1-1",
+        "data": "2016-10-10",
+        "descricao": "Mantido o dispositivo.",
+        "descricao_abertura": None,
+        "proposicoes": [],
+        "orientacao_governo": None,
+        "n_Sim": 300,
+        "n_Não": 100,
+        "n_Abstenção": 0,
+        "n_Obstrução": 0,
+        "destaque_pec": False,
+    }
+    assert _meta({**base, "aprovacao": ""})["aprovada"] is None
+    assert _meta({**base, "aprovacao": None})["aprovada"] is None
+    assert _meta({**base, "aprovacao": "0"})["aprovada"] is False

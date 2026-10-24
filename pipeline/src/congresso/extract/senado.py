@@ -92,3 +92,16 @@ def votacoes(ultimo_ano: int, *, atualizar: bool = False) -> Path:
                 if atualizar or ano == ultimo_ano or not destino.exists():
                     _salvar(destino, _get(c, url))
     return PASTA
+
+
+def materias(codigos: list[str], *, atualizar: bool = False) -> Path:
+    """Detalhe de cada matéria votada (classificação, indexação e norma gerada), um JSON por
+    código."""
+    with _cliente() as c:
+        for n, cod in enumerate(codigos, 1):
+            destino = PASTA / "materias" / f"{cod}.json"
+            if atualizar or not destino.exists():
+                _salvar(destino, _get(c, f"{API}/materia/{cod}"))
+            if n % 200 == 0:
+                print(f"  {n}/{len(codigos)} matérias")
+    return PASTA / "materias"

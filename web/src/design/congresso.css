@@ -444,3 +444,8 @@
 .lista-materias li + li {
   margin-top: 0.5em;
 }
+.indexacao summary {
+  cursor: pointer;
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}

@@ -64,12 +64,41 @@ function ementa(v: VotacaoResumo): string {
 function materias(v: VotacaoResumo): string {
   if (!v.materias?.length) return '';
   const casaFonte = senado ? 'do Senado' : 'da Câmara';
-  return `<h2 class="bloco-titulo">O que foi votado</h2><ul class="lista-materias">${v.materias
-    .map(
-      (m) =>
-        `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.rotulo)}</a> <span class="bloco-dica">(página no portal ${casaFonte})</span>${m.ementa ? `<br>${esc(m.ementa)}` : ''}</li>`,
-    )
-    .join('')}</ul>`;
+  const link = (url: string, texto: string) =>
+    `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(texto)}</a>`;
+  return `<h2 class="bloco-titulo">O que foi votado</h2>
+    <p class="bloco-dica">Ementa, temas e indexação são publicados ${senado ? 'pelo Senado' : 'pela Câmara'}; o site não resume nem interpreta o texto.</p>
+    <ul class="lista-materias">${v.materias
+      .map((m) =>
+        [
+          `${link(m.url, m.rotulo)} <span class="bloco-dica">(página no portal ${casaFonte})</span>`,
+          m.inteiro_teor ? ` · ${link(m.inteiro_teor, 'inteiro teor')}` : '',
+          m.ementa ? `<br>${esc(m.ementa)}` : '',
+          m.norma ? `<br>Norma gerada: ${link(m.norma.url, m.norma.rotulo)}` : '',
+          m.temas?.length
+            ? `<br><span class="posicao-celula">Temas: ${esc(m.temas.join('; '))}</span>`
+            : '',
+          m.assuntos
+            ? `<details class="indexacao"><summary>Indexação oficial (palavras-chave)</summary><p class="posicao-celula">${esc(m.assuntos)}</p></details>`
+            : '',
+        ].join(''),
+      )
+      .map((x) => `<li>${x}</li>`)
+      .join('')}</ul>`;
+}
+
+function resultado(v: VotacaoResumo): string {
+  if (v.aprovada === null) return 'sem resultado registrado';
+  return v.aprovada ? 'aprovada' : 'rejeitada';
+}
+
+/** Aviso quando o resultado da fonte contraria a maioria simples do placar. */
+function avisoResultado(v: VotacaoResumo): string {
+  const [s, n] = v.placar;
+  if (v.aprovada === null)
+    return `<p class="aviso-lacuna">A fonte não registra o resultado desta votação; veja o texto da votação acima.</p>`;
+  if ((v.aprovada && s >= n) || (!v.aprovada && s <= n)) return '';
+  return `<p class="aviso-lacuna">O resultado registrado pela fonte não coincide com a maioria simples do placar. Pode ser quórum qualificado (PEC: 3/5 da Casa; lei complementar: maioria absoluta), votação de texto destacado ou de parecer contrário (em que "Sim" mantém o parecer) ou erro na fonte. Confira o texto da votação e a página da proposição.</p>`;
 }
 
 function orientacao(v: VotacaoResumo): string {
@@ -142,13 +171,14 @@ async function detalhe(id: string, ano: number): Promise<void> {
     ${v.impeachment ? '<p><span class="selo">Impeachment: voto de cada deputado transcrito do Diário oficial</span></p>' : ''}
     ${materias(v)}
     <p><strong>Votação:</strong> ${esc(v.descricao)}</p>
-    <p class="placar"><strong>${v.aprovada ? 'Aprovada' : 'Rejeitada'}</strong>
+    <p class="placar"><strong>${resultado(v).replace(/^./, (c) => c.toUpperCase())}</strong>
       <span><span class="amostra" style="background:var(--voto-sim)"></span>Sim ${s}</span>
       <span><span class="amostra" style="background:var(--voto-nao)"></span>Não ${n}</span>
       ${o ? `<span><span class="amostra" style="background:var(--voto-obstrucao)"></span>Obstrução ${o}</span>` : ''}
       <span><span class="amostra" style="background:var(--voto-abstencao)"></span>Abstenção ${a}</span>
       ${art17 ? `<span>${ROTULO_PRESIDENTE}: ${art17}</span>` : ''}
       ${v.ausentes ? `<span>Ausentes: ${v.ausentes}</span>` : ''}</p>
+    ${avisoResultado(v)}
     <p>Orientação do Governo: <strong>${esc(orientacao(v))}</strong></p>
     <section aria-labelledby="titulo-hemi">
       <h2 class="bloco-titulo" id="titulo-hemi">Voto de cada ${parlamentar}</h2>
@@ -271,7 +301,7 @@ async function lista(): Promise<void> {
         (v) => `<tr><td class="num">${dataBr(v.data)}</td>
           <td><a href="votacoes.html?v=${encodeURIComponent(v.id)}&a=${v.data.slice(0, 4)}${sufixoCasa}">${esc(rotuloProposicao(v))}</a>${v.pec ? ' <span class="selo">PEC</span>' : ''}${v.impeachment ? ' <span class="selo">impeachment</span>' : ''}</td>
           <td>${esc(cortar(ementa(v), 180))}<br><span class="posicao-celula">${esc(cortar(v.descricao, 120))}</span></td>
-          <td>${v.aprovada ? 'aprovada' : 'rejeitada'}</td><td class="num">${v.placar[0]} × ${v.placar[1]}</td>
+          <td>${resultado(v)}</td><td class="num">${v.placar[0]} × ${v.placar[1]}</td>
           <td>${esc(v.orientacao_governo ?? '—')}</td></tr>`,
       )
       .join('');

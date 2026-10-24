@@ -36,7 +36,9 @@ def _meta(r: dict) -> dict:
         "proposicoes": r["proposicoes"],
         # [{rotulo, ementa, url}]: ementa e página oficial de cada proposição votada.
         "materias": r.get("materias") or [],
-        "aprovada": r["aprovacao"] == "1",
+        # "1"/"0" da fonte; vazio = sem resultado registrado (em 2026-10-24: 660 votações da Câmara
+        # e 86 abertas do Senado).
+        "aprovada": {"1": True, "0": False}.get(r["aprovacao"]),
         "orientacao_governo": r["orientacao_governo"],
         "placar": [r["n_Sim"], r["n_Não"], r["n_Abstenção"], r["n_Obstrução"]],
         "pec": r["destaque_pec"],
@@ -49,9 +51,17 @@ def publicar_votacoes(
     destino: Path,
     prefixo: str = "ano",
     nome_indice: str = "indice.json",
+    detalhes: dict[str, dict] | None = None,
 ) -> int:
-    """Grava os arquivos anuais (`<prefixo>-AAAA.json`) e o índice; devolve os bytes gravados."""
+    """Grava os arquivos anuais (`<prefixo>-AAAA.json`) e o índice; devolve os bytes gravados.
+
+    `detalhes` (URL da proposição → assuntos, inteiro teor, norma...) entra só nos arquivos anuais,
+    que a página de cada votação carrega; o índice fica leve."""
+    detalhes = detalhes or {}
     pasta = destino / "votacoes"
+    # Um ano que deixou de ter votações (ex.: todas excluídas) não pode ficar com o arquivo antigo.
+    for antigo in pasta.glob(f"{prefixo}-*.json"):
+        antigo.unlink()
     indice = []
     votacoes = votacoes.with_columns(pl.col("data").str.slice(0, 4).cast(pl.Int32).alias("ano"))
     for (ano,), vs in votacoes.sort("data_hora").group_by("ano", maintain_order=True):
@@ -79,7 +89,8 @@ def publicar_votacoes(
         for r in vs.iter_rows(named=True):
             m = _meta(r)
             indice.append(m)
-            lista.append({**m, **por_votacao[r["id"]]})
+            completas = [{**x, **detalhes.get(x["url"], {})} for x in m["materias"]]
+            lista.append({**m, "materias": completas, **por_votacao[r["id"]]})
         _gravar(
             pasta / f"{prefixo}-{ano}.json",
             {

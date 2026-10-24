@@ -115,6 +115,11 @@ ele estava no exercício do mandato. O registro "Artigo 17", do presidente da se
 dividida pelo total desses votos (1 = todos votaram igual; 0 = divisão meio a meio). O valor de um
 período é a média das votações.
 
+**O que foi votado.** Cada votação mostra a ementa da proposição e o link para a página dela no
+portal da Câmara ou do Senado, com o que a própria Casa publica: palavras-chave da indexação, temas,
+inteiro teor e a norma gerada. O site não escreve resumos: nenhum texto sobre o conteúdo das
+proposições é do projeto.
+
 **Destaques.** Só por critério objetivo: votações de mérito de Propostas de Emenda à Constituição em
 primeiro ou segundo turno (não entram requerimentos, destaques e recursos) e as duas autorizações de
 impeachment. Nenhuma votação é destacada por escolha editorial.
