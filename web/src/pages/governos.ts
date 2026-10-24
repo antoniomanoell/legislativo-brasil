@@ -20,6 +20,7 @@ import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, formatarNumero, pct } from '../formato';
 import { siglaEm } from '../siglas';
+import { mostrarAtualizacao } from '../atualizacao';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 const SVG = 'http://www.w3.org/2000/svg';
@@ -234,6 +235,7 @@ async function iniciar(): Promise<void> {
   document.body.dataset['pronto'] = 'true';
 }
 
+void mostrarAtualizacao(['governos', 'composicao_camara', 'votacoes_camara']);
 iniciar().catch((erro: unknown) => {
   console.error(erro);
   $('#erro').hidden = false;

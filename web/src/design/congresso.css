@@ -347,7 +347,8 @@
 }
 .barra-sem-dados {
   fill: none;
-  stroke: var(--borda-forte);
+  stroke: var(--texto-2);
+  stroke-width: 1.5;
   stroke-dasharray: 4 3;
 }
 .linha-maioria {

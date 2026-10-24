@@ -24,6 +24,7 @@ import { esc, formatarNumero } from '../formato';
 import { coresDasFaixas } from '../ideologia';
 import { siglaEm } from '../siglas';
 import { COR_VOTO, decodificar, placarPorPartido, type Voto } from '../votos';
+import { mostrarAtualizacao } from '../atualizacao';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 const POR_PAGINA = 100;
@@ -319,6 +320,7 @@ async function lista(): Promise<void> {
   aplicar();
 }
 
+void mostrarAtualizacao([senado ? 'votacoes_senado' : 'votacoes_camara']);
 const p = new URLSearchParams(location.search);
 const id = p.get('v');
 (id ? detalhe(id, Number(p.get('a') ?? id.slice(0, 4))) : lista())

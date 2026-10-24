@@ -10,7 +10,7 @@ from congresso.extract import camara, camara_votacoes, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.extract import senado as fonte_senado
 from congresso.load.site import publicar as gravar_site
-from congresso.load.site import publicar_2027, publicar_governos
+from congresso.load.site import publicar_2027, publicar_governos, registrar_atualizacao
 from congresso.load.site import publicar_senado as gravar_senado
 from congresso.load.votacoes_site import publicar_impeachments, publicar_indicadores
 from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
@@ -218,6 +218,8 @@ def publicar(*, atualizar: bool = False) -> None:
             destino=PUBLICADOS,
             ministros=pl.read_csv(MANUAIS / "ministros_pos2020.csv", infer_schema=False),
         )
+        registrar_atualizacao(PUBLICADOS, "governos")
+    registrar_atualizacao(PUBLICADOS, "composicao_camara")
     tamanho = sum(p.stat().st_size for p in PUBLICADOS.rglob("*.json"))
     print(
         f"publicar: {len(catalogo['momentos'])} momentos; {tamanho / 1024:.0f} KB em {PUBLICADOS}"
@@ -406,6 +408,7 @@ def publicar_votacoes(*, atualizar: bool = False) -> None:
     detalhes = materias.detalhes_camara(camara.proposicoes(ids, atualizar=atualizar), ids)
     print(f"publicar_votacoes: detalhes de {len(detalhes)} de {len(ids)} proposições")
     tamanho = gravar_votacoes(votacoes_, votos, PUBLICADOS, detalhes=detalhes)
+    registrar_atualizacao(PUBLICADOS, "votacoes_camara")
     try:
         impeachments = publicar_impeachments(MANUAIS, PUBLICADOS)
     except ValueError as erro:
@@ -599,6 +602,7 @@ def votacoes_senado(*, atualizar: bool = False) -> None:
         nome_indice="indice-senado.json",
         detalhes=detalhes,
     )
+    registrar_atualizacao(PUBLICADOS, "votacoes_senado")
     presenca = tab_votos.filter(pl.col("esperado")).select(
         "id_votacao", "id_deputado", pl.col("votou").alias("presente")
     )
@@ -648,6 +652,7 @@ def publicar_senado(*, atualizar: bool = False) -> None:
         bases,
         PUBLICADOS,
     )
+    registrar_atualizacao(PUBLICADOS, "composicao_senado")
     print(f"publicar_senado: {len(cat['momentos'])} momentos; {len(cat['lacunas'])} anos sem foto")
 
 
@@ -743,6 +748,7 @@ def congresso_2027(*, atualizar: bool = False) -> None:
     )
     try:
         publicar_2027(camara, senado, dia, PUBLICADOS)
+        registrar_atualizacao(PUBLICADOS, "congresso_2027")
     except ValueError as erro:
         raise FalhaDeValidacao(str(erro)) from erro
     notas = continuam.filter(pl.col("nota").is_not_null())

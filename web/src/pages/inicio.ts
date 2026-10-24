@@ -26,6 +26,7 @@ import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
 import { siglaEm } from '../siglas';
 import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
+import { mostrarAtualizacao } from '../atualizacao';
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
@@ -362,10 +363,8 @@ function ligarControles(): void {
 }
 
 async function iniciar(): Promise<void> {
-  let catalogoCamara: Catalogo;
-  [catalogo, catalogoCamara, ideologia, governos, partidos] = await Promise.all([
+  [catalogo, ideologia, governos, partidos] = await Promise.all([
     carregarCatalogo(casa),
-    carregarCatalogo('camara'),
     carregarIdeologia(),
     carregarGovernos(),
     carregarPartidos(),
@@ -376,14 +375,13 @@ async function iniciar(): Promise<void> {
     'Como ler o hemiciclo',
     'Cada bolinha é uma cadeira. Os partidos vão da esquerda para a direita pela posição ideológica medida pela fonte acadêmica da legislatura; dentro do partido, os parlamentares estão em ordem alfabética. A cor mostra a posição do partido, não o partido: partidos de mesma posição têm a mesma cor e são separados por linhas e siglas. Partidos sem medição na fonte ficam fora da ordenação, à parte. <a href="metodologia.html">Metodologia</a>',
   );
-  const geradoEm = (catalogoCamara.gerado_em ?? '').split('-').reverse().join('/');
   $('#titulo-tabela').textContent = casa === 'senado' ? 'Senadores' : 'Deputados';
   // A regra dos lugares (só líderes com lugar marcado) foi conferida para a Câmara, não para o Senado.
   if (casa === 'senado')
     $('#nota-hemiciclo').textContent =
       'A posição das cadeiras é representativa; não corresponde ao assento real no plenário.';
   $('#rodape-fontes').textContent =
-    `Composição: TSE (eleitos), Câmara dos Deputados e Senado Federal (em exercício). Posição ideológica: Zucco & Power (BLS) e Bolognesi et al. Dados gerados em ${geradoEm}.`;
+    `Composição: TSE (eleitos), Câmara dos Deputados e Senado Federal (em exercício). Posição ideológica: Zucco & Power (BLS) e Bolognesi et al.`;
   document.querySelectorAll<HTMLButtonElement>('[data-casa]').forEach((b) => {
     b.setAttribute('aria-pressed', String(b.dataset['casa'] === casa));
     b.addEventListener('click', () => {
@@ -398,6 +396,10 @@ async function iniciar(): Promise<void> {
   document.body.dataset['pronto'] = 'true';
 }
 
+void mostrarAtualizacao([
+  casa === 'senado' ? 'composicao_senado' : 'composicao_camara',
+  'governos',
+]);
 iniciar().catch((erro: unknown) => {
   console.error(erro);
   $('#erro').hidden = false;

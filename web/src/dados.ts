@@ -258,3 +258,15 @@ export interface Congresso2027 {
 }
 
 export const carregarCongresso2027 = () => carregar<Congresso2027>('congresso-2027.json');
+
+export type ConjuntoDeDados =
+  | 'composicao_camara'
+  | 'composicao_senado'
+  | 'votacoes_camara'
+  | 'votacoes_senado'
+  | 'governos'
+  | 'congresso_2027';
+
+/** Data (AAAA-MM-DD) em que cada conjunto foi gerado pelo pipeline. */
+export const carregarAtualizacao = () =>
+  carregar<Partial<Record<ConjuntoDeDados, string>>>('atualizacao.json');

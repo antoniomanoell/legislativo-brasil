@@ -363,3 +363,12 @@ def publicar_2027(
             .to_dicts(),
         },
     )
+
+
+def registrar_atualizacao(destino: Path, conjunto: str) -> None:
+    """atualizacao.json: data em que cada conjunto de dados do site foi gerado (cada etapa grava o
+    seu; os conjuntos podem ter datas diferentes)."""
+    caminho = destino / "atualizacao.json"
+    datas = json.loads(caminho.read_text(encoding="utf-8")) if caminho.exists() else {}
+    datas[conjunto] = datetime.now(UTC).strftime("%Y-%m-%d")
+    _gravar(caminho, datas)

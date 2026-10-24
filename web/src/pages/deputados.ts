@@ -18,6 +18,7 @@ import { iniciarTema } from '../design/tema';
 import { esc, formatarNumero } from '../formato';
 import { siglaEm } from '../siglas';
 import { VOTO } from '../votos';
+import { mostrarAtualizacao } from '../atualizacao';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 const casa = casaDaUrl();
@@ -184,6 +185,7 @@ async function busca(): Promise<void> {
 }
 
 iniciarTema();
+void mostrarAtualizacao([senado ? 'votacoes_senado' : 'votacoes_camara']);
 const idDeputado = new URLSearchParams(location.search).get('d');
 (idDeputado ? perfil(idDeputado) : busca())
   .then(() => (document.body.dataset['pronto'] = 'true'))

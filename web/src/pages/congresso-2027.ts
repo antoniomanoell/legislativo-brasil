@@ -16,6 +16,7 @@ import {
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
 import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
+import { mostrarAtualizacao } from '../atualizacao';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 
@@ -182,6 +183,7 @@ async function iniciar(): Promise<void> {
   document.body.dataset['pronto'] = 'true';
 }
 
+void mostrarAtualizacao(['congresso_2027']);
 iniciar().catch((erro: unknown) => {
   console.error(erro);
   $('#erro').hidden = false;

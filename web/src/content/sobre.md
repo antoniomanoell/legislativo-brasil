@@ -44,7 +44,7 @@ completas estão na [Metodologia](metodologia.html).
 ## Dados
 
 O site não oferece download dos dados tratados. Quem precisar dos dados deve recorrer às fontes
-originais acima, todas abertas, e citá-las conforme os termos de cada uma.
+originais acima, todas de acesso público, e citá-las conforme os termos de cada uma.
 
 ## Como citar
 
@@ -56,5 +56,11 @@ Deputados — Dados Abertos" para votações da Câmara, ou Bolognesi et al. par
 
 ## Atualização
 
-Os dados são atualizados manualmente, não em tempo real. A data da última atualização aparece no
-rodapé do Início. Composições e bancadas das eleições de 2026 são provisórias até a diplomação.
+Os dados são atualizados manualmente, não em tempo real. Cada conjunto (composição, votações,
+Senado, governos) traz no rodapé da página a data em que foi gerado. Composições e bancadas das
+eleições de 2026 são provisórias até a diplomação.
+
+## Correções
+
+Encontrou um erro? Escreva para antoniomanoel650@gmail.com, de preferência com a página e a fonte que
+mostra o dado correto.
