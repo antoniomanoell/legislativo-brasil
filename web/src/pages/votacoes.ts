@@ -1,6 +1,7 @@
 // Votações (PROJECT.md, 4.1.6): lista filtrável das votações nominais do plenário (2001 em diante)
 // e, em ?v=<id>&a=<ano>, a votação com placar por partido, orientação do Governo e hemiciclo
-// colorido pelo voto. Destaques só por critério objetivo (§7.7): PEC em 1º/2º turno.
+// colorido pelo voto. Destaques só por critério objetivo (§7.7): PEC em 1º/2º turno. Com ?c=senado,
+// as votações abertas do plenário do Senado (1991 em diante).
 
 import '../design/mapa.css';
 import '../design/congresso.css';
@@ -12,6 +13,7 @@ import {
   carregarPartidos,
   carregarArquivoVotacao,
   carregarVotacoesDoAno,
+  casaDaUrl,
   type Deputado,
   type Ideologia,
   type Partido,
@@ -25,6 +27,14 @@ import { COR_VOTO, decodificar, placarPorPartido, type Voto } from '../votos';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 const POR_PAGINA = 100;
+const casa = casaDaUrl();
+const senado = casa === 'senado';
+/** Sufixo dos links internos que mantêm a Casa. */
+const sufixoCasa = senado ? '&c=senado' : '';
+const parlamentar = senado ? 'senador' : 'deputado';
+/** O código "7" é o presidente da sessão: "Artigo 17" na Câmara, "art. 51 RISF" no Senado. */
+const ROTULO_PRESIDENTE = senado ? 'Presidente (art. 51 RISF)' : 'Artigo 17';
+const rotuloVoto = (v: Voto) => (v === 'Artigo 17' ? ROTULO_PRESIDENTE : v);
 
 function dataBr(iso: string): string {
   return iso.slice(0, 10).split('-').reverse().join('/');
@@ -54,7 +64,7 @@ function legendaVotos(): string {
     ['Não', 'Não'],
     ['Obstrução', 'Obstrução'],
     ['Abstenção', 'Abstenção'],
-    ['Artigo 17', 'Artigo 17 (presidente da sessão)'],
+    ['Artigo 17', `${ROTULO_PRESIDENTE}: presidente da sessão`],
   ];
   return `<ul>${itens
     .map(
@@ -66,14 +76,14 @@ function legendaVotos(): string {
 
 async function detalhe(id: string, ano: number): Promise<void> {
   const [doAno, ideologia, partidos] = await Promise.all([
-    id.startsWith('impeachment-') ? carregarArquivoVotacao(id) : carregarVotacoesDoAno(ano),
+    id.startsWith('impeachment-') ? carregarArquivoVotacao(id) : carregarVotacoesDoAno(ano, casa),
     carregarIdeologia(),
     carregarPartidos(),
   ]);
   const v = doAno.votacoes.find((x) => x.id === id);
   if (!v) {
     $('#conteudo').innerHTML =
-      `<h1 class="bloco-titulo">Votação não encontrada</h1><p><a href="votacoes.html">Todas as votações</a></p>`;
+      `<h1 class="bloco-titulo">Votação não encontrada</h1><p><a href="votacoes.html${senado ? '?c=senado' : ''}">Todas as votações</a></p>`;
     return;
   }
   document.title = `${rotuloProposicao(v)} (${dataBr(v.data)}) — Votações — Congresso em Números`;
@@ -105,7 +115,7 @@ async function detalhe(id: string, ano: number): Promise<void> {
     })
     .join('');
   $('#conteudo').innerHTML =
-    `<p class="voltar"><a href="votacoes.html?ano=${ano}">← Votações de ${ano}</a></p>
+    `<p class="voltar"><a href="votacoes.html?ano=${ano}${sufixoCasa}">← Votações de ${ano}</a></p>
     <h1 class="bloco-titulo">${esc(rotuloProposicao(v))} — ${dataBr(v.data)}</h1>
     ${v.pec ? '<p><span class="selo">PEC: votação de mérito em 1º ou 2º turno</span></p>' : ''}
     ${v.impeachment ? '<p><span class="selo">Impeachment: voto de cada deputado transcrito do Diário oficial</span></p>' : ''}
@@ -115,11 +125,11 @@ async function detalhe(id: string, ano: number): Promise<void> {
       <span><span class="amostra" style="background:var(--voto-nao)"></span>Não ${n}</span>
       ${o ? `<span><span class="amostra" style="background:var(--voto-obstrucao)"></span>Obstrução ${o}</span>` : ''}
       <span><span class="amostra" style="background:var(--voto-abstencao)"></span>Abstenção ${a}</span>
-      ${art17 ? `<span>Artigo 17: ${art17}</span>` : ''}
+      ${art17 ? `<span>${ROTULO_PRESIDENTE}: ${art17}</span>` : ''}
       ${v.ausentes ? `<span>Ausentes: ${v.ausentes}</span>` : ''}</p>
     <p>Orientação do Governo: <strong>${esc(orientacao(v))}</strong></p>
     <section aria-labelledby="titulo-hemi">
-      <h2 class="bloco-titulo" id="titulo-hemi">Voto de cada deputado</h2>
+      <h2 class="bloco-titulo" id="titulo-hemi">Voto de cada ${parlamentar}</h2>
       <p class="bloco-dica">Partidos da esquerda para a direita pela posição ideológica da ${leg}ª legislatura; cor = voto. Ausentes não aparecem. Passe o mouse ou use as setas.</p>
       <div id="hemiciclo"></div>
       <p id="ficha" class="ficha-cadeira" aria-live="polite"></p>
@@ -130,16 +140,16 @@ async function detalhe(id: string, ano: number): Promise<void> {
     <p class="bloco-dica">Coesão (Índice de Rice) = |Sim − Não| ÷ (Sim + Não) dentro do partido: 1 = todos votaram igual.</p>
     <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Partido</th><th scope="col">Sim</th><th scope="col">Não</th><th scope="col">Abst.</th><th scope="col">Obstr.</th><th scope="col">Coesão</th></tr></thead><tbody>${linhasPartido}</tbody></table></div>
     <h2 class="bloco-titulo">Lista nominal</h2>
-    <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Deputado</th><th scope="col">Partido</th><th scope="col">UF</th><th scope="col">Voto</th></tr></thead><tbody>${[
+    <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">${senado ? 'Senador' : 'Deputado'}</th><th scope="col">Partido</th><th scope="col">UF</th><th scope="col">Voto</th></tr></thead><tbody>${[
       ...votos,
     ]
       .sort((x, y) => x.nome.localeCompare(y.nome, 'pt-BR'))
       .map(
         (x) =>
-          `<tr><td>${x.id ? `<a href="deputados.html?d=${x.id}">${esc(x.nome)}</a>` : esc(x.nome)}</td><td>${esc(sigla(x.partido))}</td><td>${esc(x.uf)}</td><td>${esc(x.voto)}</td></tr>`,
+          `<tr><td>${x.id ? `<a href="deputados.html?d=${x.id}${sufixoCasa}">${esc(x.nome)}</a>` : esc(x.nome)}</td><td>${esc(sigla(x.partido))}</td><td>${esc(x.uf)}</td><td>${esc(rotuloVoto(x.voto))}</td></tr>`,
       )
       .join('')}</tbody></table></div>
-    <p class="bloco-dica">Fonte: ${v.fonte ? esc(v.fonte) + '. Nomes e partidos como impressos no documento.' : `Câmara dos Deputados — Dados Abertos (votação ${esc(v.id)}).`}</p>`;
+    <p class="bloco-dica">Fonte: ${v.fonte ? esc(v.fonte) + '. Nomes e partidos como impressos no documento.' : senado ? `Senado Federal — Dados Abertos (votação ${esc(v.id.slice(3))}). Partido pela filiação do senador na data.` : `Câmara dos Deputados — Dados Abertos (votação ${esc(v.id)}).`}</p>`;
 
   const corPorVoto = (d: Deputado) => COR_VOTO[(d as Deputado & { voto: Voto }).voto];
   const desenhar = () =>
@@ -149,7 +159,7 @@ async function detalhe(id: string, ano: number): Promise<void> {
       coresDasFaixas(),
       (sel) =>
         ($('#ficha').innerHTML = sel
-          ? `<strong>${esc(sel.deputado.nome)}</strong> · ${esc(sel.deputado.sigla)} · ${esc(sel.deputado.uf)} — voto: ${esc((sel.deputado as Deputado & { voto: Voto }).voto)}`
+          ? `<strong>${esc(sel.deputado.nome)}</strong> · ${esc(sel.deputado.sigla)} · ${esc(sel.deputado.uf)} — voto: ${esc(rotuloVoto((sel.deputado as Deputado & { voto: Voto }).voto))}`
           : ''),
       undefined,
       corPorVoto,
@@ -165,21 +175,28 @@ async function detalhe(id: string, ano: number): Promise<void> {
 
 async function lista(): Promise<void> {
   iniciarTema();
-  const indice = await carregarIndiceVotacoes();
+  const indice = await carregarIndiceVotacoes(casa);
   const anos = [...new Set(indice.map((v) => Number(v.data.slice(0, 4))))].sort((a, b) => b - a);
   const regulares = indice.filter((v) => !v.impeachment);
   const anosRegulares = [...new Set(regulares.map((v) => Number(v.data.slice(0, 4))))].sort(
     (a, b) => b - a,
   );
   const p = new URLSearchParams(location.search);
-  $('#conteudo').innerHTML = `<h1 class="bloco-titulo">Votações nominais do plenário</h1>
-    <p class="bloco-dica">${regulares.length} votações nominais com voto registrado pela Câmara, de ${anosRegulares.at(-1)} a ${anosRegulares[0]}. Antes de dez/2001 a Câmara não publica o voto de cada deputado. Destaque só por critério objetivo: PEC em 1º ou 2º turno e autorização de impeachment (1992 e 2016, transcritos do Diário oficial).</p>
+  const explicacao = senado
+    ? `${regulares.length} votações nominais abertas do plenário do Senado, de ${anosRegulares.at(-1)} a ${anosRegulares[0]}. Votações secretas não têm voto individual e ficam de fora. A fonte é incompleta em alguns anos: 2015 não tem nenhuma votação cuja lista de senadores bata com os mandatos, 2016 tem 6, e 1992 e 1996–1998 poucas; 25 votações com lista incompatível com os mandatos foram retiradas (veja a Metodologia). A orientação do Governo só é registrada a partir de 2018–2019. Destaque só por critério objetivo: PEC votada em 1º ou 2º turno.`
+    : `${regulares.length} votações nominais com voto registrado pela Câmara, de ${anosRegulares.at(-1)} a ${anosRegulares[0]}. Antes de dez/2001 a Câmara não publica o voto de cada deputado. Destaque só por critério objetivo: PEC em 1º ou 2º turno e autorização de impeachment (1992 e 2016, transcritos do Diário oficial).`;
+  $('#conteudo').innerHTML =
+    `<div class="barra-viz"><div class="visao" role="group" aria-label="Casa">
+      <button type="button" data-casa="camara" aria-pressed="${!senado}">Câmara</button>
+      <button type="button" data-casa="senado" aria-pressed="${senado}">Senado</button></div></div>
+    <h1 class="bloco-titulo">Votações nominais do plenário ${senado ? 'do Senado' : 'da Câmara'}</h1>
+    <p class="bloco-dica">${explicacao}</p>
     <form class="filtros" id="filtros" role="search">
       <label class="campo" style="flex:0 1 140px"><span class="campo-rotulo">Ano</span>
         <select name="ano"><option value="">Todos</option>${anos.map((a) => `<option>${a}</option>`).join('')}</select></label>
       <label class="campo" style="flex:1 1 240px"><span class="campo-rotulo">Buscar</span>
         <input type="search" name="q" placeholder="proposição ou texto (ex.: PEC 6/2019)"></label>
-      <label class="caixa"><input type="checkbox" name="d"> só destaques (PEC e impeachment)</label>
+      <label class="caixa"><input type="checkbox" name="d"> só destaques (${senado ? 'PEC em 1º ou 2º turno' : 'PEC e impeachment'})</label>
       <label class="caixa"><input type="checkbox" name="g"> só com orientação Sim/Não do Governo</label>
     </form>
     <p id="contagem" class="bloco-dica" aria-live="polite"></p>
@@ -189,6 +206,12 @@ async function lista(): Promise<void> {
   (form.elements.namedItem('ano') as HTMLSelectElement).value = p.get('ano') ?? String(anos[0]);
   (form.elements.namedItem('q') as HTMLInputElement).value = p.get('q') ?? '';
   (form.elements.namedItem('d') as HTMLInputElement).checked = p.get('d') === '1';
+  document.querySelectorAll<HTMLButtonElement>('[data-casa]').forEach((b) =>
+    b.addEventListener('click', () => {
+      if (b.dataset['casa'] !== casa)
+        location.search = b.dataset['casa'] === 'senado' ? '?c=senado' : '';
+    }),
+  );
   (form.elements.namedItem('g') as HTMLInputElement).checked = p.get('g') === '1';
   let limite = POR_PAGINA;
 
@@ -201,6 +224,7 @@ async function lista(): Promise<void> {
     const soPec = f.get('d') === 'on';
     const soGov = f.get('g') === 'on';
     const url = new URLSearchParams();
+    if (senado) url.set('c', 'senado');
     if (ano) url.set('ano', ano);
     if (q) url.set('q', q);
     if (soPec) url.set('d', '1');
@@ -220,7 +244,7 @@ async function lista(): Promise<void> {
       .slice(0, limite)
       .map(
         (v) => `<tr><td class="num">${dataBr(v.data)}</td>
-          <td><a href="votacoes.html?v=${encodeURIComponent(v.id)}&a=${v.data.slice(0, 4)}">${esc(rotuloProposicao(v))}</a>${v.pec ? ' <span class="selo">PEC</span>' : ''}${v.impeachment ? ' <span class="selo">impeachment</span>' : ''}</td>
+          <td><a href="votacoes.html?v=${encodeURIComponent(v.id)}&a=${v.data.slice(0, 4)}${sufixoCasa}">${esc(rotuloProposicao(v))}</a>${v.pec ? ' <span class="selo">PEC</span>' : ''}${v.impeachment ? ' <span class="selo">impeachment</span>' : ''}</td>
           <td class="posicao-celula">${esc(v.descricao.slice(0, 140))}${v.descricao.length > 140 ? '…' : ''}</td>
           <td>${v.aprovada ? 'aprovada' : 'rejeitada'}</td><td class="num">${v.placar[0]} × ${v.placar[1]}</td>
           <td>${esc(v.orientacao_governo ?? '—')}</td></tr>`,
