@@ -51,8 +51,22 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Web: página Governos e indicação da base formal no Início (com IPEA; falta a curadoria pós-2020)
 - [x] Testes, CI e resumo para o Antônio
 
+## Fase 3 — em andamento (votações da Câmara, 2001–2026)
+
+- [ ] Extração: arquivos em lote da Câmara (votacoes, votacoesVotos, votacoesOrientacoes,
+      votacoesProposicoes) 2001–2026, com cache em data/raw/camara/votacoes
+- [ ] Transformação: votações nominais de plenário, votos, orientação do Governo normalizada
+      ("GOV." e "Governo"), partido do voto mapeado para partido_id
+- [ ] Impeachments 1992 e 2016: voto nominal transcrito do Diário da Câmara (agente) →
+      data/manual/impeachment_*.csv, conferido com o placar
+- [ ] Indicadores: governismo e presença (deputado e partido, por ano/legislatura/gabinete) e
+      coesão (Rice), conforme DECISIONS (A3, A4, A8)
+- [ ] Destaques: PEC em 1º/2º turno (A5) e impeachments
+- [ ] Validação cruzada: partido no voto × filiação na data (reports/divergencias_filiacao.csv)
+- [ ] Publicar: JSON por votação, por deputado e agregados (decidir formato pelo tamanho)
+- [ ] Web: páginas Votações e Deputados; governismo na página Governos
+- [ ] Testes, CI e resumo para o Antônio
+
 ## Próximo passo exato
 
-Fase 3 (votações da Câmara, 2001–2026): ingestão dos arquivos em lote (votações, votos,
-orientações), governismo e coesão (decisões pendentes A3, A4, A5, A6, A8 — levar ao Antônio antes
-de calcular), páginas Votações e Deputados.
+Escrever extract/camara_votacoes.py e baixar os arquivos em lote (em segundo plano).

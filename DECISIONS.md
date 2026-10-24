@@ -253,3 +253,21 @@ Formato de cada entrada:
   da série até 2020, aplicado sem exceções. O site mostra, gabinete a gabinete, quem não foi contado
   e por quê.
 
+## 2026-10-23 — Indicadores de votação (A3, A4, A5, A8) e impeachments (A6)
+- **Governismo (A8):** só votações nominais de plenário em que o governo orientou "Sim" ou "Não".
+  Numerador: votos iguais à orientação. Denominador: Sim + Não + Abstenção + Obstrução (abstenção e
+  obstrução contam como não seguir a orientação, como no Basômetro/Estadão e no Poder360). Ausência
+  fica fora e vira uma taxa de presença à parte. Alternativas descartadas: contar a falta contra
+  (Congresso em Foco); obstrução a favor quando o governo orienta "Não"; só Sim/Não no denominador.
+- **"Artigo 17" (A3):** registro do presidente da sessão; sai do governismo, da coesão e da presença.
+- **Coesão (A4):** Índice de Rice por votação e partido = |%Sim − %Não| entre os votos Sim e Não do
+  partido (definição original); média por período. Alternativa descartada: Agreement Index (Hix,
+  Noury & Roland).
+- **PEC em destaque (A5):** votação de PEC (proposição afetada do tipo PEC) cuja descrição indica
+  primeiro ou segundo turno e não é requerimento, destaque ou emenda; a lista resultante é revista
+  à mão e gravada em data/manual com a regra e as exceções.
+- **Impeachments (A6):** voto de cada deputado transcrito do Diário da Câmara (29/09/1992 e
+  17/04/2016), como curadoria documentada, conferido com o placar oficial. Alternativa descartada:
+  só o placar.
+- **Motivo:** decidido pelo Antônio (1 a 4 conforme a recomendação; impeachment com voto nominal).
+
