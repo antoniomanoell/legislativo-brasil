@@ -167,7 +167,7 @@ NAO_MERITO = r"destaque|dtq|dvs|requerimento|turno [úu]nico"
 
 
 def destaques_pec(votacoes: pl.DataFrame, excecoes: pl.DataFrame) -> pl.DataFrame:
-    """Ids das votações de mérito de PEC; `excecoes` (id, acao: incluir|excluir) = revisão manual."""
+    """Ids das votações de mérito de PEC; `excecoes` (id, acao) é a revisão manual."""
     texto = (
         pl.coalesce(pl.col("descricao_abertura").replace("", None), pl.col("descricao"))
         .fill_null("")
