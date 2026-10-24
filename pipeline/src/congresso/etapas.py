@@ -321,6 +321,40 @@ def votacoes(*, atualizar: bool = False) -> None:
     eventos = ler_eventos(camara.PASTA / "historico")
     pres = vot.presenca(tab_votos, tab_v, intervalos_de_exercicio(eventos))
     pres.write_parquet(PROCESSADOS / "presenca.parquet")
+    lacunas = pres.filter(~pl.col("pelo_historico")).join(
+        tab_votos.select("id_votacao", "id_deputado", "nome", "data"),
+        on=["id_votacao", "id_deputado"],
+    )
+    lacunas.group_by("id_deputado", "nome").agg(
+        pl.len().alias("votos_sem_exercicio_no_historico"),
+        pl.col("data").min().alias("primeiro"),
+        pl.col("data").max().alias("ultimo"),
+    ).sort("votos_sem_exercicio_no_historico", descending=True).write_csv(
+        RELATORIOS / "votos_fora_do_historico.csv"
+    )
+
+    # §7.2: partido registrado no voto × partido no histórico de filiação naquele momento.
+    hist = eventos.select(
+        "id_deputado", "data_hora", pl.col("sigla_partido").alias("sigla_historico")
+    ).sort("data_hora")
+    comparacao = (
+        tab_votos.filter(pl.col("data") >= date(2003, 2, 1))
+        .with_columns(pl.col("data_hora_voto").str.to_datetime(strict=False).alias("quando"))
+        .drop_nulls("quando")
+        .sort("quando")
+        .join_asof(
+            hist, left_on="quando", right_on="data_hora", by="id_deputado", check_sortedness=False
+        )
+    )
+    divergentes = comparacao.filter(
+        pl.col("sigla_historico").is_not_null()
+        & (pl.col("sigla_historico") != pl.col("sigla_partido"))
+    )
+    divergentes.group_by("id_deputado", "nome", "sigla_partido", "sigla_historico").agg(
+        pl.len().alias("votos"),
+        pl.col("data").min().alias("primeiro"),
+        pl.col("data").max().alias("ultimo"),
+    ).sort("votos", descending=True).write_csv(RELATORIOS / "divergencias_filiacao.csv")
 
     gov_ano = vot.governismo(tab_votos, tab_v, ["partido_id", "ano"])
     rice = vot.rice(tab_votos)
@@ -331,7 +365,9 @@ def votacoes(*, atualizar: bool = False) -> None:
     print(
         f"votacoes: {tab_v.height} votações nominais de plenário ({orientadas} com orientação "
         f"Sim/Não do Governo); {tab_votos.height} votos; presença em "
-        f"{pres.height} pares deputado×votação ({pres['presente'].mean():.1%} presentes)"
+        f"{pres.height} pares deputado×votação ({pres['presente'].mean():.1%} presentes); "
+        f"{lacunas.height} votos fora do histórico de exercício; "
+        f"{divergentes.height} de {comparacao.height} votos com partido diferente do histórico"
     )
 
 

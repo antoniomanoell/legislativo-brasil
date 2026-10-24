@@ -119,6 +119,10 @@ def test_presenca_usa_os_periodos_de_exercicio():
             "fim": [datetime(2008, 1, 10), datetime(2011, 1, 31)],
         }
     )
-    votos = pl.DataFrame({"id_votacao": ["a"], "id_deputado": [2], "voto": ["Sim"]})
-    p = presenca(votos, votacoes, intervalos).sort("id_votacao")
-    assert p.rows() == [("a", 2, True), ("b", 3, False)]
+    votos = pl.DataFrame({"id_votacao": ["a", "b"], "id_deputado": [2, 9], "voto": ["Sim", "Não"]})
+    p = presenca(votos, votacoes, intervalos).sort("id_votacao", "id_deputado")
+    assert p.select("id_votacao", "id_deputado", "presente", "pelo_historico").rows() == [
+        ("a", 2, True, True),
+        ("b", 3, False, True),
+        ("b", 9, True, False),  # votou sem constar do histórico: conta como presente
+    ]

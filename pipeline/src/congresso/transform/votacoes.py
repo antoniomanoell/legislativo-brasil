@@ -125,8 +125,10 @@ def presenca(votos: pl.DataFrame, votacoes: pl.DataFrame, intervalos: pl.DataFra
     """Quem deveria ter votado e quem votou, por deputado e votação.
 
     A Câmara não lista os ausentes. "Esperado" = estava em exercício (intervalos do histórico) no
-    momento da votação; "presente" = registrou Sim, Não, Abstenção ou Obstrução ("Artigo 17" não
-    conta, DECISIONS A3). Votações sem data e hora de registro ficam de fora.
+    momento da votação, ou votou nela (o voto prova o exercício, e o histórico tem lacunas);
+    "presente" = registrou Sim, Não, Abstenção ou Obstrução ("Artigo 17" não conta, DECISIONS A3).
+    Votações sem data e hora de registro ficam de fora. A coluna `pelo_historico` diz se o
+    deputado estava em exercício segundo o histórico (para o relatório de lacunas).
     """
     momentos = votacoes.select(
         "id",
@@ -144,6 +146,14 @@ def presenca(votos: pl.DataFrame, votacoes: pl.DataFrame, intervalos: pl.DataFra
         .unique()
         .with_columns(pl.lit(True).alias("presente"))
     )
-    return esperados.join(presentes, on=["id_votacao", "id_deputado"], how="left").with_columns(
-        pl.col("presente").fill_null(False)
+    esperados = esperados.with_columns(pl.lit(True).alias("pelo_historico"))
+    so_pelo_voto = presentes.filter(pl.col("id_votacao").is_in(momentos["id"].implode())).join(
+        esperados, on=["id_votacao", "id_deputado"], how="anti"
     )
+    return pl.concat(
+        [
+            esperados.join(presentes, on=["id_votacao", "id_deputado"], how="left"),
+            so_pelo_voto.with_columns(pl.lit(False).alias("pelo_historico")),
+        ],
+        how="diagonal",
+    ).with_columns(pl.col("presente").fill_null(False))
