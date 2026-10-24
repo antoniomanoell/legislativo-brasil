@@ -161,18 +161,22 @@ def presenca(votos: pl.DataFrame, votacoes: pl.DataFrame, intervalos: pl.DataFra
 
 
 # Destaque objetivo de PEC (PROJECT.md 7.7; DECISIONS A5): votação de PEC em 1º ou 2º turno que
-# não é destaque, requerimento nem admissibilidade ("turno único"). "Emenda" não exclui: a palavra
-# está em "proposta de emenda à Constituição", e emenda aglutinativa substitui o texto de mérito.
+# não é destaque, requerimento, recurso nem admissibilidade. O texto usado é o do RESULTADO
+# (`descricao`, ex.: "Aprovada, em segundo turno, a Proposta..."): o da abertura repete o item da
+# sessão enquanto se votam requerimentos (ex.: PEC 6/2019, 06/08/2019). "Emenda" não exclui: a
+# palavra está em "proposta de emenda à Constituição".
 TURNO = r"(primeiro|segundo|1[ºo°]|2[ºo°]) turno"
-NAO_MERITO = r"destaque|dtq|dvs|requerimento|turno [úu]nico"
+NAO_MERITO = r"destaque|dtq|dvs|requerimento|recurso|admissibilidade|turno [úu]nico"
 
 
 def destaques_pec(votacoes: pl.DataFrame, excecoes: pl.DataFrame) -> pl.DataFrame:
     """Ids das votações de mérito de PEC; `excecoes` (id, acao) é a revisão manual."""
     texto = (
-        pl.coalesce(pl.col("descricao_abertura").replace("", None), pl.col("descricao"))
+        pl.coalesce(pl.col("descricao").replace("", None), pl.col("descricao_abertura"))
         .fill_null("")
         .str.to_lowercase()
+        # "ressalvados os destaques" é a fórmula da votação de mérito, não um destaque.
+        .str.replace_all(r"ressalvad[oa]s?,? (os |as |o |a )?(destaques?|emendas?)", "")
     )
     regra = votacoes.filter(
         pl.col("tipos").list.contains("PEC")

@@ -30,8 +30,9 @@ def _meta(r: dict) -> dict:
     return {
         "id": r["id"],
         "data": r["data"],
-        "descricao": (r["descricao_abertura"] or r["descricao"] or "").strip(),
-        "resultado": (r["descricao"] or "").strip(),
+        # O resultado descreve o que foi votado; a "abertura" repete o item da sessão e pode ser
+        # enganosa (ex.: "Votação em segundo turno" num requerimento). Ela só entra se faltar o outro.
+        "descricao": (r["descricao"] or r["descricao_abertura"] or "").strip(),
         "proposicoes": r["proposicoes"],
         "aprovada": r["aprovacao"] == "1",
         "orientacao_governo": r["orientacao_governo"],

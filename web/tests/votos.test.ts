@@ -18,7 +18,6 @@ it('decodifica voto e partido no momento do voto, sem os ausentes', () => {
     id: 'x',
     data: '2016-10-10',
     descricao: '',
-    resultado: '',
     proposicoes: [],
     aprovada: true,
     orientacao_governo: 'Sim',

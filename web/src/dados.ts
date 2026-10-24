@@ -107,8 +107,8 @@ export interface Governos {
 export interface VotacaoResumo {
   id: string;
   data: string;
+  /** Texto do resultado (o que foi votado e o placar), da Câmara. */
   descricao: string;
-  resultado: string;
   proposicoes: string[];
   aprovada: boolean;
   orientacao_governo: string | null;

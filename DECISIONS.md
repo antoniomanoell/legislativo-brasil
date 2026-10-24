@@ -288,3 +288,15 @@ Formato de cada entrada:
 - **Motivo:** o voto prova o exercício; o histórico tem lacunas. Sem isso, a presença passaria de
   100% para alguns deputados.
 
+## 2026-10-23 — Destaque de PEC: regra aplicada ao texto do resultado (refina A5)
+- **Decisão:** a regra de PEC em 1º/2º turno usa o texto do **resultado** da votação (campo
+  `descricao`, ex.: "Aprovada, em segundo turno, a Proposta..."), não o da abertura, que repete o
+  item da sessão enquanto se votam requerimentos (ex.: PEC 6/2019, 06/08/2019: "Votação em segundo
+  turno" num requerimento rejeitado por 12 × 349). Excluem-se requerimento, destaque, DTQ, DVS,
+  recurso, admissibilidade e turno único; a fórmula "ressalvado(s) o(s) destaque(s)" é removida antes,
+  por ser típica da própria votação de mérito. Resultado: 202 votações de 120 PECs; nenhuma votação
+  "aprovada em 1º/2º turno" de PEC fica de fora, e a única rejeitada (PEC 135/2019, 1º turno) é de
+  mérito. O site também passa a mostrar o texto do resultado, não o da abertura.
+- **Motivo:** a primeira versão marcava requerimentos como mérito e deixava de fora a votação de
+  mérito da reforma da Previdência; conferido nos dados da PEC 6/2019 votação a votação.
+

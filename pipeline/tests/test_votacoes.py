@@ -134,18 +134,27 @@ def test_destaques_pec():
 
     votacoes = pl.DataFrame(
         {
-            "id": ["a", "b", "c", "d", "e", "f"],
-            "tipos": [["PEC"], ["PEC"], ["PEC"], ["PEC"], ["PL"], ["PEC"]],
+            "id": ["a", "b", "c", "d", "e", "f", "g"],
+            "tipos": [["PEC"], ["PEC"], ["PEC"], ["PEC"], ["PL"], ["PEC"], ["PEC"]],
             "descricao_abertura": [
                 "Votação em segundo turno.",
-                "Votação do DTQ 3: destaque para votação em separado (2º turno)",
+                "Votação em segundo turno.",
                 "Votação, em turno único, do parecer de admissibilidade",
                 "Votação, em primeiro turno, da Emenda Aglutinativa nº 2.",
                 "Votação em primeiro turno.",
-                "",
+                "Votação, em globo, da admissibilidade dos destaques simples.",
+                "Votação em primeiro turno.",
             ],
-            "descricao": ["", "", "", "", "", "Aprovada, em 1º turno, a Proposta de Emenda"],
+            "descricao": [
+                "Aprovada, em segundo turno, a PEC. Sim: 400",
+                "Rejeitado o Requerimento. Sim: 12; não: 349",  # abertura enganosa
+                "",
+                "",
+                "Aprovado, em primeiro turno, o PL",
+                "Aprovada, em segundo turno, a Proposta nº 6, ressalvados os destaques. Sim: 370",
+                "Aprovado, em primeiro turno, o Substitutivo",
+            ],
         }
     )
-    excecoes = pl.DataFrame({"id": ["a"], "acao": ["excluir"]})
-    assert sorted(destaques_pec(votacoes, excecoes)["id"]) == ["d", "f"]
+    excecoes = pl.DataFrame({"id": ["g"], "acao": ["excluir"]})
+    assert sorted(destaques_pec(votacoes, excecoes)["id"]) == ["a", "d", "f"]
