@@ -119,3 +119,31 @@ def rice(votos: pl.DataFrame) -> pl.DataFrame:
             ((pl.col("sim") - pl.col("nao")).abs() / (pl.col("sim") + pl.col("nao"))).alias("rice")
         )
     )
+
+
+def presenca(votos: pl.DataFrame, votacoes: pl.DataFrame, intervalos: pl.DataFrame) -> pl.DataFrame:
+    """Quem deveria ter votado e quem votou, por deputado e votação.
+
+    A Câmara não lista os ausentes. "Esperado" = estava em exercício (intervalos do histórico) no
+    momento da votação; "presente" = registrou Sim, Não, Abstenção ou Obstrução ("Artigo 17" não
+    conta, DECISIONS A3). Votações sem data e hora de registro ficam de fora.
+    """
+    momentos = votacoes.select(
+        "id",
+        pl.col("data_hora").str.to_datetime(strict=False).alias("quando"),
+    ).drop_nulls("quando")
+    esperados = (
+        momentos.join(intervalos, how="cross")
+        .filter((pl.col("quando") >= pl.col("inicio")) & (pl.col("quando") <= pl.col("fim")))
+        .select(pl.col("id").alias("id_votacao"), "id_deputado")
+        .unique()
+    )
+    presentes = (
+        votos.filter(pl.col("voto").is_in(list(VOTOS_VALIDOS)))
+        .select("id_votacao", "id_deputado")
+        .unique()
+        .with_columns(pl.lit(True).alias("presente"))
+    )
+    return esperados.join(presentes, on=["id_votacao", "id_deputado"], how="left").with_columns(
+        pl.col("presente").fill_null(False)
+    )

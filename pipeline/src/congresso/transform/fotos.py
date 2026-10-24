@@ -101,3 +101,41 @@ def foto(eventos: pl.DataFrame, dia: date) -> pl.DataFrame:
         )
         .sort("uf", "nome")
     )
+
+
+FIM_LEGISLATURA = {
+    52: date(2007, 1, 31),
+    53: date(2011, 1, 31),
+    54: date(2015, 1, 31),
+    55: date(2019, 1, 31),
+    56: date(2023, 1, 31),
+    57: date(2027, 1, 31),
+}
+
+
+def intervalos_de_exercicio(eventos: pl.DataFrame) -> pl.DataFrame:
+    """Períodos em que cada deputado esteve em exercício, a partir do histórico: cada evento (exceto
+    troca de partido ou de nome) vale até o seguinte; o último, até o fim da legislatura. Mesma
+    regra da `foto`, para que presença e fotos concordem."""
+    troca = pl.col("descricao").str.starts_with("Alteração de partido") | pl.col(
+        "descricao"
+    ).str.starts_with("Alteração de nome")
+    inicio_leg = pl.col("legislatura").replace_strict(
+        {k: datetime.combine(v, datetime.min.time()) for k, v in INICIO_LEGISLATURA.items()}
+    )
+    fim_leg = pl.col("legislatura").replace_strict(
+        {k: datetime.combine(v, datetime.max.time()) for k, v in FIM_LEGISLATURA.items()}
+    )
+    return (
+        eventos.filter(~troca & (pl.col("data_hora") >= inicio_leg))
+        .sort("id_deputado", "legislatura", "data_hora", "ordem")
+        .with_columns(
+            pl.col("data_hora")
+            .shift(-1)
+            .over("id_deputado", "legislatura")
+            .fill_null(fim_leg)
+            .alias("fim")
+        )
+        .filter(pl.col("situacao") == EM_EXERCICIO)
+        .select("id_deputado", "legislatura", pl.col("data_hora").alias("inicio"), "fim")
+    )

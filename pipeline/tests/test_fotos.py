@@ -73,3 +73,18 @@ def test_legislatura_vigente():
     assert legislatura_em(date(2007, 1, 31)) == 52
     with pytest.raises(ValueError):
         legislatura_em(date(2002, 2, 1))
+
+
+def test_intervalos_de_exercicio(pasta):
+    from datetime import datetime
+
+    from congresso.transform.fotos import intervalos_de_exercicio
+
+    iv = intervalos_de_exercicio(ler_eventos(pasta)).sort("id_deputado")
+    linhas = iv.select("id_deputado", "inicio", "fim").rows()
+    # Titular 1: posse até o fim do mandato (a troca de partido não corta o intervalo).
+    assert linhas[0] == (1, datetime(2007, 2, 1), datetime(2011, 1, 31, 23, 59))
+    # Titular 2: da posse até a licença.
+    assert linhas[1] == (2, datetime(2007, 2, 1), datetime(2008, 1, 10))
+    # Suplente 3: da posse até o fim da legislatura.
+    assert linhas[2][0] == 3 and linhas[2][1] == datetime(2008, 1, 11)

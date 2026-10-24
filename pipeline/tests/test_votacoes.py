@@ -101,3 +101,24 @@ def test_rice_so_com_sim_e_nao():
     )
     r = rice(votos)
     assert r.select("partido_id", "rice").rows() == [("pt", 0.5)]
+
+
+def test_presenca_usa_os_periodos_de_exercicio():
+    from datetime import datetime
+
+    from congresso.transform.votacoes import presenca
+
+    votacoes = pl.DataFrame(
+        {"id": ["a", "b"], "data_hora": ["2008-01-05T10:00", "2008-01-20T10:00"]}
+    )
+    intervalos = pl.DataFrame(
+        {
+            "id_deputado": [2, 3],
+            "legislatura": [53, 53],
+            "inicio": [datetime(2007, 2, 1), datetime(2008, 1, 11)],
+            "fim": [datetime(2008, 1, 10), datetime(2011, 1, 31)],
+        }
+    )
+    votos = pl.DataFrame({"id_votacao": ["a"], "id_deputado": [2], "voto": ["Sim"]})
+    p = presenca(votos, votacoes, intervalos).sort("id_votacao")
+    assert p.rows() == [("a", 2, True), ("b", 3, False)]
