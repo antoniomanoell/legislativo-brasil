@@ -1,6 +1,6 @@
 // Evolução (PROJECT.md, 4.1.2). Por decisão A7, não há "% por faixa" antes da 57ª legislatura:
 // a evolução mostra onde cada bancada estava na escala da fonte vigente, em dois painéis separados
-// pela quebra de método. Estado na URL: ?t=exercicio&l=1.
+// pela quebra de método. Estado na URL: ?c=senado&t=exercicio&l=1.
 
 import '../design/mapa.css';
 import '../design/congresso.css';
@@ -9,6 +9,7 @@ import {
   carregarCatalogo,
   carregarIdeologia,
   carregarPartidos,
+  casaDaUrl,
   type Agregados,
   type Catalogo,
   type Ideologia,
@@ -29,6 +30,7 @@ let catalogo: Catalogo;
 let ideologia: Ideologia;
 let partidos: Record<string, Partido>;
 let agregados: Agregados;
+const casa = casaDaUrl();
 let tipo: TipoMomento = 'eleitos';
 let linhagem = false;
 
@@ -153,7 +155,8 @@ function painel(alvo: HTMLElement, momentos: Momento[], escala: Escala, titulo: 
       const c = no('circle', {
         cx: x(p.pontuacao),
         cy: y,
-        r: Math.sqrt(n) * 1.25,
+        // Área proporcional às cadeiras; no Senado (81) a escala é maior para que se veja.
+        r: Math.sqrt(n) * (casa === 'senado' ? 2.5 : 1.25),
         fill: corDe(p, cores),
         class: 'ponto-partido',
       });
@@ -246,25 +249,48 @@ function desenharTabela(): void {
     <thead><tr><th scope="col">Partido</th>${cabeca}</tr></thead><tbody>${linhas}</tbody></table>`;
 }
 
+/** No Senado, avisa que as eleições renovam só parte das cadeiras e que faltam anos de foto. */
+function desenharAvisoCasa(): void {
+  const el = $('#aviso-casa');
+  el.hidden = casa === 'camara';
+  if (casa === 'camara') return;
+  if (tipo === 'eleitos') {
+    el.textContent =
+      'Senado: cada eleição renova 1/3 ou 2/3 das 81 cadeiras, alternadamente. Cada linha mostra só os eleitos daquele ano; as demais cadeiras seguiam com mandato em curso.';
+    return;
+  }
+  const anos = momentosDo('exercicio').map((m) => m.ano);
+  el.textContent = `Senado em exercício: só os anos em que os registros do Senado fecham 81 senadores, 3 por UF, em 1º de fevereiro (${anos.join(', ')}). Os demais anos ficam de fora; veja a Metodologia.`;
+}
+
 function desenhar(): void {
   document
     .querySelectorAll<HTMLButtonElement>('[data-tipo]')
     .forEach((b) => b.setAttribute('aria-pressed', String(b.dataset['tipo'] === tipo)));
   const p = new URLSearchParams();
+  if (casa === 'senado') p.set('c', 'senado');
   if (tipo === 'exercicio') p.set('t', 'exercicio');
   if (linhagem) p.set('l', '1');
   history.replaceState(null, '', p.size ? `?${p}` : location.pathname);
+  desenharAvisoCasa();
   desenharPaineis();
   desenharTabela();
 }
 
 async function iniciar(): Promise<void> {
   [catalogo, ideologia, partidos, agregados] = await Promise.all([
-    carregarCatalogo(),
+    carregarCatalogo(casa),
     carregarIdeologia(),
     carregarPartidos(),
-    carregarAgregados(),
+    carregarAgregados(casa),
   ]);
+  document.querySelectorAll<HTMLButtonElement>('[data-casa]').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset['casa'] === casa));
+    b.addEventListener('click', () => {
+      if (b.dataset['casa'] !== casa)
+        location.search = b.dataset['casa'] === 'senado' ? '?c=senado' : '';
+    });
+  });
   const p = new URLSearchParams(location.search);
   tipo = p.get('t') === 'exercicio' ? 'exercicio' : 'eleitos';
   linhagem = p.get('l') === '1';
