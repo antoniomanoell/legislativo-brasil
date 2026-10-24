@@ -315,3 +315,17 @@ Formato de cada entrada:
   presença do Diário casa com exatamente um voto; placar por UF igual ao publicado pela imprensa.
 - **Motivo:** decidido pelo Antônio (impeachment com o voto de cada deputado).
 
+## 2026-10-23 — Senado: fotos de 1º/fev só nos anos em que a fonte oficial fecha 81 cadeiras
+- **Decisão:** a foto do Senado em 1º/fev é publicada só quando os períodos de exercício da API do
+  Senado (`/senador/{código}/mandatos`) reconstroem exatamente 81 senadores, 3 por UF. Nos demais anos
+  a foto fica como lacuna sinalizada, com o motivo. O partido vem das filiações datadas
+  (`/senador/{código}/filiacoes`); sem filiação datada que cubra a data, "não informado".
+- **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"). Verificado em 2026-10-23: os
+  mandatos iniciados na 48ª legislatura (eleitos em 1986) não têm exercício registrado (1991–1994
+  dão 27 senadores); vários suplentes que exerceram não têm exercício registrado (anos com 79 ou 80);
+  em 2025 há exercícios sobrepostos (84). Fecham: 1999–2003, 2011–2012, 2019–2020, 2022–2024 e 2026.
+- **Alternativas descartadas:** mostrar todos os anos com "sem registro" (2025 exigiria escolher sem
+  fonte); completar com votos próximos da data (prazo arbitrário).
+- O partido gravado nos votos do Senado é a sigla atual do senador (ex.: "MDB" para Sarney em 2003),
+  e por isso não é usado como partido na data.
+
