@@ -371,7 +371,8 @@ Formato de cada entrada:
   votações (milhares de textos sem revisão possível; risco de erro e de enquadramento num site que
   se diz neutro); resumo revisado só para os destaques (PEC e impeachment) fica como opção futura.
 
-## 2026-10-24 — Hospedagem e dados
+## 2026-10-24 — Nome, hospedagem e dados
+- **Nome (Antônio):** Congresso em Números.
 - **Hospedagem (Antônio):** Vercel, como o mapa.
 - **Dados (Antônio):** sem página "Sobre / Dados" com download dos dados tratados (PROJECT.md 4.1.8 sai
   do escopo). A página "Sobre" fica com fontes, licenças de cada fonte e como citar. Os JSON que o
