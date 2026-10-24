@@ -8,6 +8,7 @@ import polars as pl
 
 from congresso.extract import camara, camara_votacoes, tse
 from congresso.extract import ideologia as fontes_ideologia
+from congresso.extract import senado as fonte_senado
 from congresso.load.site import publicar as gravar_site
 from congresso.load.site import publicar_governos
 from congresso.load.votacoes_site import publicar_impeachments, publicar_indicadores
@@ -15,6 +16,7 @@ from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
+from congresso.transform import senado as sen
 from congresso.transform import votacoes as vot
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
 from congresso.transform.fotos import foto, intervalos_de_exercicio, legislatura_em, ler_eventos
@@ -457,3 +459,37 @@ def eleitos_senado(*, atualizar: bool = False) -> None:
         raise FalhaDeValidacao(str(erro)) from erro
     tabela.write_parquet(PROCESSADOS / "eleitos_senado.parquet")
     print(f"eleitos_senado: {tabela.height} senadores eleitos em {len(tse.ANOS)} eleições")
+
+
+def fotos_senado(*, atualizar: bool = False) -> None:
+    """Senadores em exercício em 1º/fev, só nos anos em que a fonte fecha 81 cadeiras."""
+    pasta = fonte_senado.senadores(
+        fonte_senado.codigos(fonte_senado.legislaturas(atualizar=atualizar)), atualizar=atualizar
+    )
+    exercicios, filiacoes = sen.ler_exercicios(pasta), sen.ler_filiacoes(pasta)
+    mapa = pl.read_csv(MANUAIS / "partidos_senado.csv", infer_schema=False)
+    validas, lacunas = [], []
+    for ano in range(1991, date.today().year + 1):
+        dia = date(ano, 2, 1)
+        foto_ano = sen.em_exercicio(exercicios, dia)
+        motivo = sen.conferir(foto_ano)
+        if motivo:
+            lacunas.append({"data": dia, "motivo": motivo})
+            continue
+        try:
+            com_partido = sen.partido_na_data(foto_ano, filiacoes, mapa, dia)
+        except ValueError as erro:
+            raise FalhaDeValidacao(str(erro)) from erro
+        validas.append(
+            com_partido.with_columns(
+                pl.lit(dia).alias("data"), pl.lit(legislatura_em_data(dia)).alias("legislatura")
+            )
+        )
+    tabela = pl.concat(validas)
+    tabela.write_parquet(PROCESSADOS / "fotos_senado.parquet")
+    pl.DataFrame(lacunas).write_csv(RELATORIOS / "fotos_senado_lacunas.csv")
+    sem_partido = tabela.filter(pl.col("partido_id") == "nao_informado").height
+    print(
+        f"fotos_senado: {len(validas)} fotos válidas, {len(lacunas)} anos sem foto; "
+        f"{sem_partido} senadores sem filiação datada na data"
+    )
