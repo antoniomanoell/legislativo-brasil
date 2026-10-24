@@ -8,7 +8,7 @@ import httpx
 CABECALHOS = {
     "User-Agent": "congresso-em-numeros/0.1 (pipeline de dados; github.com/antoniomanoell)"
 }
-TENTATIVAS = 3
+TENTATIVAS = 6
 
 
 def baixar(url: str, destino: Path, *, atualizar: bool = False) -> Path:
@@ -31,5 +31,5 @@ def baixar(url: str, destino: Path, *, atualizar: bool = False) -> Path:
         except httpx.HTTPError:
             if tentativa == TENTATIVAS:
                 raise
-            time.sleep(5 * tentativa)
+            time.sleep(10 * tentativa)
     return destino

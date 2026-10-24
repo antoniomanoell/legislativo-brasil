@@ -5,15 +5,16 @@ from datetime import date
 
 import polars as pl
 
-from congresso.extract import camara, tse
+from congresso.extract import camara, camara_votacoes, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.load.site import publicar as gravar_site
 from congresso.load.site import publicar_governos
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
+from congresso.transform import votacoes as vot
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
-from congresso.transform.fotos import foto, ler_eventos
+from congresso.transform.fotos import foto, intervalos_de_exercicio, legislatura_em, ler_eventos
 from congresso.transform.partidos import atribuir_partido, atribuir_partido_camara
 from congresso.validate.eleitos import conferir_limites, conferir_referencia, conferir_vagas
 
@@ -280,3 +281,60 @@ def governos(*, atualizar: bool = False) -> None:
         f"governos: base em {base.filter(pl.col('gabinete').is_not_null()).height} fotos "
         f"(até {fim_cobertura}); {len(conferencia)} gabinetes conferidos desde 2003"
     )
+
+
+def votacoes(*, atualizar: bool = False) -> None:
+    """Votações nominais de plenário desde 2001: votos com partido, presença, governismo, coesão."""
+
+    ultimo = date.today().year
+    caminhos = camara_votacoes.todos(ultimo, atualizar=atualizar)
+    lista_v, lista_votos = [], []
+    for ano in range(camara_votacoes.PRIMEIRO_ANO, ultimo + 1):
+        v, vt = vot.ler_ano(
+            caminhos[("votacoes", ano)],
+            caminhos[("votacoesVotos", ano)],
+            caminhos[("votacoesProposicoes", ano)],
+            caminhos.get(("votacoesOrientacoes", ano)),
+        )
+        lista_v.append(v)
+        lista_votos.append(vt)
+    tab_v = pl.concat(lista_v, how="diagonal_relaxed")
+    tab_votos = pl.concat(lista_votos, how="diagonal_relaxed").with_columns(
+        pl.col("data").str.to_date()
+    )
+    if tab_v["id"].is_duplicated().any():
+        raise FalhaDeValidacao("Votação repetida entre os arquivos anuais")
+
+    try:
+        tab_votos = atribuir_partido_camara(tab_votos, pl.read_csv(MANUAIS / "partidos_camara.csv"))
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    tab_votos = tab_votos.with_columns(
+        pl.col("data").dt.year().alias("ano"),
+        pl.col("data")
+        .map_elements(legislatura_em_data, return_dtype=pl.Int16)
+        .alias("legislatura"),
+    )
+    tab_v.write_parquet(PROCESSADOS / "votacoes.parquet")
+    tab_votos.write_parquet(PROCESSADOS / "votos.parquet")
+
+    eventos = ler_eventos(camara.PASTA / "historico")
+    pres = vot.presenca(tab_votos, tab_v, intervalos_de_exercicio(eventos))
+    pres.write_parquet(PROCESSADOS / "presenca.parquet")
+
+    gov_ano = vot.governismo(tab_votos, tab_v, ["partido_id", "ano"])
+    rice = vot.rice(tab_votos)
+    rice.write_parquet(PROCESSADOS / "rice.parquet")
+    gov_ano.write_parquet(PROCESSADOS / "governismo_partido_ano.parquet")
+
+    orientadas = tab_v.filter(pl.col("orientacao_governo").is_in(["Sim", "Não"])).height
+    print(
+        f"votacoes: {tab_v.height} votações nominais de plenário ({orientadas} com orientação "
+        f"Sim/Não do Governo); {tab_votos.height} votos; presença em "
+        f"{pres.height} pares deputado×votação ({pres['presente'].mean():.1%} presentes)"
+    )
+
+
+def legislatura_em_data(dia: date) -> int:
+    """Legislatura de uma data (votos de dez/2001 e 2002 são da 51ª, anterior ao histórico)."""
+    return 51 if dia < date(2003, 2, 1) else legislatura_em(dia)
