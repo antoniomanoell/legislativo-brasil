@@ -105,7 +105,9 @@ não estava publicada em 2026-10-23.
 - **Licença:** rodapé do Atlas "Todos direitos reservados"; a NT 53 permite "a reprodução deste texto
   e dos dados nele contidos, desde que citada a fonte. Reproduções para fins comerciais são proibidas."
 - **Citação:** "Fonte: Atlas do Estado Brasileiro - IPEA, com base em dados de Acir Almeida."
-- Sem atualização posterior a meados de 2020.
+- Cobre de mar/1985 a dez/2020, segundo a própria Nota Técnica (a página do Atlas fala em coleta
+  encerrada "em meados de 2020"). Sem atualização posterior; de 2021 em diante, curadoria do projeto
+  (`data/manual/ministros_pos2020.csv`, com a fonte de cada nomeação).
 
 **NIPE/Cebrap — Banco de Dados Legislativos** — https://bancodedadoslegislativos.com.br
 - **Fora do ar em 2026-10-23** (domínio não resolve). Última cópia arquivada:

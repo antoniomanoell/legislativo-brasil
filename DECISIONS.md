@@ -235,3 +235,21 @@ Formato de cada entrada:
   o último gabinete do IPEA.
 - **Motivo:** fidelidade ao critério declarado (PROJECT.md 3.2: base formal = critério ministerial).
 
+## 2026-10-23 — Curadoria de gabinetes de 2021 a mar/2026: critério literal da NT 53 (A13)
+- **Decisão:** nos casos duvidosos, vale o critério literal da Nota Técnica 53 — o ministro é
+  partidário se o partido (a) apoia o governo e (b) o indicou ou (c) o reconhece como representante,
+  com evidência. Resultado: não contam União Brasil (presidente do partido: "a gente não faz parte do
+  governo Lula", 29/12/2022; mesmo tratamento do IPEA ao DEM em 2019), PP e Republicanos em 2023
+  (partidos negaram o vínculo), Waldez Góes (PDT não o reconhece), Marina Silva (sem declaração
+  localizada da Rede) e o PDT a partir de 06/05/2025 (declarou-se independente). Eventos de "mudança
+  relevante de ministro" só com declaração de lideranças sobre o impacto (fica só set/2023).
+- A curadoria cobre até 30/03/2026: as mudanças de abril de 2026 (desincompatibilizações, PSD com
+  candidato próprio, permanência de Luciana Santos) não afetam nenhuma foto de 1º/fev e ficam para
+  verificar com fonte. Ministro a ministro em `data/manual/ministros_pos2020.csv`, com a classificação
+  e o motivo; gabinetes em `data/manual/gabinetes_pos2020.csv`.
+- **Alternativa descartada:** contar todo partido com filiado no ministério (daria cerca de 59% das
+  cadeiras para Lula 3 em fev/2023, contra 39% pelo critério).
+- **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"); é o critério declarado pela fonte
+  da série até 2020, aplicado sem exceções. O site mostra, gabinete a gabinete, quem não foi contado
+  e por quê.
+

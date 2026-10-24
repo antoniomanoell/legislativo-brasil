@@ -74,6 +74,27 @@ posse). Cada um desses casos é indicado junto da pontuação.
 declarar assim (Rodrigues, 1987). Parte do que parece mudança de posição ao longo do tempo pode ser
 mudança na disposição de se declarar, e não do partido.
 
+## Governos e base formal
+
+A **base formal** de um governo é o conjunto de partidos com pelo menos um ministro que os
+represente. Segue-se o critério do IPEA (Almeida, 2021): um ministro representa um partido se o
+partido apoia o governo e o indicou ou o reconhece como seu representante. Filiação sozinha não
+basta: ministros filiados a partidos que se declaram independentes ou de oposição não contam, nem
+os que o partido trata como escolha pessoal do presidente. Um novo gabinete começa com a posse do
+presidente, com a entrada ou saída de partidos, ou com uma mudança relevante de ministro.
+
+Até dezembro de 2020, os gabinetes são os do IPEA (Atlas do Estado Brasileiro, Nota Técnica 53).
+Depois disso, o site usa uma curadoria própria, ministro a ministro, pelo mesmo critério, com a fonte
+de cada nomeação e a justificativa de cada caso duvidoso; ela cobre até março de 2026. Partidos com
+ministros que não foram contados aparecem indicados, com o motivo, na página Governos.
+
+O tamanho da base é a soma das cadeiras desses partidos na data. A base formal não mede como os
+partidos votaram: um partido com ministério pode votar com frequência contra o governo, e um sem
+ministério, a favor. O comportamento de voto entra com as votações nominais.
+
+Os percentuais de "base aliada" citados em outras publicações costumam incluir partidos que apoiam o
+governo sem ter ministério, e por isso podem ser maiores que os deste site.
+
 ## Hemiciclo
 
 Cada bolinha é uma cadeira. Os partidos classificados vão da esquerda para a direita pela pontuação
@@ -93,6 +114,8 @@ deputados não têm lugar fixo, exceto os líderes, na primeira fila.
 - Bolognesi, B.; Ribeiro, E.; Codato, A.; Silva, B. F. O desaparecimento do centro ideológico no
   sistema partidário brasileiro: a classificação mais atualizada dos experts. *Opinião Pública*,
   v. 31, e31120, 2025. Dados: Harvard Dataverse, doi:10.7910/DVN/MFIXKW (CC0).
+- Almeida, A. *Gabinetes ministeriais da Nova República (1985-2020): cargos, composição partidária
+  e mudança*. Brasília: Ipea, 2021 (Nota Técnica Diest nº 53). doi:10.38116/ntdiest53.
 - Zucco, C.; Lauderdale, B. Distinguishing between Influences on Brazilian Legislative Behavior.
   *Legislative Studies Quarterly*, v. 36, n. 3, 2011.
 - Rodrigues, L. M. *Quem é quem na Constituinte*. São Paulo: OESP/Maltese, 1987.

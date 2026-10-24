@@ -42,15 +42,17 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
   a Câmara publicar a 58ª legislatura; onda 10 da BLS quando for publicada (B9).
 - **A investigar:** PDS 1990 (TSE 45 × 42) e PP 2010 (TSE 44 × 41) contra o Apêndice A.
 
-## Fase 2 — em andamento (governos e coalizões)
+## Fase 2 — concluída (2026-10-23)
 
 - [x] Transcrever o Quadro 2 da NT 53 (IPEA) → `data/manual/gabinetes_ipea.csv`, com página
 - [x] Tabela de governos (§7.5, datas confirmadas) → `data/manual/governos.csv`
 - [x] Curadoria pós-meados de 2020 (até 30/03/2026; casos de julgamento aguardam validação do Antônio) → `data/manual/coalizoes_pos2020.csv` (cada linha com fonte; validar com o Antônio)
 - [x] Etapa `governos` no pipeline (só IPEA até dez/2020; falta incluir a curadoria pós-2020): base formal em cada momento (% de cadeiras), conferida com os valores do IPEA (§7.5)
 - [x] Web: página Governos e indicação da base formal no Início (com IPEA; falta a curadoria pós-2020)
-- [ ] Testes, CI e resumo para o Antônio
+- [x] Testes, CI e resumo para o Antônio
 
 ## Próximo passo exato
 
-PAUSADO pelo Antônio. Ao retomar: apresentar a ele os casos de julgamento da curadoria pós-2020 (União Brasil, Waldez Góes, Wolney/PDT, Marina/Rede, PP e Republicanos em 2023) e o efeito na base de Lula 3 (202 cadeiras em fev/2023 pelo critério estrito); depois, resumo da Fase 2.
+Fase 3 (votações da Câmara, 2001–2026): ingestão dos arquivos em lote (votações, votos,
+orientações), governismo e coesão (decisões pendentes A3, A4, A5, A6, A8 — levar ao Antônio antes
+de calcular), páginas Votações e Deputados.

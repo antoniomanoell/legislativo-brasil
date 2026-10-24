@@ -83,7 +83,7 @@ function grafico(cat: Catalogo, gov: Governos): SVGSVGElement {
   });
   no(
     'text',
-    { x: esq + 6, y: y(MAIORIA) - 5, class: 'grafico-eixo', 'text-anchor': 'start' },
+    { x: largura - 150, y: y(MAIORIA) - 6, class: 'grafico-eixo', 'text-anchor': 'start' },
     'maioria absoluta: 257',
   );
   fotos.forEach((m, i) => {

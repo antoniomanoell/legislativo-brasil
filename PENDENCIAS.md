@@ -20,7 +20,7 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
 | A10 | Nome do site e domínio | | aberta |
 | A11 | Hospedagem (o mapa usa Vercel) | | aberta |
 | A12 | Licença dos dados derivados | Câmara: domínio público com citação. TSE: CC-BY. BLS e Bolognesi: CC0. **IPEA: proíbe uso comercial.** **Cebrap: sem licença de redistribuição.** | aberta |
-| A13 | Curadoria das coalizões pós-meados de 2020 | O IPEA para em meados de 2020; não há atualização acadêmica. | aberta |
+| A13 | Curadoria das coalizões pós-meados de 2020 | O IPEA para em meados de 2020; não há atualização acadêmica. | **decidida: critério literal da NT 53, até 30/03/2026** |
 | A14 | O que é "eleito"? | O TSE mostra a situação **atual** (ex.: as 7 cadeiras de 2022 trocadas por decisão do STF em 2025), mas não registra cassações depois da diplomação (Deltan segue "eleito"). Opções: (a) situação atual do TSE, com nota; (b) resultado original, reconstruído de cópias datadas e notícias. | **decidida (2026-10-23): (a) situação atual do TSE** |
 | A15 | Fotos de 1º/fev de 1991 a 2002 | A Câmara **não tem** filiação datada nem exercício datado antes de 2003. Opções: (a) pedir a filiação ao NIPE/Cebrap (só sob pedido, site fora do ar); (b) curadoria manual; (c) lançar com fotos só a partir de 2003 e, antes disso, apenas os eleitos (1990, 1994, 1998), com a lacuna sinalizada. | **decidida (2026-10-23): (c)** |
 | A16 | Votações de 1991 a 2000 (e 2001–2002 sem orientação) | Só o Cebrap tem, mas o site está fora do ar e não há licença de redistribuição. Opções: (a) escrever ao NIPE/Cebrap pedindo autorização; (b) lançar com votações a partir de 2003 (governismo) e 2001 (votos), com a lacuna visível. | **decidida: sem Cebrap; lacuna 1991–2000** |
@@ -62,4 +62,11 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
   o PEN). A tabela de partidos tem de mapear sigla do arquivo → partido na data da eleição.
 - O arquivo de vagas de 1994 do TSE não tem deputado federal; nesse ano a conferência usa só o total
   (513) e os limites constitucionais por UF.
+- Curadoria de gabinetes depois de 30/03/2026: verificar com fonte (desincompatibilizações de abril,
+  PSD após lançar candidato, permanência de Luciana Santos/PCdoB) antes da foto de 1º/fev/2027.
+- Datas de nomeação/exoneração de 2020–2026 sem conferência no DOU (in.gov.br indisponível na
+  pesquisa): Flávia Arruda, exonerações de dez/2022, saídas de Dino e Juscelino; ver
+  `data/manual/ministros_pos2020.csv`.
+- Fontes da curadoria fora da lista inicial (SBT News, Correio Braziliense, Congresso em Foco, Jornal
+  de Brasília, Diário de Pernambuco, site do Republicanos): marcadas no CSV.
 
