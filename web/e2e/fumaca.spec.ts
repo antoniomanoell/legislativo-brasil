@@ -196,3 +196,12 @@ test('Congresso a partir de 2027: 513 deputados e 81 senadores, com as notas do 
   await expect(page.locator('#conteudo')).toContainText('eleito governador no 1º turno de 2026');
   await semRolagemLateral(page);
 });
+
+test('Governos: governismo por lado do espectro, Câmara e Senado', async ({ page }) => {
+  await page.goto('./governos.html');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page.locator('#espectro-resumo rect')).toHaveCount(14); // 7 governos × 2 lados
+  await expect(page.locator('#espectro-senado rect')).toHaveCount(4); // Bolsonaro e Lula 3
+  await expect(page.locator('#espectro-paineis .painel-governo')).toHaveCount(7);
+  await semRolagemLateral(page);
+});

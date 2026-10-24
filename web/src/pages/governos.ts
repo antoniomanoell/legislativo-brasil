@@ -5,7 +5,15 @@
 import '../design/mapa.css';
 import '../design/congresso.css';
 import {
+  montarPaineis,
+  svgPainel,
+  svgResumo,
+  type PainelGoverno,
+} from '../charts/espectro-governismo';
+import {
+  carregarAgregados,
   carregarCatalogo,
+  carregarIdeologia,
   carregarGovernos,
   carregarIndicadores,
   carregarPartidos,
@@ -19,6 +27,7 @@ import {
 import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, formatarNumero, pct } from '../formato';
+import { coresDasFaixas } from '../ideologia';
 import { siglaEm } from '../siglas';
 import { mostrarAtualizacao } from '../atualizacao';
 import { posicaoDoPresidente } from '../presidente';
@@ -186,14 +195,57 @@ function tabelaMinistros(lista: Ministro[]): string {
     <tbody>${linhas}</tbody></table></div></details>`;
 }
 
+const NOMES_CURTOS: Record<string, string> = {
+  collor: 'Collor',
+  itamar: 'Itamar',
+  fhc1: 'FHC 1',
+  fhc2: 'FHC 2',
+  lula1: 'Lula 1',
+  lula2: 'Lula 2',
+  dilma1: 'Dilma 1',
+  dilma2: 'Dilma 2',
+  temer: 'Temer',
+  bolsonaro: 'Bolsonaro',
+  lula3: 'Lula 3',
+};
+
+/** Nome curto do governo para os gráficos ("Lula 3", "Temer"). */
+function rotuloGoverno(g: { governo_id: string; presidente: string }): string {
+  return NOMES_CURTOS[g.governo_id] ?? g.presidente;
+}
+
+const pctLado = (v: number | null) => (v == null ? '—' : `${formatarNumero(100 * v, 0)}%`);
+
+function tabelaLados(paineis: PainelGoverno[], casa: string): string {
+  const linhas = paineis
+    .map((p) => {
+      const c = (l: 'esquerda' | 'direita') =>
+        p.lados[l].governismo == null
+          ? '—'
+          : `${pctLado(p.lados[l].governismo)} <span class="posicao-celula">(${p.lados[l].cadeiras} cadeiras)</span>`;
+      return `<tr><td>${esc(rotuloGoverno(p.governo))}</td><td>${p.ladoDoGoverno ?? '—'}</td><td class="num">${c('esquerda')}</td><td class="num">${c('direita')}</td></tr>`;
+    })
+    .join('');
+  return `<details class="detalhes-partidos"><summary>Os números (${casa})</summary><div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Governo</th><th scope="col">Lado do presidente</th><th scope="col">Governismo, lado esquerdo</th><th scope="col">Governismo, lado direito</th></tr></thead><tbody>${linhas}</tbody></table></div></details>`;
+}
+
 async function iniciar(): Promise<void> {
-  iniciarTema();
-  const [cat, gov, partidos, ind] = await Promise.all([
-    carregarCatalogo(),
-    carregarGovernos(),
-    carregarPartidos(),
-    carregarIndicadores(),
-  ]);
+  const [cat, gov, partidos, ind, ideologia, agregados, catSen, agrSen, indSen] = await Promise.all(
+    [
+      carregarCatalogo(),
+      carregarGovernos(),
+      carregarPartidos(),
+      carregarIndicadores(),
+      carregarIdeologia(),
+      carregarAgregados(),
+      carregarCatalogo('senado'),
+      carregarAgregados('senado'),
+      carregarIndicadores('senado'),
+    ],
+  );
+  const sigla = (p: string, d: string) => siglaEm(p, d, partidos);
+  const paineisCamara = montarPaineis(gov.governos, ind, ideologia, cat, agregados, sigla);
+  const paineisSenado = montarPaineis(gov.governos, indSen, ideologia, catSen, agrSen, sigla);
   const secoes = [...gov.governos]
     .reverse()
     .map((g) => {
@@ -222,6 +274,31 @@ async function iniciar(): Promise<void> {
     .join('');
   $('#conteudo').outerHTML = `<div id="conteudo" class="pagina-governos">
     <section class="bloco">
+      <h1 class="bloco-titulo">Governos e o Congresso</h1>
+      <p class="bloco-dica">Três perguntas diferentes, que muitas vezes se confundem:</p>
+      <div class="tres-perguntas">
+        <div><b>1 · Base formal</b><div class="pergunta">Quem tem ministério?</div>Partidos com ao menos um ministro que os represente, pelo critério do IPEA. É um fato sobre o governo.</div>
+        <div><b>2 · Governismo</b><div class="pergunta">Quem vota com o governo?</div>Proporção dos votos de cada partido iguais à orientação do governo nas votações nominais. É um fato sobre o comportamento.</div>
+        <div><b>3 · Espectro</b><div class="pergunta">De que lado está cada partido?</div>A posição ideológica do partido segundo a pesquisa acadêmica da época. Permite ver se um governo é acompanhado pelo lado oposto.</div>
+      </div>
+      <p class="frase-chave"><strong>Ter ministério não garante voto, e votar junto não exige ministério nem afinidade ideológica.</strong></p>
+    </section>
+    <section class="bloco" aria-labelledby="titulo-espectro">
+      <h2 class="bloco-titulo" id="titulo-espectro">Quem acompanha cada governo, pelo espectro</h2>
+      <p class="bloco-dica">Governismo médio dos partidos de cada lado da escala ideológica, ponderado pelas cadeiras em 1º de fevereiro do primeiro ano do governo. Na Câmara, só há governismo de 2003 em diante.</p>
+      <div class="legenda-lados"><span><i style="background:var(--faixa-2)"></i>partidos do lado esquerdo da escala</span><span><i style="background:var(--faixa-6)"></i>partidos do lado direito</span></div>
+      <div id="espectro-resumo"></div>
+      ${tabelaLados(paineisCamara, 'Câmara')}
+      <h3>Senado</h3>
+      <p class="bloco-dica">No Senado, a orientação do governo só é registrada a partir de 2019.</p>
+      <div id="espectro-senado"></div>
+      ${tabelaLados(paineisSenado, 'Senado')}
+      <p class="aviso-lacuna">"Governo de esquerda/direita": pela posição do próprio presidente na BLS (abaixo ou acima do ponto médio). Lado do partido: até 2023, abaixo ou acima do ponto médio da escala da BLS, convenção do site porque a fonte não publica faixas; de 2023 em diante, as faixas de Bolognesi et al. (esquerda: extrema-esquerda a centro-esquerda; direita: centro-direita a extrema-direita; o centro fica de fora). As duas escalas não são a mesma régua: a comparação entre governos é de padrão, não de valor exato.</p>
+      <h3>Partido a partido (Câmara)</h3>
+      <p class="bloco-dica">Cada círculo é um partido: posição na escala da época (horizontal), governismo naquele governo (vertical) e área proporcional às cadeiras. Passe o mouse para ver os números.</p>
+      <div class="paineis-espectro" id="espectro-paineis"></div>
+    </section>
+    <section class="bloco">
       <div class="bloco-cabeca"><h1 class="bloco-titulo">Base formal dos governos</h1><span id="ajuda-base"></span></div>
       <p class="bloco-dica">Cadeiras na Câmara dos partidos com ministro, em cada 1º de fevereiro. A base formal não mede como esses partidos votaram; isso entra com as votações.</p>
       <div id="grafico-base"></div>
@@ -229,6 +306,21 @@ async function iniciar(): Promise<void> {
     </section>
     ${secoes}</div>`;
   $('#grafico-base').append(grafico(cat, gov));
+  const desenharEspectro = () => {
+    const cores = coresDasFaixas();
+    $('#espectro-resumo').innerHTML = svgResumo(paineisCamara, rotuloGoverno);
+    $('#espectro-senado').innerHTML = paineisSenado.length
+      ? svgResumo(paineisSenado, rotuloGoverno)
+      : '';
+    $('#espectro-paineis').innerHTML = paineisCamara
+      .map(
+        (p) =>
+          `<div class="painel-governo"><h3>${esc(rotuloGoverno(p.governo))} <span class="bloco-dica">(${p.legislatura}ª legislatura · lado esquerdo ${pctLado(p.lados.esquerda.governismo)} · lado direito ${pctLado(p.lados.direita.governismo)})</span></h3>${svgPainel(p, cores)}</div>`,
+      )
+      .join('');
+  };
+  desenharEspectro();
+  iniciarTema(desenharEspectro);
   $('#ajuda-base').innerHTML = ajuda(
     'ajuda-base-pop',
     'O que é base formal',

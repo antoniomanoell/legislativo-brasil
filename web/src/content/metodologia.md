@@ -154,6 +154,14 @@ O tamanho da base é a soma das cadeiras desses partidos na data. A base formal 
 partidos votaram: um partido com ministério pode votar com frequência contra o governo, e um sem
 ministério, a favor. O comportamento de voto entra com as votações nominais.
 
+**Quem acompanha cada governo, pelo espectro.** A página Governos cruza o governismo de cada partido
+com a sua posição ideológica na legislatura daquele governo (cada governo de 2003 em diante coincide
+com uma legislatura), sem converter a escala da BLS na de Bolognesi et al. O resumo mostra o
+governismo médio, ponderado pelas cadeiras, dos partidos de cada lado da escala. Na BLS, que não
+publica faixas, o lado é dado pelo ponto médio da escala (0), uma convenção do site; em Bolognesi et
+al., pelas faixas dos autores, sem o centro. O governo é "de esquerda" ou "de direita" pela posição do
+próprio presidente na BLS.
+
 Os percentuais de "base aliada" citados em outras publicações costumam incluir partidos que apoiam o
 governo sem ter ministério, e por isso podem ser maiores que os deste site.
 

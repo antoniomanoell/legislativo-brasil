@@ -595,3 +595,84 @@ main.texto {
   color: var(--texto-2);
   max-width: 72ch;
 }
+
+/* ---------- Governismo × espectro (src/charts/espectro-governismo.ts) ---------- */
+.grafico-espectro {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.grafico-valor {
+  font-size: 11px;
+  fill: var(--texto);
+}
+.barra-lado-esquerda {
+  fill: var(--faixa-2);
+}
+.barra-lado-direita {
+  fill: var(--faixa-6);
+}
+.linha-meio {
+  stroke: var(--borda-forte);
+  stroke-dasharray: 3 3;
+}
+.legenda-lados {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  color: var(--texto-2);
+}
+.legenda-lados i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.paineis-espectro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+.painel-governo {
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 10px;
+}
+.paineis-espectro h3 {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.tres-perguntas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+.tres-perguntas > div {
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 12px;
+  background: var(--fundo-2);
+}
+.tres-perguntas b {
+  display: block;
+  color: var(--acento);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tres-perguntas .pergunta {
+  font-weight: 600;
+  margin: 2px 0 4px;
+}
+.frase-chave {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--acento-suave);
+  border-left: 3px solid var(--acento);
+  border-radius: 4px;
+}

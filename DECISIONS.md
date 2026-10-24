@@ -464,3 +464,16 @@ Formato de cada entrada:
   2 suplentes), em linha com as reportagens posteriores a 08/10/2026. As matérias de 05/10 falavam em
   28 por contar Sergio Moro, que deixa o Senado ao assumir o governo do Paraná.
 - **Conferir:** quando os suplentes tomarem posse, comparar com o registro de filiação do Senado.
+
+## 2026-10-24 — Governos: governismo por lado do espectro
+- **Pedido do Antônio:** ver o histórico de governismo de cada partido com o seu espectro, para saber
+  se um governo de esquerda é acompanhado pela direita e vice-versa.
+- **Decisão (aprovada pelo Antônio):** na página Governos, (1) quadro "três perguntas" (base formal,
+  governismo, espectro); (2) resumo por governo do governismo médio, ponderado pelas cadeiras de 1º/fev
+  do primeiro ano, dos partidos de cada lado da escala, na Câmara (2003+) e no Senado (2019+); (3) um
+  painel por governo com cada partido em posição × governismo, na escala da legislatura do governo.
+- **Convenções declaradas na página e na Metodologia:** lado do governo pela posição do presidente na
+  BLS; lado do partido pelo ponto médio da BLS (sem faixas na fonte) ou pelas faixas de Bolognesi (sem
+  o centro); as duas escalas não são a mesma régua.
+- **Resultado (Câmara):** lado direito acompanha governos de esquerda em 62–68%; lado esquerdo acompanha
+  governos de direita em 35–41%.
