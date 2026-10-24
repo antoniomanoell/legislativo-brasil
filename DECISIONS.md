@@ -249,8 +249,9 @@ Formato de cada entrada:
   candidato próprio, permanência de Luciana Santos) não afetam nenhuma foto de 1º/fev e ficam para
   verificar com fonte. Ministro a ministro em `data/manual/ministros_pos2020.csv`, com a classificação
   e o motivo; gabinetes em `data/manual/gabinetes_pos2020.csv`.
-- **Alternativa descartada:** contar todo partido com filiado no ministério (daria cerca de 59% das
-  cadeiras para Lula 3 em fev/2023, contra 39% pelo critério).
+- **Alternativa descartada:** contar todo partido com filiado no ministério (daria 51% das cadeiras
+  para Lula 3 em 1º/fev/2023 e 70% em 1º/fev/2024, contra 39% e 40% pelo critério; recalculado em
+  2026-10-24 — o valor anterior aqui, "cerca de 59%", não se reproduz com os dados).
 - **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"); é o critério declarado pela fonte
   da série até 2020, aplicado sem exceções. O site mostra, gabinete a gabinete, quem não foi contado
   e por quê.

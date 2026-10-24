@@ -103,10 +103,17 @@ basta: ministros filiados a partidos que se declaram independentes ou de oposiç
 os que o partido trata como escolha pessoal do presidente. Um novo gabinete começa com a posse do
 presidente, com a entrada ou saída de partidos, ou com uma mudança relevante de ministro.
 
-Até dezembro de 2020, os gabinetes são os do IPEA (Atlas do Estado Brasileiro, Nota Técnica 53).
-Depois disso, o site usa uma curadoria própria, ministro a ministro, pelo mesmo critério, com a fonte
-de cada nomeação e a justificativa de cada caso duvidoso; ela cobre até março de 2026. Partidos com
-ministros que não foram contados aparecem indicados, com o motivo, na página Governos.
+O critério faz diferença. Em 1º de fevereiro de 2024, contar todo partido com um filiado no
+ministério daria ao governo Lula 359 cadeiras da Câmara (70%); pelo critério do IPEA, a base formal
+era de 207 (40%), porque União Brasil, PP e Republicanos tinham ministros filiados, mas não se
+declaravam parte do governo.
+
+Até dezembro de 2020, os gabinetes são os da Nota Técnica Diest nº 53 do IPEA (Almeida, 2021), que
+traz a data de início e os partidos de cada um. Depois disso, o site usa uma curadoria própria,
+ministro a ministro, pelo mesmo critério, com a fonte de cada nomeação e a justificativa de cada caso
+duvidoso; ela cobre até 30 de março de 2026. Depois dessa data, a base aparece como "sem dados", sem
+estender o último gabinete. Partidos com ministros que não foram contados aparecem indicados, com o
+motivo, na página Governos.
 
 O tamanho da base é a soma das cadeiras desses partidos na data. A base formal não mede como os
 partidos votaram: um partido com ministério pode votar com frequência contra o governo, e um sem
