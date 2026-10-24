@@ -439,4 +439,4 @@ Formato de cada entrada:
 - **Efeito:** Republicanos (8,33), PSC (8,41) e União Brasil (8,49) ficam "direita"; PSD (6,94),
   "centro-direita". A ordem dos partidos não muda. A faixa publicada continua conferida contra a média
   ponderada, como teste de transcrição.
-- **Pendente:** e-mail aos autores perguntando como o fator foi calculado; rever se responderem.
+- **Sem consulta aos autores** (decisão do Antônio): a escolha fica como está, explicada na Metodologia.
