@@ -339,7 +339,7 @@ Formato de cada entrada:
   votou. "Presidente (art. 51 RISF)" sai, como o "Artigo 17" da Câmara. Códigos de significado não
   confirmado (P-OD, NA) ficam fora do numerador e do denominador.
 - **Governismo:** mesma regra da Câmara (A8), só nas votações com orientação "Sim" ou "Não" da
-  liderança do Governo (`/plenario/votacao/orientacaoBancada`), que só existe de 2018/2019 em diante e
+  liderança do Governo (`/plenario/votacao/orientacaoBancada`), que só existe a partir de 2019 e
   numa parte das votações; antes disso, lacuna (§7.6).
 - **Votações secretas** (voto "Votou") ficam fora de governismo, coesão e presença.
 - **Partido no voto:** pela filiação datada do senador na data da votação (o partido gravado no voto é
@@ -397,3 +397,12 @@ Formato de cada entrada:
   resultado do 2º turno. Reprocessar depois de 25/10/2026 e da diplomação.
 - **Mais rigoroso que as alternativas:** usar o titular eleito em 2022 ignoraria a renúncia de Dino;
   usar o partido da eleição de 2022 nas 27 cadeiras ignoraria trocas registradas pelo Senado.
+
+## 2026-10-24 — Destaque de PEC no Senado segue a A5 (revisão da Metodologia)
+- **Decisão:** no Senado, destaque = matéria PEC com 1º ou 2º turno na descrição, **exceto** votação em
+  separado de emenda, destaque ou requerimento (descrição que começa por esses nomes); emenda
+  substitutiva e substitutivo ficam (são o texto de mérito). Casos que a regra não resolve vão para
+  `data/manual/destaques_pec_excecoes.csv` com o motivo: SF-3900 ("Substituriva" na fonte) e
+  SF-2754/SF-2755 (Emenda 240-CCJ à PEC 29/2000, texto de mérito dividido).
+- **Antes:** toda PEC com turno na descrição (414 votações), contrariando a A5. **Depois:** 400.
+- **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"); aplica a A5 já decidida.

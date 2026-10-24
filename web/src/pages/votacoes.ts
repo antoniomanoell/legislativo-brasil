@@ -235,7 +235,7 @@ async function lista(): Promise<void> {
   );
   const p = new URLSearchParams(location.search);
   const explicacao = senado
-    ? `${regulares.length} votações nominais abertas do plenário do Senado, de ${anosRegulares.at(-1)} a ${anosRegulares[0]}. Votações secretas não têm voto individual e ficam de fora. A fonte é incompleta em alguns anos: 2015 não tem nenhuma votação cuja lista de senadores bata com os mandatos, 2016 tem 6, e 1992 e 1996–1998 poucas; 25 votações com lista incompatível com os mandatos foram retiradas (veja a Metodologia). A orientação do Governo só é registrada a partir de 2018–2019. Destaque só por critério objetivo: PEC votada em 1º ou 2º turno.`
+    ? `${regulares.length} votações nominais abertas do plenário do Senado, de ${anosRegulares.at(-1)} a ${anosRegulares[0]}. Votações secretas não têm voto individual e ficam de fora. A fonte é incompleta em alguns anos: 2015 não tem nenhuma votação cuja lista de senadores bata com os mandatos, 2016 tem 6, e 1992 e 1996–1998 poucas; 25 votações com lista incompatível com os mandatos foram retiradas (veja a Metodologia). A orientação do Governo só é registrada a partir de 2019. Destaque só por critério objetivo: PEC votada em 1º ou 2º turno, sem as votações em separado de emendas.`
     : `${regulares.length} votações nominais com voto registrado pela Câmara, de ${anosRegulares.at(-1)} a ${anosRegulares[0]}. Antes de dez/2001 a Câmara não publica o voto de cada deputado. Destaque só por critério objetivo: PEC em 1º ou 2º turno e autorização de impeachment (1992 e 2016, transcritos do Diário oficial).`;
   $('#conteudo').innerHTML =
     `<div class="barra-viz"><div class="visao" role="group" aria-label="Casa">

@@ -172,3 +172,27 @@ def test_destaques_pec():
     )
     excecoes = pl.DataFrame({"id": ["g"], "acao": ["excluir"]})
     assert sorted(destaques_pec(votacoes, excecoes)["id"]) == ["a", "d", "f"]
+
+
+def test_destaque_pec_senado_exclui_emenda_em_separado_e_mantem_substitutivo():
+    from congresso.transform.votacoes import destaque_pec_senado
+
+    v = pl.DataFrame(
+        {
+            "sigla_materia": ["PEC", "PEC", "PEC", "PEC", "PLS"],
+            "descricao": [
+                "PEC nº 18, de 2002 (1º turno), ressalvados os destaques.",
+                "Emenda nº 1 - CCJ à PEC 1, de 2003 (1º Turno).",
+                "Emenda nº 10 - CCJ (Substitutivo) à PEC nº 34, de 2019 (1º Turno)",
+                "Requerimento de destaque à PEC 5, de 2010 (2º turno)",
+                "Projeto de Lei do Senado nº 1 (1º turno)",
+            ],
+        }
+    )
+    assert v.select(destaque_pec_senado())["sigla_materia"].to_list() == [
+        True,
+        False,
+        True,
+        False,
+        False,
+    ]

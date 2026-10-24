@@ -1,1 +1,4 @@
 id,acao,motivo,fonte
+SF-3900,incluir,"Emenda substitutiva à PEC 12/2003 em 1º turno; a fonte grafa ""Substituriva"", que escapa da regra de substitutivo",Senado Federal — Dados Abertos (descrição da votação)
+SF-2754,incluir,"Emenda nº 240-CCJ à PEC 29/2000 em 1º turno, parte do texto ""que vai à promulgação"": votação de mérito da PEC (texto dividido), não emenda em separado",Senado Federal — Dados Abertos (descrição da votação)
+SF-2755,incluir,"Emenda nº 240-CCJ à PEC 29/2000 em 1º turno, parte do texto ""que retorna à Câmara"": votação de mérito da PEC (texto dividido), não emenda em separado",Senado Federal — Dados Abertos (descrição da votação)

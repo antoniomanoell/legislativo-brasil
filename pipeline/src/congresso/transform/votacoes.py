@@ -177,6 +177,9 @@ def presenca(votos: pl.DataFrame, votacoes: pl.DataFrame, intervalos: pl.DataFra
 # palavra está em "proposta de emenda à Constituição".
 TURNO = r"(primeiro|segundo|1[ºo°]|2[ºo°]) turno"
 NAO_MERITO = r"destaque|dtq|dvs|requerimento|recurso|admissibilidade|turno [úu]nico"
+# Senado (A5): votação em separado de emenda, destaque ou requerimento começa pelo nome do objeto
+# ("Emenda nº 1 - CCJ à PEC 1, de 2003 (1º Turno)"); substitutivo à PEC é o texto de mérito e fica.
+NAO_MERITO_SENADO = r"^\s*(emendas?|requerimentos?|destaques?|dtq)\b"
 
 
 def destaques_pec(votacoes: pl.DataFrame, excecoes: pl.DataFrame) -> pl.DataFrame:
@@ -196,3 +199,16 @@ def destaques_pec(votacoes: pl.DataFrame, excecoes: pl.DataFrame) -> pl.DataFram
     incluir = excecoes.filter(pl.col("acao") == "incluir").select("id")
     excluir = excecoes.filter(pl.col("acao") == "excluir")["id"]
     return pl.concat([regra, incluir]).unique().filter(~pl.col("id").is_in(excluir.implode()))
+
+
+def destaque_pec_senado() -> pl.Expr:
+    """Votação de mérito de PEC no Senado: matéria PEC, turno na descrição e não ser votação em
+    separado de emenda, destaque ou requerimento (A5)."""
+    texto = pl.col("descricao").fill_null("").str.to_lowercase()
+    # Emenda substitutiva troca o texto inteiro da PEC: é a votação de mérito, como o substitutivo.
+    substitutivo = texto.str.contains("substitut")
+    return (
+        (pl.col("sigla_materia") == "PEC")
+        & texto.str.contains(TURNO)
+        & (~texto.str.contains(NAO_MERITO_SENADO) | substitutivo)
+    )

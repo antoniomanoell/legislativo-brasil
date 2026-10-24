@@ -567,16 +567,25 @@ def votacoes_senado(*, atualizar: bool = False) -> None:
             pl.col("resultado")
             .replace_strict({"A": "1", "R": "0"}, default=None)
             .alias("aprovacao"),
-            (
-                (pl.col("sigla_materia") == "PEC")
-                & pl.col("descricao").str.to_lowercase().str.contains(vot.TURNO)
-            ).alias("destaque_pec"),
+            vot.destaque_pec_senado().alias("destaque_pec"),
         )
     )
     votos_publicos = tab_votos.filter(pl.col("voto").is_not_null())
     # Votação aberta sem nenhum voto registrado (só ausências e licenças) não entra.
     sem_voto = abertas.filter(~pl.col("id").is_in(votos_publicos["id_votacao"].unique().implode()))
     abertas = abertas.join(sem_voto.select("id"), on="id", how="anti")
+    # Revisão manual da regra de PEC (A5), na mesma lista de exceções da Câmara (ids "SF-").
+    excecoes = pl.read_csv(MANUAIS / "destaques_pec_excecoes.csv", infer_schema=False)
+    incluir = excecoes.filter(pl.col("acao") == "incluir")["id"].implode()
+    excluir = excecoes.filter(pl.col("acao") == "excluir")["id"].implode()
+    abertas = abertas.with_columns(
+        pl.when(pl.col("id").is_in(incluir))
+        .then(True)
+        .when(pl.col("id").is_in(excluir))
+        .then(False)
+        .otherwise(pl.col("destaque_pec"))
+        .alias("destaque_pec")
+    )
     abertas.write_parquet(PROCESSADOS / "votacoes_senado.parquet")
     codigos = sorted(abertas["codigo_materia"].drop_nulls().unique().to_list(), key=int)
     pasta_materias = fonte_senado.materias(codigos, atualizar=atualizar)

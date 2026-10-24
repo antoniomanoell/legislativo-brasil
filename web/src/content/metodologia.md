@@ -183,14 +183,21 @@ Votações secretas não têm voto individual e ficam de fora. O partido de cada
 na data (a fonte grava a sigla atual do senador, não a da época). Saem 25 votações cuja lista de
 votantes traz dez ou mais senadores sem mandato na data, sinal de data ou lista errada na fonte
 (2002, 2015, 2016 e 2017). Alguns anos têm poucas votações na fonte (1992, 1996 a 1998, 2016) e
-2015 fica sem nenhuma.
+2015 fica sem nenhuma. Cinco senadores de 1991 a 1994 aparecem nos votos sem UF, e ela fica como
+lacuna. O resultado segue a mesma regra da Câmara: é o registrado pelo Senado, com aviso quando
+contraria o placar e "sem resultado registrado" quando falta (86 votações). Destaque: votações de
+PEC em 1º ou 2º turno, inclusive de substitutivo ou emenda substitutiva; não entram votações em
+separado de emendas, destaques e requerimentos. Os casos que a regra não resolve pelo texto da fonte
+foram revistos um a um e estão registrados com o motivo.
 
 **Presença.** Votações em que o senador registrou voto, dividido pelas votações em que ele foi
-listado, sem contar licenças e ausências a serviço do Senado. O registro do presidente da sessão
+listado, sem contar licenças e ausências a serviço do Senado. "Não compareceu" e "presente, sem
+registrar voto" contam como falta; códigos de significado não confirmado ficam fora da conta. O
+registro do presidente da sessão
 (art. 51 do Regimento Interno) não conta, como o "Artigo 17" da Câmara.
 
 **Governismo.** Mesma regra da Câmara. A orientação do líder do Governo só é registrada pelo Senado
-de 2018–2019 em diante e só numa parte das votações; antes disso, o governismo fica como lacuna.
+a partir de 2019 e só numa parte das votações; antes disso, o governismo fica como lacuna.
 
 **Base formal.** Os mesmos gabinetes da Câmara: soma das cadeiras dos partidos com ministro, na data
 da foto.
