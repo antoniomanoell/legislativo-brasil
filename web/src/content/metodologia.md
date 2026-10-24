@@ -37,13 +37,21 @@ antes disso. Para esse período, o site mostra apenas os eleitos de 1990, 1994 e
 
 Cada partido tem uma identificação própria, independente da sigla. Um partido que muda de nome
 continua sendo o mesmo partido; uma fusão cria um partido novo; uma incorporação mantém o partido
-que incorpora. Partidos homônimos de épocas diferentes são partidos diferentes (por exemplo, o PSD
-de 1987, incorporado ao PTB em 2003, e o PSD fundado em 2011). As datas de fusões, incorporações e
-mudanças de nome vêm do TSE, que registra os eventos a partir de 1995; os anteriores estão marcados
-como "a confirmar".
+que incorpora. O PCB, que se transformou no PPS em 1992 (hoje Cidadania), é tratado como antecessor
+do PPS. Federações partidárias não são fusões: cada partido federado continua com a própria
+identificação.
 
-A opção "seguir linhagem" soma as cadeiras de partidos fundidos ou incorporados às do partido em que
-eles terminaram.
+Partidos homônimos de épocas diferentes são partidos diferentes. Por exemplo, o PSD incorporado ao
+PTB em 2003 e o PSD fundado em 2011; o antigo PL, que se fundiu com o Prona em 2006 para formar o
+PR, e o PL atual, que é o próprio PR com o nome mudado em 2019; o PP de 1993–1995 e o PP atual, que
+descende do PPB.
+
+Em cada data, o site mostra a sigla em uso naquele momento (em 2010, PRB; em 2020, Republicanos).
+As datas de fusões, incorporações e mudanças de nome vêm do TSE, que registra os eventos a partir
+de 1995, com o número do processo; os anteriores estão marcados como "a confirmar".
+
+A opção "seguir linhagem" soma as cadeiras de partidos fundidos, incorporados ou transformados às
+do partido em que eles terminaram, seguindo a cadeia inteira (por exemplo, PDS, PPR, PPB e PP).
 
 ## Posição ideológica
 
