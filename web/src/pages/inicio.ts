@@ -25,7 +25,7 @@ import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
 import { siglaEm } from '../siglas';
-import { coresDasFaixas, corDe, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
+import { coresDasFaixas, corDe, FAIXAS, linhaDeFonte, nomeFonte, NOTA_EXTREMA } from '../ideologia';
 import { mostrarAtualizacao } from '../atualizacao';
 import { barraPosicao, celulaPosicao } from '../posicao';
 import { descreverPresidente, governoEm, posicaoDoPresidente } from '../presidente';
@@ -127,7 +127,7 @@ function desenharLegenda(): void {
     ? `Posição: ${esc(nomeFonte(p0))}${p0.nota && estado.momento.legislatura === 58 ? ` — ${esc(p0.nota)}` : ''}`
     : '';
   $('#legenda').innerHTML = `<p class="legenda-titulo">${fonte}</p><ul>${itens}
-    <li><span class="amostra amostra-hachura" aria-hidden="true"></span>não classificado</li></ul>`;
+    <li><span class="amostra amostra-hachura" aria-hidden="true"></span>não classificado</li></ul>${temFaixa ? `<p class="nota-extrema">${esc(NOTA_EXTREMA)}</p>` : ''}`;
 }
 
 function desenharForaDaOrdem(): void {

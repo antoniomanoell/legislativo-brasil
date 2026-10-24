@@ -15,7 +15,7 @@ import {
 } from '../dados';
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
-import { coresDasFaixas, corDe, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
+import { coresDasFaixas, corDe, FAIXAS, linhaDeFonte, nomeFonte, NOTA_EXTREMA } from '../ideologia';
 import { mostrarAtualizacao } from '../atualizacao';
 import { barraPosicao, celulaPosicao } from '../posicao';
 
@@ -119,6 +119,7 @@ function secao(casa: Casa, extra: string): string {
     <p id="ficha-${casa.id}" class="ficha-cadeira" aria-live="polite"></p>
     ${foraDaOrdem(casa.composicao)}
     <h3 class="subtitulo-2027">Por faixa ideológica do partido</h3>
+    <p class="bloco-dica">Cadeiras de partidos em cada faixa: cada parlamentar conta pela posição do seu partido, não pela sua própria.</p>
     ${barraFaixas(casa.composicao, total)}
     ${tabelaPartidos(casa)}
     ${extra}
@@ -149,7 +150,7 @@ async function iniciar(): Promise<void> {
       `<li><span class="amostra" style="background:${cores[i]}" aria-hidden="true"></span>${f}</li>`,
   ).join(
     '',
-  )}<li><span class="amostra amostra-hachura" aria-hidden="true"></span>não classificado</li></ul></div>`;
+  )}<li><span class="amostra amostra-hachura" aria-hidden="true"></span>não classificado</li></ul><p class="nota-extrema">${esc(NOTA_EXTREMA)}</p></div>`;
 
   $('#conteudo').innerHTML = `<section class="bloco">
       <h1 class="bloco-titulo">O Congresso a partir de 1º de fevereiro de 2027</h1>

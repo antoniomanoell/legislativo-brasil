@@ -81,3 +81,7 @@ export function linhaDeFonte(pontos: Pontuacao[]): string {
       : 'escala 0 a 10, faixas dos autores';
   return `Posição ideológica: ${nomeFonte(p)} (${escala}).`;
 }
+
+/** Nota sobre o termo "extrema" nas faixas de Bolognesi et al. (p. 13 do artigo de 2025). */
+export const NOTA_EXTREMA =
+  'Nas faixas de Bolognesi et al., "extrema" indica a ponta da escala, não postura antissistema: segundo os autores, é "apenas uma agregação da medida atribuída na reta, sem qualquer análise sobre a atuação política, programática ou organizacional dessas legendas". A classificação é do partido, não de cada parlamentar.';

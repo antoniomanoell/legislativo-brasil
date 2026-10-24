@@ -81,6 +81,14 @@ quatro: com ela, Republicanos, PSC e União Brasil passariam de "direita" a "ext
 PSD de "centro-direita" a "direita". Partidos perto de um corte entre faixas devem ser lidos pela
 pontuação, não só pelo rótulo.
 
+**O que "extrema" quer dizer.** Nas faixas de Bolognesi et al., "extrema-esquerda" e
+"extrema-direita" indicam as pontas da escala, não partidos antissistema ou radicais no sentido da
+ciência política. Os autores dizem isso expressamente: o termo "não leva em conta o aspecto
+antissistema que pode estar contido nos partidos associados com essa categoria ideológica"; trata-se
+"apenas de uma agregação da medida atribuída na reta, sem qualquer análise sobre a atuação política,
+programática ou organizacional dessas legendas" (Bolognesi et al., 2025, p. 13). E a classificação é
+do partido: um parlamentar conta pela posição do seu partido, não pela sua própria.
+
 A BLS não publica rótulos, e as duas escalas medem coisas diferentes, de formas diferentes. Testamos uma conversão
 entre elas com os partidos medidos pelas duas pesquisas em datas próximas: a ordem dos partidos
 coincide muito, mas cerca de um em cada quatro partidos cairia numa faixa diferente da de Bolognesi
