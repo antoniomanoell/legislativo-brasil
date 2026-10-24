@@ -65,13 +65,19 @@ presidente (Zucco & Lauderdale, 2011).
   onda realizada durante a legislatura (1993 para a 49ª, 1997 para a 50ª, e assim por diante até
   2021 para a 56ª). A escala vai de −1 (esquerda) a +1 (direita).
 - Legislaturas 57ª e 58ª (2023–2031): Bolognesi, Ribeiro, Codato e Silva, pesquisa feita em 2022 com
-  cientistas políticos, numa escala de 0 (extrema-esquerda) a 10 (extrema-direita). Para a 58ª, que
+  515 cientistas políticos (contagem nos microdados publicados), numa escala de 0 (extrema-esquerda)
+  a 10 (extrema-direita). Para a 58ª, que
   começa em 2027, a medição é de 2022; ela será substituída quando houver medição mais recente.
 
 **Faixas.** Os rótulos (extrema-esquerda, esquerda, centro-esquerda, centro, centro-direita,
 direita, extrema-direita) são os que Bolognesi et al. publicam para cada partido, a partir da média
-ponderada das avaliações e dos cortes definidos pelos autores na escala de 0 a 10; o site não
-recalcula nenhum rótulo. A BLS não publica
+ponderada e dos cortes definidos pelos autores na escala de 0 a 10; o site não recalcula nenhum
+rótulo. A "média ponderada" não dá pesos diferentes aos respondentes: ela equivale à média simples de
+2022 multiplicada por um mesmo fator, de cerca de 1,03, para todos os partidos (conferido nos números
+publicados); segundo os autores, é um ajuste de escala entre as rodadas de 2018 e 2022. Esse ajuste
+muda a faixa de quatro partidos: pela média simples, Republicanos, PSC e União Brasil ficariam em
+"direita" (e não "extrema-direita") e o PSD em "centro-direita" (e não "direita"). Partidos perto de
+um corte entre faixas devem ser lidos pela pontuação, não só pelo rótulo. A BLS não publica
 rótulos, e as duas escalas medem coisas diferentes, de formas diferentes. Testamos uma conversão
 entre elas com os partidos medidos pelas duas pesquisas em datas próximas: a ordem dos partidos
 coincide muito, mas cerca de um em cada quatro partidos cairia numa faixa diferente da publicada.

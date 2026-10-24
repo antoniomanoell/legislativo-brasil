@@ -101,6 +101,11 @@ Formato de cada entrada:
 - **Alternativa descartada:** aplicar os cortes à média simples (mudaria PSD, Republicanos, PSC e
   União de faixa, criando rótulos que os autores não publicaram).
 - **Motivo:** decidido pelo Antônio; fidelidade à fonte nomeada.
+- **Conferido em 2026-10-24:** a "média ponderada" não pondera respondentes; é a média simples de 2022
+  multiplicada por um fator único (1,029–1,031 nos 32 partidos, variação de arredondamento), descrito
+  pelos autores como ajuste de escala entre 2018 e 2022 (a fórmula partido a partido do texto não
+  reproduz a tabela). A Metodologia passa a dizer isso e quais faixas mudam. Microdados: 515
+  respondentes em 2022 e 518 em 2018.
 
 ## 2026-10-23 — Onda BLS de 1993 para a 49ª legislatura (A1)
 - **Decisão:** seguir a correspondência dos autores (onda 1993 → 49ª). O PDC, ausente da onda de 1993,
