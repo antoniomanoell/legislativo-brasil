@@ -271,3 +271,20 @@ Formato de cada entrada:
   só o placar.
 - **Motivo:** decidido pelo Antônio (1 a 4 conforme a recomendação; impeachment com voto nominal).
 
+## 2026-10-23 — Votações: publicação compacta por ano (§8, volume)
+- **Decisão:** um JSON por ano (`web/public/data/votacoes/ano-AAAA.json`) com a lista de deputados
+  do ano e, por votação, o voto de cada um como um caractere na ordem da lista e o partido no momento
+  do voto também como um caractere (índice na lista de partidos do ano); mais um índice sem votos e
+  `indicadores.json` com os agregados. Total: 9,6 MB de votações (~400 KB por ano) e 874 KB de
+  indicadores; a página carrega só o ano que precisa.
+- **Alternativas descartadas:** um JSON por votação (≈160 MB); Parquet + DuckDB-WASM no navegador
+  (dependência pesada sem ganho para este volume).
+- **Motivo:** a opção mais simples que cumpre o orçamento de performance (§10.2) sem servidor.
+
+## 2026-10-23 — Presença: quem votou conta como em exercício
+- **Decisão:** o "esperado" de cada votação são os deputados em exercício segundo o histórico da
+  Câmara **ou** que votaram nela; quem votou sem constar do histórico em exercício (10.182 votos, de
+  1,9 milhão) vai para `reports/votos_fora_do_historico.csv`. "Artigo 17" não conta como presença.
+- **Motivo:** o voto prova o exercício; o histórico tem lacunas. Sem isso, a presença passaria de
+  100% para alguns deputados.
+

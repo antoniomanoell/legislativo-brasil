@@ -59,14 +59,17 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
       ("GOV." e "Governo"), partido do voto mapeado para partido_id
 - [ ] Impeachments 1992 e 2016: voto nominal transcrito do Diário da Câmara (agente) →
       data/manual/impeachment_*.csv, conferido com o placar
-- [ ] Indicadores: governismo e presença (deputado e partido, por ano/legislatura/gabinete) e
+- [x] Indicadores: governismo e presença (deputado e partido, por ano/legislatura/gabinete) e
       coesão (Rice), conforme DECISIONS (A3, A4, A8)
 - [~] Destaques: PEC em 1º/2º turno (A5) feito (244 votações, reports/destaques_pec.csv); falta impeachments (agente)
 - [x] Validação cruzada: partido no voto × filiação na data (reports/divergencias_filiacao.csv)
-- [ ] Publicar: JSON por votação, por deputado e agregados (decidir formato pelo tamanho)
+- [x] Publicar: arquivos anuais compactos + índice + indicadores.json (DECISIONS)
 - [ ] Web: páginas Votações e Deputados; governismo na página Governos
 - [ ] Testes, CI e resumo para o Antônio
 
 ## Próximo passo exato
 
-Download em andamento (extract/camara_votacoes.py, rodar `uv run python -c "from congresso.extract import camara_votacoes as cv; cv.todos(2026)"`); transform/votacoes.py e presença prontos e testados. Próximo: etapa `votacoes` em etapas.py sobre os dados reais (mapear siglas dos votos com partidos_camara.csv).
+Web da Fase 3: página Votações (lista filtrável pelo índice; detalhe com placar por partido,
+orientações e hemiciclo colorido pelo voto), página Deputados (busca; perfil com partidos, governismo
+e presença por legislatura e votos) e governismo por partido na página Governos. Impeachments:
+aguardando o agente (scratchpad/impeachment) para transcrever em data/manual/.
