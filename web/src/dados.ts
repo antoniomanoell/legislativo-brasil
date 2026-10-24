@@ -122,6 +122,8 @@ export interface VotacaoResumo {
   /** Texto do resultado (o que foi votado e o placar), da Câmara. */
   descricao: string;
   proposicoes: string[];
+  /** O que está sendo votado: ementa e página oficial de cada proposição (Câmara ou Senado). */
+  materias?: { rotulo: string; ementa: string | null; url: string }[];
   aprovada: boolean;
   orientacao_governo: string | null;
   /** [Sim, Não, Abstenção, Obstrução] */

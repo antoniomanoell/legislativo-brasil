@@ -51,6 +51,27 @@ function rotuloProposicao(v: VotacaoResumo): string {
   return v.proposicoes.length ? v.proposicoes.join(', ') : 'Votação';
 }
 
+function cortar(texto: string, n: number): string {
+  return texto.length > n ? `${texto.slice(0, n).trimEnd()}…` : texto;
+}
+
+/** Ementa da primeira proposição, ou a descrição da votação quando a fonte não traz ementa. */
+function ementa(v: VotacaoResumo): string {
+  return v.materias?.find((m) => m.ementa)?.ementa ?? v.descricao;
+}
+
+/** Proposições votadas, cada uma com a ementa e o link para a página oficial. */
+function materias(v: VotacaoResumo): string {
+  if (!v.materias?.length) return '';
+  const casaFonte = senado ? 'do Senado' : 'da Câmara';
+  return `<h2 class="bloco-titulo">O que foi votado</h2><ul class="lista-materias">${v.materias
+    .map(
+      (m) =>
+        `<li><a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.rotulo)}</a> <span class="bloco-dica">(página no portal ${casaFonte})</span>${m.ementa ? `<br>${esc(m.ementa)}` : ''}</li>`,
+    )
+    .join('')}</ul>`;
+}
+
 function orientacao(v: VotacaoResumo): string {
   const o = v.orientacao_governo;
   if (!o) return 'sem orientação registrada';
@@ -119,7 +140,8 @@ async function detalhe(id: string, ano: number): Promise<void> {
     <h1 class="bloco-titulo">${esc(rotuloProposicao(v))} — ${dataBr(v.data)}</h1>
     ${v.pec ? '<p><span class="selo">PEC: votação de mérito em 1º ou 2º turno</span></p>' : ''}
     ${v.impeachment ? '<p><span class="selo">Impeachment: voto de cada deputado transcrito do Diário oficial</span></p>' : ''}
-    <p>${esc(v.descricao)}</p>
+    ${materias(v)}
+    <p><strong>Votação:</strong> ${esc(v.descricao)}</p>
     <p class="placar"><strong>${v.aprovada ? 'Aprovada' : 'Rejeitada'}</strong>
       <span><span class="amostra" style="background:var(--voto-sim)"></span>Sim ${s}</span>
       <span><span class="amostra" style="background:var(--voto-nao)"></span>Não ${n}</span>
@@ -195,12 +217,12 @@ async function lista(): Promise<void> {
       <label class="campo" style="flex:0 1 140px"><span class="campo-rotulo">Ano</span>
         <select name="ano"><option value="">Todos</option>${anos.map((a) => `<option>${a}</option>`).join('')}</select></label>
       <label class="campo" style="flex:1 1 240px"><span class="campo-rotulo">Buscar</span>
-        <input type="search" name="q" placeholder="proposição ou texto (ex.: PEC 6/2019)"></label>
+        <input type="search" name="q" placeholder="proposição, ementa ou texto (ex.: PEC 6/2019, previdência)"></label>
       <label class="caixa"><input type="checkbox" name="d"> só destaques (${senado ? 'PEC em 1º ou 2º turno' : 'PEC e impeachment'})</label>
       <label class="caixa"><input type="checkbox" name="g"> só com orientação Sim/Não do Governo</label>
     </form>
     <p id="contagem" class="bloco-dica" aria-live="polite"></p>
-    <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Data</th><th scope="col">Proposição</th><th scope="col">Descrição</th><th scope="col">Resultado</th><th scope="col">Sim × Não</th><th scope="col">Governo</th></tr></thead><tbody id="linhas"></tbody></table></div>
+    <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Data</th><th scope="col">Proposição</th><th scope="col">O que foi votado</th><th scope="col">Resultado</th><th scope="col">Sim × Não</th><th scope="col">Governo</th></tr></thead><tbody id="linhas"></tbody></table></div>
     <p><button type="button" id="mais" class="botao-sobre" hidden>Mostrar mais</button></p>`;
   const form = $('#filtros') as HTMLFormElement;
   (form.elements.namedItem('ano') as HTMLSelectElement).value = p.get('ano') ?? String(anos[0]);
@@ -236,7 +258,10 @@ async function lista(): Promise<void> {
           (!ano || v.data.startsWith(ano)) &&
           (!soPec || v.pec || v.impeachment) &&
           (!soGov || v.orientacao_governo === 'Sim' || v.orientacao_governo === 'Não') &&
-          (!q || `${v.proposicoes.join(' ')} ${v.descricao}`.toLowerCase().includes(q)),
+          (!q ||
+            `${v.proposicoes.join(' ')} ${v.descricao} ${v.materias?.map((m) => m.ementa).join(' ') ?? ''}`
+              .toLowerCase()
+              .includes(q)),
       )
       .sort((a, b) => b.data.localeCompare(a.data));
     $('#contagem').textContent = `${filtradas.length} votações`;
@@ -245,7 +270,7 @@ async function lista(): Promise<void> {
       .map(
         (v) => `<tr><td class="num">${dataBr(v.data)}</td>
           <td><a href="votacoes.html?v=${encodeURIComponent(v.id)}&a=${v.data.slice(0, 4)}${sufixoCasa}">${esc(rotuloProposicao(v))}</a>${v.pec ? ' <span class="selo">PEC</span>' : ''}${v.impeachment ? ' <span class="selo">impeachment</span>' : ''}</td>
-          <td class="posicao-celula">${esc(v.descricao.slice(0, 140))}${v.descricao.length > 140 ? '…' : ''}</td>
+          <td>${esc(cortar(ementa(v), 180))}<br><span class="posicao-celula">${esc(cortar(v.descricao, 120))}</span></td>
           <td>${v.aprovada ? 'aprovada' : 'rejeitada'}</td><td class="num">${v.placar[0]} × ${v.placar[1]}</td>
           <td>${esc(v.orientacao_governo ?? '—')}</td></tr>`,
       )

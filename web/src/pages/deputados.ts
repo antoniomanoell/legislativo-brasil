@@ -12,6 +12,7 @@ import {
   casaDaUrl,
   type IndicadoresDeputado,
   type Partido,
+  type VotacaoResumo,
 } from '../dados';
 import { iniciarTema } from '../design/tema';
 import { esc, formatarNumero } from '../formato';
@@ -32,6 +33,13 @@ const pctOuTraco = (x: number | undefined) =>
 
 function dataBr(iso: string): string {
   return iso.slice(0, 10).split('-').reverse().join('/');
+}
+
+/** Ementa da primeira proposição, encurtada, numa segunda linha. */
+function ementaCurta(materias: VotacaoResumo['materias']): string {
+  const e = materias?.find((m) => m.ementa)?.ementa;
+  if (!e) return '';
+  return `<br><span class="posicao-celula">${esc(e.length > 140 ? `${e.slice(0, 140).trimEnd()}…` : e)}</span>`;
 }
 
 function semAcento(s: string): string {
@@ -109,7 +117,7 @@ async function perfil(id: string): Promise<void> {
       .reverse()
       .map(
         (v) =>
-          `<tr><td class="num">${dataBr(v.data)}</td><td><a href="votacoes.html?v=${encodeURIComponent(v.id)}&a=${ano}${sufixoCasa}">${esc(v.proposicoes.join(', ') || 'Votação')}</a></td>
+          `<tr><td class="num">${dataBr(v.data)}</td><td><a href="votacoes.html?v=${encodeURIComponent(v.id)}&a=${ano}${sufixoCasa}">${esc(v.proposicoes.join(', ') || 'Votação')}</a>${ementaCurta(v.materias)}</td>
             <td>${esc(senado && v.v[i] === '7' ? 'Presidente (art. 51 RISF)' : (VOTO[v.v[i] as string] ?? ''))}</td><td>${esc(v.orientacao_governo ?? '—')}</td></tr>`,
       )
       .join('');

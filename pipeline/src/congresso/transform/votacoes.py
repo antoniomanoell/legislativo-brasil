@@ -12,6 +12,7 @@ import polars as pl
 
 BANCADAS_GOVERNO = {"GOV.", "Governo"}
 VOTOS_VALIDOS = ("Sim", "Não", "Abstenção", "Obstrução")
+URL_PROPOSICAO = "https://www.camara.leg.br/propostas-legislativas/"
 
 
 def _csv(caminho: Path) -> pl.DataFrame:
@@ -38,10 +39,19 @@ def ler_ano(
                 + pl.col("proposicao_ano")
             ).alias("rotulo")
         )
+        .sort("rotulo")
         .group_by("idVotacao")
         .agg(
             pl.col("rotulo").unique().sort().alias("proposicoes"),
             pl.col("proposicao_siglaTipo").unique().alias("tipos"),
+            # O que está sendo votado: ementa e página de cada proposição no portal da Câmara.
+            pl.struct(
+                pl.col("rotulo"),
+                pl.col("proposicao_ementa").str.strip_chars().alias("ementa"),
+                (URL_PROPOSICAO + pl.col("proposicao_id")).alias("url"),
+            )
+            .unique(maintain_order=True)
+            .alias("materias"),
         )
     )
     if orientacoes is not None:

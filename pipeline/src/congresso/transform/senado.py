@@ -123,6 +123,7 @@ PRESIDENTE = {"Presidente (art. 51 RISF)"}
 LICENCA = {"LS", "LP", "LG", "LA", "LAP"}
 SERVICO = {"AP", "MIS", "REP", "MERC"}
 NAO_VOTOU = {"NCom", "P-NRV"}
+URL_MATERIA = "https://www25.senado.leg.br/web/atividade/materias/-/materia/"
 
 
 def ler_votacoes(pasta: Path, ano: int) -> tuple[pl.DataFrame, pl.DataFrame]:
@@ -156,6 +157,8 @@ def ler_votacoes(pasta: Path, ano: int) -> tuple[pl.DataFrame, pl.DataFrame]:
                 "secreta": secreta,
                 "orientacao_governo": governo.get(v.get("sequencialVotacao")),
                 "sigla_materia": v.get("sigla"),
+                "ementa": (v.get("ementa") or "").strip() or None,
+                "codigo_materia": v.get("codigoMateria"),
             }
         )
         if secreta:
@@ -171,7 +174,14 @@ def ler_votacoes(pasta: Path, ano: int) -> tuple[pl.DataFrame, pl.DataFrame]:
                     "situacao": x.get("siglaVotoParlamentar"),
                 }
             )
-    tab_v = pl.DataFrame(vs, schema_overrides={"orientacao_governo": pl.String})
+    tab_v = pl.DataFrame(
+        vs,
+        schema_overrides={
+            "orientacao_governo": pl.String,
+            "ementa": pl.String,
+            "codigo_materia": pl.String,
+        },
+    )
     tab_votos = pl.DataFrame(votos)
     if tab_votos.height:
         tab_votos = tab_votos.with_columns(

@@ -543,6 +543,18 @@ def votacoes_senado(*, atualizar: bool = False) -> None:
             pl.col("data").alias("data_hora"),
             pl.lit(None, pl.String).alias("descricao_abertura"),
             pl.concat_list(pl.col("identificacao")).alias("proposicoes"),
+            # Ementa e página da matéria no portal do Senado.
+            pl.when(pl.col("codigo_materia").is_not_null())
+            .then(
+                pl.concat_list(
+                    pl.struct(
+                        pl.col("identificacao").alias("rotulo"),
+                        pl.col("ementa"),
+                        (sen.URL_MATERIA + pl.col("codigo_materia")).alias("url"),
+                    )
+                )
+            )
+            .alias("materias"),
             pl.when(pl.col("resultado") == "A")
             .then(pl.lit("1"))
             .otherwise(pl.lit("0"))

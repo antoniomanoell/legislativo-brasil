@@ -438,3 +438,9 @@
     justify-content: flex-start;
   }
 }
+.lista-materias {
+  padding-left: 1.2em;
+}
+.lista-materias li + li {
+  margin-top: 0.5em;
+}

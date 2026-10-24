@@ -58,8 +58,15 @@ def arquivos(tmp_path):
     p = _gravar(
         tmp_path / "props.csv",
         [
-            ["idVotacao", "proposicao_siglaTipo", "proposicao_numero", "proposicao_ano"],
-            ["1-1", "PEC", "241", "2016"],
+            [
+                "idVotacao",
+                "proposicao_id",
+                "proposicao_ementa",
+                "proposicao_siglaTipo",
+                "proposicao_numero",
+                "proposicao_ano",
+            ],
+            ["1-1", "2088351", " Altera o ADCT. ", "PEC", "241", "2016"],
         ],
     )
     o = _gravar(
@@ -77,6 +84,13 @@ def test_so_plenario_com_voto_individual(arquivos):
     votacoes, votos = ler_ano(*arquivos)
     assert votacoes["id"].to_list() == ["1-1"]  # 1-2 não tem votos; 2-1 é de comissão
     assert votacoes.row(0, named=True)["proposicoes"] == ["PEC 241/2016"]
+    assert votacoes.row(0, named=True)["materias"] == [
+        {
+            "rotulo": "PEC 241/2016",
+            "ementa": "Altera o ADCT.",
+            "url": "https://www.camara.leg.br/propostas-legislativas/2088351",
+        }
+    ]
     assert votacoes.row(0, named=True)["orientacao_governo"] == "Sim"
     assert votos.height == 4
 

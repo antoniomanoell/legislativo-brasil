@@ -34,6 +34,8 @@ def _meta(r: dict) -> dict:
         # enganosa (ex.: "Votação em segundo turno" num requerimento). Só entra se faltar o outro.
         "descricao": (r["descricao"] or r["descricao_abertura"] or "").strip(),
         "proposicoes": r["proposicoes"],
+        # [{rotulo, ementa, url}]: ementa e página oficial de cada proposição votada.
+        "materias": r.get("materias") or [],
         "aprovada": r["aprovacao"] == "1",
         "orientacao_governo": r["orientacao_governo"],
         "placar": [r["n_Sim"], r["n_Não"], r["n_Abstenção"], r["n_Obstrução"]],
