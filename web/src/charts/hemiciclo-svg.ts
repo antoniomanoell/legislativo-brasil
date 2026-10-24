@@ -34,6 +34,8 @@ export function desenharHemiciclo(
   aoMudar: (s: Selecao | undefined, origem: 'teclado' | 'ponteiro') => void,
   /** Se informado, as cadeiras de outros partidos ficam esmaecidas (ex.: destacar a base formal). */
   destaque?: Set<string>,
+  /** Cor de cada cadeira (ex.: pelo voto). Sem isso, a cor é a posição ideológica do partido. */
+  corDaCadeira?: (d: Deputado) => string,
 ): void {
   const ordem = emOrdem(composicao);
   const cadeiras = hemiciclo(ordem.length);
@@ -102,7 +104,7 @@ export function desenharHemiciclo(
       cy: -c.y,
       r: c.r,
       class: destaque && !destaque.has(item.grupo.partido) ? 'cadeira esmaecida' : 'cadeira',
-      fill: corDe(item.grupo.pontuacao, cores),
+      fill: corDaCadeira ? corDaCadeira(item.deputado) : corDe(item.grupo.pontuacao, cores),
       'data-i': i,
     });
     svg.append(circ);

@@ -104,6 +104,61 @@ export interface Governos {
   base_por_momento: Record<string, BaseNoMomento>;
 }
 
+export interface VotacaoResumo {
+  id: string;
+  data: string;
+  descricao: string;
+  resultado: string;
+  proposicoes: string[];
+  aprovada: boolean;
+  orientacao_governo: string | null;
+  /** [Sim, Não, Abstenção, Obstrução] */
+  placar: [number, number, number, number];
+  pec: boolean;
+}
+
+export interface VotacaoCompleta extends VotacaoResumo {
+  /** Um caractere por deputado da lista do ano: S, N, A, O, 7 (Artigo 17) ou . (sem voto). */
+  v: string;
+  /** Partido no momento do voto: índice em base 36 na lista de partidos do ano; . = sem voto. */
+  p: string;
+}
+
+export interface VotacoesDoAno {
+  /** [id na Câmara, nome, UF] */
+  deputados: [number, string, string][];
+  partidos: string[];
+  votacoes: VotacaoCompleta[];
+}
+
+export interface IndicadorPartido {
+  governismo: number | null;
+  votos: number | null;
+  votacoes_governo: number | null;
+  rice: number | null;
+  votacoes_rice: number | null;
+}
+
+export interface IndicadoresDeputado {
+  nome: string;
+  uf: string;
+  /** [partido, primeiro voto, último voto] */
+  partidos: [string, string, string][];
+  legislaturas?: Record<
+    string,
+    { governismo?: number; votos?: number; presenca?: number; votacoes_esperadas?: number }
+  >;
+  governos?: Record<string, { governismo: number; votos: number }>;
+}
+
+export interface Indicadores {
+  partidos: Record<
+    string,
+    { anos?: Record<string, IndicadorPartido>; governos?: Record<string, IndicadorPartido> }
+  >;
+  deputados: Record<string, IndicadoresDeputado>;
+}
+
 const cache = new Map<string, Promise<unknown>>();
 
 function carregar<T>(caminho: string): Promise<T> {
@@ -123,4 +178,8 @@ export const carregarIdeologia = () => carregar<Ideologia>('ideologia.json');
 export const carregarPartidos = () => carregar<Record<string, Partido>>('partidos.json');
 export const carregarAgregados = () => carregar<Agregados>('agregados.json');
 export const carregarGovernos = () => carregar<Governos>('governos.json');
+export const carregarIndiceVotacoes = () => carregar<VotacaoResumo[]>('votacoes/indice.json');
+export const carregarVotacoesDoAno = (ano: number) =>
+  carregar<VotacoesDoAno>(`votacoes/ano-${ano}.json`);
+export const carregarIndicadores = () => carregar<Indicadores>('indicadores.json');
 export const carregarMomento = (id: string) => carregar<Deputado[]>(`momentos/${id}.json`);

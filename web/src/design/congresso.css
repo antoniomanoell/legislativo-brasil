@@ -365,3 +365,56 @@
 .pagina-governos td:nth-child(2) {
   white-space: nowrap;
 }
+
+/* ---------- Votos (validados para daltonismo; ausente e Artigo 17 só com contorno) ---------- */
+:root {
+  --voto-sim: #1b7837;
+  --voto-nao: #762a83;
+  --voto-obstrucao: #d98e04;
+  --voto-abstencao: #9e9e9e;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema='claro']) {
+    --voto-sim: #4caf7a;
+    --voto-nao: #b48ae6;
+    --voto-obstrucao: #d9851a;
+    --voto-abstencao: #707070;
+  }
+}
+:root[data-tema='escuro'] {
+  --voto-sim: #4caf7a;
+  --voto-nao: #b48ae6;
+  --voto-obstrucao: #d9851a;
+  --voto-abstencao: #707070;
+}
+.placar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+.placar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: end;
+}
+.filtros input[type='search'] {
+  font: inherit;
+  padding: 7px 10px;
+  border: 1px solid var(--borda-forte);
+  border-radius: 10px;
+  background: var(--fundo);
+  color: var(--texto);
+  min-width: 220px;
+}
+.filtros label.caixa {
+  font-size: 0.875rem;
+  color: var(--texto-2);
+}
