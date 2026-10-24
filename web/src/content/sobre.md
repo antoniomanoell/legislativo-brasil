@@ -1,0 +1,55 @@
+<!-- RASCUNHO: revisar com Antônio -->
+
+# Sobre
+
+O **Congresso em Números** mostra como a Câmara dos Deputados e o Senado Federal estiveram compostos
+desde 1991: quem foi eleito, quem estava em exercício, por qual partido, onde cada partido fica no
+espectro ideológico segundo a pesquisa acadêmica, quais partidos formavam a base formal de cada
+governo e como cada parlamentar votou.
+
+É um projeto independente, sem fins comerciais e sem vínculo com partidos, governos, a Câmara ou o
+Senado. O site descreve; não avalia partidos, parlamentares ou governos.
+
+## Princípios
+
+- **Toda informação tem fonte nomeada.** Os números vêm de dados oficiais (TSE, Câmara, Senado) e de
+  pesquisas acadêmicas publicadas; as fontes estão abaixo e em cada página.
+- **Lacuna aparece como lacuna.** Quando a fonte não cobre um período ou um caso, o site mostra a
+  falta, em vez de completá-la por estimativa.
+- **Nenhum texto sobre o conteúdo das proposições é do projeto.** Ementas, temas e indexação são os
+  publicados pela Câmara e pelo Senado.
+- **Os critérios estão na [Metodologia](metodologia.html)**, inclusive as escolhas que outros fariam
+  de outro jeito.
+
+## Fontes e licenças
+
+| Fonte | O que fornece | Termos de uso |
+|---|---|---|
+| Tribunal Superior Eleitoral — Portal de Dados Abertos | Eleitos de 1990 a 2026 | Creative Commons Atribuição (CC-BY) |
+| Câmara dos Deputados — Dados Abertos | Exercício, partidos, votações e proposições da Câmara | Domínio público, citada a fonte |
+| Senado Federal — Dados Abertos | Exercício, filiações, votações e matérias do Senado | Uso permitido, citada a fonte |
+| Zucco & Power, Brazilian Legislative Surveys (Harvard Dataverse) | Posição ideológica dos partidos, 49ª a 56ª legislatura | CC0 (dados); CC-BY 4.0 (artigo) |
+| Bolognesi, Ribeiro, Codato & Silva (Harvard Dataverse) | Posição ideológica dos partidos, 57ª e 58ª legislatura | CC0 (dados); CC-BY 4.0 (artigo) |
+| IPEA — Almeida, Nota Técnica Diest nº 53 | Gabinetes ministeriais de 1985 a 2020 | Reprodução permitida com citação; uso comercial proibido |
+
+De 2021 em diante, a composição partidária dos gabinetes é curadoria do projeto pelo mesmo critério
+do IPEA, com a fonte de cada nomeação registrada. As referências completas estão na
+[Metodologia](metodologia.html).
+
+## Dados
+
+O site não oferece download dos dados tratados. Quem precisar dos dados deve recorrer às fontes
+originais acima, todas abertas, e citá-las conforme os termos de cada uma.
+
+## Como citar
+
+> Congresso em Números. Disponível em: [endereço do site]. Acesso em: [data].
+
+Ao usar um número do site, cite também a fonte original indicada na página (por exemplo, "Câmara dos
+Deputados — Dados Abertos" para votações da Câmara, ou Bolognesi et al. para a posição ideológica de
+2023 em diante).
+
+## Atualização
+
+Os dados são atualizados manualmente, não em tempo real. A data da última atualização aparece no
+rodapé do Início. Composições e bancadas das eleições de 2026 são provisórias até a diplomação.

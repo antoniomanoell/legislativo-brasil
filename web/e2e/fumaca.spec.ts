@@ -53,6 +53,7 @@ for (const caminho of [
   'partidos.html',
   'partidos.html?p=pt',
   'metodologia.html',
+  'sobre.html',
 ]) {
   test(`${caminho} carrega sem erro`, async ({ page }) => {
     const erros: string[] = [];

@@ -449,3 +449,15 @@
   font-size: 0.8125rem;
   color: var(--texto-2);
 }
+.texto table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.texto th,
+.texto td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.6em;
+  border-bottom: 1px solid var(--borda);
+}

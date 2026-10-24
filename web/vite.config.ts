@@ -12,6 +12,7 @@ export default defineConfig({
         deputados: resolve(import.meta.dirname, 'deputados.html'),
         partidos: resolve(import.meta.dirname, 'partidos.html'),
         metodologia: resolve(import.meta.dirname, 'metodologia.html'),
+        sobre: resolve(import.meta.dirname, 'sobre.html'),
         estilo: resolve(import.meta.dirname, 'estilo.html'),
       },
     },
