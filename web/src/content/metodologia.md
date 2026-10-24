@@ -1,5 +1,3 @@
-<!-- RASCUNHO: revisar com Antônio -->
-
 # Metodologia
 
 Este site mostra como a Câmara dos Deputados e o Senado Federal estiveram compostos desde 1991
