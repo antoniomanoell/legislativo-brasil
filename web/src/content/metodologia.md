@@ -70,8 +70,9 @@ a ser entre governo e oposição, e não entre esquerda e direita (Zucco & Laude
   começa em 2027, a medição é de 2022; ela será substituída quando houver medição mais recente.
 
 **Faixas.** Os rótulos (extrema-esquerda, esquerda, centro-esquerda, centro, centro-direita,
-direita, extrema-direita) são os publicados por Bolognesi et al., com os cortes definidos pelos
-autores na escala de 0 a 10, aplicados à média ponderada que eles publicam. A BLS não publica
+direita, extrema-direita) são os que Bolognesi et al. publicam para cada partido, a partir da média
+ponderada das avaliações e dos cortes definidos pelos autores na escala de 0 a 10; o site não
+recalcula nenhum rótulo. A BLS não publica
 rótulos, e as duas escalas medem coisas diferentes, de formas diferentes. Testamos uma conversão
 entre elas com os partidos medidos pelas duas pesquisas em datas próximas: a ordem dos partidos
 coincide muito, mas cerca de um em cada quatro partidos cairia numa faixa diferente da publicada.
@@ -86,9 +87,12 @@ um partido medido: o PDS (eleito em 1990, medido como parte da linhagem PDS/PPR)
 1990 e rebatizado PPS em 1992), o PPR eleito em 1994 e o PL eleito em 2006 (fundido no PR antes da
 posse). Cada um desses casos é indicado junto da pontuação.
 
-**Uma limitação de qualquer série longa.** Nos anos 1980 e 1990, políticos de direita evitavam se
-declarar assim (Rodrigues, 1987). Parte do que parece mudança de posição ao longo do tempo pode ser
-mudança na disposição de se declarar, e não do partido.
+**Uma limitação de qualquer série longa.** Na Constituinte de 1987, poucos parlamentares de direita
+se declaravam assim; Leôncio Martins Rodrigues chamou o fenômeno de "direita envergonhada"
+(Rodrigues, 1987). Pesquisas posteriores com parlamentares o descrevem como um traço duradouro da
+elite política brasileira (Power & Zucco, 2009, citados por Quadros & Madeira, 2018). Parte do que
+parece mudança de posição ao longo do tempo pode ser mudança na disposição de se declarar, e não do
+partido.
 
 ## Governos e base formal
 
@@ -207,3 +211,9 @@ deputados não têm lugar fixo, exceto os líderes, na primeira fila.
 - Zucco, C.; Lauderdale, B. Distinguishing between Influences on Brazilian Legislative Behavior.
   *Legislative Studies Quarterly*, v. 36, n. 3, 2011.
 - Rodrigues, L. M. *Quem é quem na Constituinte*. São Paulo: OESP/Maltese, 1987.
+- Power, T. J.; Zucco, C. Estimating Ideology of Brazilian Legislative Parties, 1990–2005: A
+  Research Communication. *Latin American Research Review*, v. 44, n. 1, 2009 (citado por Quadros &
+  Madeira, 2018; o original não foi consultado).
+- Quadros, M. P. R.; Madeira, R. M. Fim da direita envergonhada? Atuação da bancada evangélica e da
+  bancada da bala e os caminhos da representação do conservadorismo no Brasil. *Opinião Pública*,
+  v. 24, n. 3, 2018. doi:10.1590/1807-01912018243486.

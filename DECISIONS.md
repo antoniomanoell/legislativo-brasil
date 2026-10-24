@@ -109,6 +109,7 @@ Formato de cada entrada:
 - **Motivo:** decidido pelo Antônio; é o mapeamento do código de replicação de Zucco & Power.
 
 ## 2026-10-23 — 56ª legislatura: Bolognesi 2022 para partido ausente da BLS 2021 (A2)
+- **Revogada** pela decisão "Uma só escala por legislatura" (mais abaixo): na 56ª só a BLS é usada.
 - **Decisão:** Bolognesi 2022 (afeta Avante, Patriota, PV e Rede).
 - **Alternativa descartada:** Bolognesi 2018.
 - **Motivo:** decidido pelo Antônio; 2022 está a 1 ano da onda BLS de 2021, que mede o restante da
