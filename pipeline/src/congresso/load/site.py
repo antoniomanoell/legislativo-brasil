@@ -194,8 +194,10 @@ def publicar_governos(
     inicio_gabinetes: pl.DataFrame,
     fim_cobertura: str,
     destino: Path,
+    ministros: pl.DataFrame | None = None,
 ) -> None:
-    """governos.json: presidentes, gabinetes com partidos e base no início, e base em cada foto."""
+    """governos.json: presidentes, gabinetes com partidos e base no início, base em cada foto e,
+    para a curadoria de 2021 em diante, cada ministro com filiação, a classificação e as fontes."""
     no_inicio = {r["gabinete"]: r for r in inicio_gabinetes.iter_rows(named=True)}
 
     # O governo de cada gabinete vem do nome dado pela fonte ("Temer-1", "FHC 2-3"), não da data:
@@ -229,8 +231,26 @@ def publicar_governos(
                 },
             }
         )
+    lista_ministros = []
+    if ministros is not None:
+        for m in ministros.iter_rows(named=True):
+            urls = [u.strip() for u in (m["fonte_url"] or "").split(";") if u.strip()]
+            lista_ministros.append(
+                {
+                    "ministro": m["ministro"],
+                    "cargo": m["cargo"],
+                    "partido": m["partido_sigla_na_epoca"],
+                    "posse": m["posse"],
+                    "saida": m["saida"] or None,
+                    "conta": m["classificacao_projeto"],
+                    "motivo": m["motivo_classificacao"] or None,
+                    "evidencia": m["evidencia"] or None,
+                    "fontes": [u for u in urls if u.startswith("http")],
+                }
+            )
     dados = {
         "cobertura_ate": fim_cobertura,
+        "ministros": lista_ministros,
         "governos": [
             {k: (v.isoformat() if hasattr(v, "isoformat") else v) for k, v in r.items()}
             for r in governos.drop("fonte", "prefixo_gabinete").iter_rows(named=True)

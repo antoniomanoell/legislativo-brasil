@@ -216,6 +216,7 @@ def publicar(*, atualizar: bool = False) -> None:
             inicio_gabinetes=pl.read_csv(RELATORIOS / "base_inicio_gabinetes.csv"),
             fim_cobertura=fim.isoformat(),
             destino=PUBLICADOS,
+            ministros=pl.read_csv(MANUAIS / "ministros_pos2020.csv", infer_schema=False),
         )
     tamanho = sum(p.stat().st_size for p in PUBLICADOS.rglob("*.json"))
     print(

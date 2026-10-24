@@ -109,8 +109,23 @@ export interface BaseNoMomento {
   governo: string | null;
 }
 
+/** Ministro com filiação partidária na curadoria de 2021 em diante, com a classificação e as fontes. */
+export interface Ministro {
+  ministro: string;
+  cargo: string;
+  partido: string;
+  posse: string;
+  saida: string | null;
+  /** Conta para a base formal? ("sim", "não", "fora da cobertura" ou com datas). */
+  conta: string;
+  motivo: string | null;
+  evidencia: string | null;
+  fontes: string[];
+}
+
 export interface Governos {
   cobertura_ate: string;
+  ministros: Ministro[];
   governos: Governo[];
   gabinetes: Gabinete[];
   base_por_momento: Record<string, BaseNoMomento>;

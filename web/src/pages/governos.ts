@@ -13,6 +13,7 @@ import {
   type Catalogo,
   type Gabinete,
   type Governos,
+  type Ministro,
   type Partido,
 } from '../dados';
 import { ajuda } from '../design/ajuda';
@@ -144,6 +145,45 @@ function comportamento(
     <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Partido</th><th scope="col">Ministério</th><th scope="col">Governismo</th><th scope="col">Votos considerados</th><th scope="col">Coesão</th></tr></thead><tbody>${corpo}</tbody></table></div>`;
 }
 
+/** Texto da fonte com os endereços como links (o texto é escapado pedaço a pedaço, para não
+ * quebrar endereços com "&"). */
+function comLinks(texto: string): string {
+  return texto
+    .split(/(https?:\/\/[^\s|]+)/)
+    .map((parte, i) => {
+      if (i % 2 === 0) return esc(parte);
+      const url = parte.replace(/[;,.)]+$/, '');
+      const resto = parte.slice(url.length);
+      const rotulo = url.replace(/^https?:\/\//, '');
+      return `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(rotulo.length > 60 ? `${rotulo.slice(0, 60)}…` : rotulo)}</a>${esc(resto)}`;
+    })
+    .join('');
+}
+
+/** Fonte de um gabinete: a citação do IPEA ou os links da curadoria (o caminho do arquivo do
+ * repositório não interessa ao leitor; a lista de ministros vem logo abaixo). */
+function fonteDoGabinete(fonte: string): string {
+  if (!fonte.startsWith('Curadoria')) return comLinks(fonte);
+  const links = fonte.split(' | ').slice(1);
+  return `curadoria do projeto pelo critério do IPEA${links.length ? ` — ${links.map(comLinks).join(' · ')}` : ''}`;
+}
+
+function tabelaMinistros(lista: Ministro[]): string {
+  if (!lista.length) return '';
+  const linhas = [...lista]
+    .sort((a, b) => a.posse.localeCompare(b.posse))
+    .map(
+      (m) => `<tr><td>${esc(m.ministro)}</td><td>${esc(m.cargo)}</td><td>${esc(m.partido)}</td>
+        <td class="num">${esc(dataCurta(m.posse))}${m.saida ? ` a ${esc(dataCurta(m.saida))}` : ''}</td>
+        <td>${esc(m.conta)}</td>
+        <td class="posicao-celula">${m.motivo ? `${esc(m.motivo)}<br>` : ''}${m.fontes.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener">fonte ${i + 1}</a>`).join(' · ')}</td></tr>`,
+    )
+    .join('');
+  return `<details class="detalhes-partidos"><summary>Ministros com filiação partidária: classificação e fontes (${lista.length})</summary>
+    <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Ministro</th><th scope="col">Cargo</th><th scope="col">Partido</th><th scope="col">Período</th><th scope="col">Conta para a base?</th><th scope="col">Motivo e fontes</th></tr></thead>
+    <tbody>${linhas}</tbody></table></div></details>`;
+}
+
 async function iniciar(): Promise<void> {
   iniciarTema();
   const [cat, gov, partidos, ind] = await Promise.all([
@@ -160,9 +200,7 @@ async function iniciar(): Promise<void> {
         .map((x) => {
           const b = x.base_no_inicio;
           const cadeiras = b ? `${b.cadeiras} (${pct(b.cadeiras, 513)})` : '—';
-          const nota = x.observacao
-            ? `<tr class="linha-nota"><td></td><td colspan="4">${esc(x.observacao)}</td></tr>`
-            : '';
+          const nota = `<tr class="linha-nota"><td></td><td colspan="4">${x.observacao ? `${esc(x.observacao)}<br>` : ''}<span class="posicao-celula">Fonte: ${fonteDoGabinete(x.fonte)}</span></td></tr>`;
           return `<tr><td>${esc(x.gabinete)}</td><td>${esc(dataCurta(x.inicio))}</td><td>${EVENTO[x.evento]}</td>
             <td>${siglas(x.partidos, x.inicio, partidos)}</td><td class="num">${cadeiras}</td></tr>${nota}`;
         })
@@ -171,7 +209,7 @@ async function iniciar(): Promise<void> {
         ? `<div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Gabinete</th><th scope="col">Início</th><th scope="col">Origem</th><th scope="col">Partidos com ministro</th><th scope="col">Cadeiras no início</th></tr></thead><tbody>${linhas}</tbody></table></div>`
         : `<p class="aviso-lacuna">Sem dados de gabinete para este governo.</p>`;
       const curadoria = gabs.some((x) => x.fonte.startsWith('Curadoria'))
-        ? `<p class="aviso-lacuna">Gabinetes a partir de 2021: curadoria do projeto, ministro a ministro, pelo mesmo critério do IPEA, com fonte para cada nomeação; cobre até ${esc(dataCurta(gov.cobertura_ate))}.</p>`
+        ? `<p class="aviso-lacuna">Gabinetes a partir de 2021: curadoria do projeto, ministro a ministro, pelo mesmo critério do IPEA, com fonte para cada nomeação; cobre até ${esc(dataCurta(gov.cobertura_ate))}.</p>${tabelaMinistros(gov.ministros.filter((m) => m.posse <= g.fim && (m.saida ?? '9999') >= g.inicio))}`
         : '';
       return `<section class="bloco" aria-labelledby="gov-${g.governo_id}">
         <h2 class="bloco-titulo" id="gov-${g.governo_id}">${esc(g.presidente)} — ${esc(dataCurta(g.inicio))} a ${esc(dataCurta(g.fim))}</h2>
@@ -184,7 +222,7 @@ async function iniciar(): Promise<void> {
       <div class="bloco-cabeca"><h1 class="bloco-titulo">Base formal dos governos</h1><span id="ajuda-base"></span></div>
       <p class="bloco-dica">Cadeiras na Câmara dos partidos com ministro, em cada 1º de fevereiro. A base formal não mede como esses partidos votaram; isso entra com as votações.</p>
       <div id="grafico-base"></div>
-      <p class="aviso-lacuna">Gabinetes: IPEA, Atlas do Estado Brasileiro (Almeida, Nota Técnica 53, 2021), de mar/1985 a dez/2020; depois, curadoria do projeto pelo mesmo critério, até ${esc(dataCurta(gov.cobertura_ate))}. Barras tracejadas: sem dados. Cadeiras no início do gabinete só a partir de 2003, quando começa o registro datado da Câmara.</p>
+      <p class="aviso-lacuna">Gabinetes: Nota Técnica Diest nº 53 do IPEA (Almeida, 2021), de mar/1985 a dez/2020; depois, curadoria do projeto pelo mesmo critério, até ${esc(dataCurta(gov.cobertura_ate))}. Barras tracejadas: sem dados. Cadeiras no início do gabinete só a partir de 2003, quando começa o registro datado da Câmara.</p>
     </section>
     ${secoes}</div>`;
   $('#grafico-base').append(grafico(cat, gov));

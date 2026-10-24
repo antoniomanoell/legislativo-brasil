@@ -56,8 +56,9 @@ do partido em que eles terminaram, seguindo a cadeia inteira (por exemplo, PDS, 
 ## Posição ideológica
 
 A posição ideológica é a de cada **partido** em cada **legislatura**, sempre com a fonte visível.
-Ela vem de pesquisas acadêmicas, não das votações: no Brasil, a principal divisão nas votações tende
-a ser entre governo e oposição, e não entre esquerda e direita (Zucco & Lauderdale, 2011).
+Ela vem de pesquisas acadêmicas, não das votações: no Brasil, as votações refletem também uma divisão
+entre governo e oposição, distinta do eixo esquerda-direita e ligada ao controle de recursos pelo
+presidente (Zucco & Lauderdale, 2011).
 
 **Fontes.**
 
@@ -227,19 +228,34 @@ primeira fila.
 
 ## Fontes
 
+**Dados**
+
 - Tribunal Superior Eleitoral — Portal de Dados Abertos (dadosabertos.tse.jus.br). Licença CC-BY.
 - Câmara dos Deputados — Dados Abertos (dadosabertos.camara.leg.br). Domínio público, citada a
   fonte.
+- Senado Federal — Dados Abertos (legis.senado.leg.br/dadosabertos). Uso permitido, citada a fonte.
+
+**Documentos**
+
+- Diário do Congresso Nacional, Seção I, nº 161, 30/09/1992, pp. 22121–22127 (votação da
+  autorização do impeachment de 29/09/1992).
+- Diário da Câmara dos Deputados, ano LXXI, nº 056, 18/04/2016, pp. 57–118 (votação da autorização
+  do impeachment de 17/04/2016).
+- Almeida, A. *Gabinetes ministeriais da Nova República (1985-2020): cargos, composição partidária
+  e mudança*. Brasília: Ipea, 2021 (Nota Técnica Diest nº 53). doi:10.38116/ntdiest53. Reprodução
+  permitida com citação; uso comercial proibido.
+
+**Pesquisas**
+
 - Zucco, C.; Power, T. J. The Ideology of Brazilian Parties and Presidents: A Research Note on
   Coalitional Presidentialism Under Stress. *Latin American Politics and Society*, v. 66, n. 1,
   p. 178–188, 2024. Dados: Harvard Dataverse, doi:10.7910/DVN/6KVTUV (CC0).
 - Bolognesi, B.; Ribeiro, E.; Codato, A.; Silva, B. F. O desaparecimento do centro ideológico no
   sistema partidário brasileiro: a classificação mais atualizada dos experts. *Opinião Pública*,
-  v. 31, e31120, 2025. Dados: Harvard Dataverse, doi:10.7910/DVN/MFIXKW (CC0).
-- Almeida, A. *Gabinetes ministeriais da Nova República (1985-2020): cargos, composição partidária
-  e mudança*. Brasília: Ipea, 2021 (Nota Técnica Diest nº 53). doi:10.38116/ntdiest53.
-- Zucco, C.; Lauderdale, B. Distinguishing between Influences on Brazilian Legislative Behavior.
-  *Legislative Studies Quarterly*, v. 36, n. 3, 2011.
+  v. 31, e31120, 2025. Dados: Harvard Dataverse, doi:10.7910/DVN/MFIXKW (CC0). A medição é de 2022 e
+  foi publicada em 2025; no site, "Bolognesi et al., 2022" indica o ano da medição.
+- Zucco, C.; Lauderdale, B. E. Distinguishing between Influences on Brazilian Legislative Behavior.
+  *Legislative Studies Quarterly*, v. 36, n. 3, p. 363–396, 2011. doi:10.1111/j.1939-9162.2011.00019.x.
 - Rodrigues, L. M. *Quem é quem na Constituinte*. São Paulo: OESP/Maltese, 1987.
 - Power, T. J.; Zucco, C. Estimating Ideology of Brazilian Legislative Parties, 1990–2005: A
   Research Communication. *Latin American Research Review*, v. 44, n. 1, 2009 (citado por Quadros &
@@ -247,3 +263,15 @@ primeira fila.
 - Quadros, M. P. R.; Madeira, R. M. Fim da direita envergonhada? Atuação da bancada evangélica e da
   bancada da bala e os caminhos da representação do conservadorismo no Brasil. *Opinião Pública*,
   v. 24, n. 3, 2018. doi:10.1590/1807-01912018243486.
+
+**Outras fontes citadas nesta página**
+
+- Agência Câmara, 31/07/2025: "Câmara declara a perda de mandato de sete deputados federais e
+  convoca novos eleitos" (Ato da Mesa publicado em 30/07/2025).
+- Conjur, 26/06/2025: "STF mantém aplicação de regra de divisão das sobras eleitorais nas eleições
+  de 2022".
+- A Gazeta, maio de 2023: "Por unanimidade, TSE cassa mandato do deputado Deltan Dallagnol".
+- Câmara dos Deputados, visita virtual ao Plenário Ulysses Guimarães (distribuição dos lugares).
+
+As fontes de cada gabinete, inclusive as de cada nomeação na curadoria de 2021 em diante, aparecem
+na página Governos.
