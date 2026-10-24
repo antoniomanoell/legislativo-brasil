@@ -248,3 +248,73 @@ def publicar_governos(
         },
     }
     _gravar(destino / "governos.json", dados)
+
+
+def publicar_senado(
+    eleitos: pl.DataFrame,
+    fotos: pl.DataFrame,
+    lacunas: pl.DataFrame,
+    bases: dict[str, dict],
+    destino: Path,
+) -> dict:
+    """catalogo-senado.json, momentos/senado-*.json e agregados-senado.json (§7.8).
+
+    Eleitos: só os eleitos naquela eleição (1/3 ou 2/3); o restante aparece como "mandato em curso".
+    Fotos de 1º/fev: só os anos que fecham 81 cadeiras (DECISIONS); os demais vão em `lacunas`.
+    """
+    momentos, agregados = [], {}
+    for (ano,), grupo in eleitos.group_by("ano", maintain_order=True):
+        ident = f"senado-eleitos-{ano}"
+        linhas = grupo.select(
+            pl.coalesce("nome_urna", "nome").alias("nome"),
+            "uf",
+            pl.col("partido_id").alias("partido"),
+            pl.col("sigla_na_eleicao").alias("sigla"),
+        )
+        momentos.append(
+            {
+                "id": ident,
+                "tipo": "eleitos",
+                "ano": ano,
+                "legislatura": LEGISLATURA_DA_ELEICAO[ano],
+                "rotulo": f"Eleitos para o Senado em {ano}",
+                "cadeiras": 81,
+                "ocupadas": grupo.height,
+                "em_curso": 81 - grupo.height,
+                "fonte": "tse",
+            }
+        )
+        _gravar(destino / "momentos" / f"{ident}.json", _deputados(linhas))
+        agregados[ident] = dict(linhas.group_by("partido").len().sort("partido").iter_rows())
+    for (dia,), grupo in fotos.sort("data").group_by("data", maintain_order=True):
+        ident = f"senado-{dia.isoformat()}"
+        linhas = grupo.select(
+            "nome", "uf", pl.col("partido_id").alias("partido"), pl.col("sigla").fill_null("")
+        )
+        momentos.append(
+            {
+                "id": ident,
+                "tipo": "exercicio",
+                "ano": dia.year,
+                "data": dia.isoformat(),
+                "legislatura": int(grupo["legislatura"][0]),
+                "rotulo": f"Em exercício em 1º/fev/{dia.year}",
+                "cadeiras": 81,
+                "ocupadas": grupo.height,
+                "fonte": "senado",
+                "base": bases.get(dia.isoformat()),
+            }
+        )
+        _gravar(destino / "momentos" / f"{ident}.json", _deputados(linhas))
+        agregados[ident] = dict(linhas.group_by("partido").len().sort("partido").iter_rows())
+    catalogo = {
+        "casa": "senado",
+        "momentos": sorted(momentos, key=lambda m: m.get("data") or f"{m['ano']}-10"),
+        "lacunas": [
+            {"data": r["data"].isoformat(), "motivo": r["motivo"]}
+            for r in lacunas.iter_rows(named=True)
+        ],
+    }
+    _gravar(destino / "catalogo-senado.json", catalogo)
+    _gravar(destino / "agregados-senado.json", agregados)
+    return catalogo

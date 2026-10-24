@@ -11,6 +11,7 @@ from congresso.extract import ideologia as fontes_ideologia
 from congresso.extract import senado as fonte_senado
 from congresso.load.site import publicar as gravar_site
 from congresso.load.site import publicar_governos
+from congresso.load.site import publicar_senado as gravar_senado
 from congresso.load.votacoes_site import publicar_impeachments, publicar_indicadores
 from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
@@ -578,3 +579,35 @@ def votacoes_senado(*, atualizar: bool = False) -> None:
         f"os mandatos; {sem_voto.height} abertas sem voto registrado; "
         f"{votos_publicos.height} votos; {tamanho / 1e6:.1f} MB"
     )
+
+
+def publicar_senado(*, atualizar: bool = False) -> None:
+    """Composição do Senado para o site, com a base formal do governo em cada foto."""
+    fotos_ = pl.read_parquet(PROCESSADOS / "fotos_senado.parquet")
+    gabinetes = gov.ler_gabinetes(pl.read_csv(MANUAIS / "gabinetes_ipea.csv"))
+    fim = FIM_IPEA
+    if (MANUAIS / "gabinetes_pos2020.csv").exists():
+        extra = pl.read_csv(MANUAIS / "gabinetes_pos2020.csv")
+        gabinetes = pl.concat([gabinetes, gov.ler_gabinetes(extra)]).sort("inicio")
+        fim = date.fromisoformat(str(extra["cobertura_ate"].max()))
+    bases = {}
+    for (dia,), grupo in fotos_.group_by("data"):
+        if dia > fim:
+            continue
+        try:
+            b = gov.base_formal(grupo, gabinetes, dia)
+        except ValueError as erro:
+            raise FalhaDeValidacao(str(erro)) from erro
+        bases[dia.isoformat()] = {
+            "gabinete": b["gabinete"],
+            "partidos": b["partidos"],
+            "cadeiras_base": b["cadeiras_base"],
+        }
+    cat = gravar_senado(
+        pl.read_parquet(PROCESSADOS / "eleitos_senado.parquet"),
+        fotos_,
+        pl.read_csv(RELATORIOS / "fotos_senado_lacunas.csv", try_parse_dates=True),
+        bases,
+        PUBLICADOS,
+    )
+    print(f"publicar_senado: {len(cat['momentos'])} momentos; {len(cat['lacunas'])} anos sem foto")
