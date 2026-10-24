@@ -78,7 +78,17 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
       (ex-Deputados, com perfis de senadores). Partidos e Governos seguem só com a Câmara.
 - [x] Seção Senado na Metodologia (rascunho), testes e2e do Senado, CI e resumo para o Antônio
 
+## Fase 5 — em andamento (conteúdo e lançamento)
+
+- [x] Decisões: nome "Congresso em Números", hospedagem Vercel, sem download dos dados tratados
+- [x] Página Sobre (fontes, licenças, como citar)
+- [x] Auditoria Lighthouse: desempenho ≥ 90 e acessibilidade 100 em todas as páginas (celular e
+      computador); CLS corrigido; carga inicial ~100 KB de código + dados sob demanda
+- [ ] Revisão dos textos com o Antônio (Metodologia e Sobre ainda marcadas como rascunho)
+- [ ] Antes do deploy: tirar `noindex` e criar robots.txt; preencher o endereço em "Como citar"
+- [ ] Deploy na Vercel (conectar o repositório: passo do Antônio)
+- [ ] Depois do 2º turno (25/10) e da diplomação: governo de 2027 e eleitos definitivos
+
 ## Próximo passo exato
 
-Aguardando o Antônio: revisão da Fase 4 e decisões da Fase 5 (nome do site, hospedagem, licença dos
-dados). Opcional antes disso: Senado nas páginas Partidos e Governos.
+Revisar com o Antônio os textos de Metodologia e Sobre; depois preparar o deploy na Vercel.

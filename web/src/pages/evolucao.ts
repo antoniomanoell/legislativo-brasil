@@ -237,7 +237,8 @@ function desenharTabela(): void {
         .map((c) => {
           const n = c[id];
           if (!n) return '<td class="celula-vazia"></td>';
-          const alfa = 0.12 + 0.6 * (n / maximo);
+          // Teto de 0,6: acima disso o texto perde contraste (WCAG 4,5:1) nos dois temas.
+          const alfa = 0.12 + 0.48 * (n / maximo);
           return `<td class="num celula-calor" style="--alfa:${alfa.toFixed(2)}">${n}</td>`;
         })
         .join('');

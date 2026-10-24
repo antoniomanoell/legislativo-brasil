@@ -461,3 +461,30 @@
   padding: 0.5em 0.6em;
   border-bottom: 1px solid var(--borda);
 }
+
+/* Estabilidade do layout (Lighthouse, CLS): o espaço da barra de rolagem fica reservado, para o
+   conteúdo centralizado não pular quando os dados chegam e a página passa a rolar; e o rodapé começa
+   abaixo da dobra, para não ser empurrado. */
+html {
+  scrollbar-gutter: stable;
+}
+main.pagina,
+main.texto {
+  min-height: 100vh;
+  /* Sem isto, a grade distribui a altura mínima entre as linhas e os blocos descem. */
+  align-content: start;
+}
+
+/* Área mínima de toque (WCAG 2.5.8): links dentro de tabelas. */
+.ranking td a,
+.ranking th a {
+  display: inline-block;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+/* Botão de texto (ex.: "Mostrar mais"): sem o fundo padrão do navegador, que no tema escuro é cinza. */
+.pagina .botao-sobre {
+  background: none;
+  border: 0;
+}
