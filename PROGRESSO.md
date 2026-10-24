@@ -87,13 +87,13 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Página "2027": composição prevista da 58ª legislatura (etapa `congresso_2027`, fase 4)
 - [x] Revisão dos textos com o Antônio (Metodologia e Sobre, bloco a bloco)
 - [x] Antes do deploy: `noindex` retirado (fica só em estilo.html), robots.txt e web/vercel.json
-- [ ] Depois do deploy: preencher o endereço em "Como citar" (web/src/content/sobre.md)
-- [ ] Deploy na Vercel (conectar o repositório: passo do Antônio)
+- [x] Endereço em "Como citar": https://congressoemnumeros.vercel.app
+- [x] Deploy na Vercel: https://congressoemnumeros.vercel.app (publica a cada push na main); 42 testes
+      e2e e Lighthouse (98–100 em todas as categorias) conferidos no site publicado em 2026-10-24
 - [ ] Depois do 2º turno (25/10): `uv run congresso --fase 4 --etapa congresso_2027` (AC e TO) e
       governo de 2027; depois da diplomação: eleitos definitivos
 
 ## Próximo passo exato
 
-Deploy na Vercel (Antônio): importar o repositório antoniomanoell/legislativo-brasil, com **Root
-Directory = `web`** (o resto vem de `web/vercel.json`: Vite, `npm ci`, `npm run build`, saída `dist`;
-Node 24). Depois, informar o endereço para preencher "Como citar".
+Depois do 2º turno (25/10/2026): `uv run congresso --fase 4 --etapa congresso_2027` (AC e TO),
+governo 2027–2030 em `data/manual/governos.csv` e, com os ministros anunciados, o 1º gabinete.
