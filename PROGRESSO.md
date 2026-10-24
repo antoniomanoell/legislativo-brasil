@@ -66,8 +66,17 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Web: páginas Votações e Deputados; governismo na página Governos
 - [x] Testes, CI e resumo para o Antônio
 
+## Fase 4 — em andamento (Senado)
+
+- [ ] Verificar as fontes do Senado na prática: senadores por legislatura, mandatos e exercícios
+      datados, filiações, votações (ListaVotacoes{ANO}.xml) e qualidade ano a ano
+- [ ] Eleitos de senador (TSE, 1990–2026): 1/3 ou 2/3 por eleição; restante como "mandato em curso" (§7.8)
+- [ ] Fotos de 1º/fev do Senado (até onde o exercício datado permitir)
+- [ ] Partido de cada senador na data (fonte a definir, filiações da API são fracas)
+- [ ] Votações nominais do Senado, governismo, coesão, presença (mesmas regras A3–A8)
+- [ ] Web: seletor Câmara × Senado no Início, Evolução, Partidos, Governos, Votações; perfis de senadores
+- [ ] Testes, CI e resumo para o Antônio
+
 ## Próximo passo exato
 
-Fase 4 (Senado) ou Fase 5 (conteúdo e lançamento), conforme o Antônio decidir. Pendências de
-revisão: textos da Metodologia e das páginas; curadoria de gabinetes depois de 30/03/2026; pontos
-duvidosos da transcrição de 1992 (PENDENCIAS.md).
+Verificar as fontes do Senado (API em https://legis.senado.leg.br/dadosabertos).
