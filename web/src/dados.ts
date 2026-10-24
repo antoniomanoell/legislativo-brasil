@@ -115,6 +115,11 @@ export interface VotacaoResumo {
   /** [Sim, Não, Abstenção, Obstrução] */
   placar: [number, number, number, number];
   pec: boolean;
+  /** Votações de impeachment, transcritas do Diário (DECISIONS A6). */
+  impeachment?: boolean;
+  arquivo?: string;
+  ausentes?: number;
+  fonte?: string;
 }
 
 export interface VotacaoCompleta extends VotacaoResumo {
@@ -181,5 +186,7 @@ export const carregarGovernos = () => carregar<Governos>('governos.json');
 export const carregarIndiceVotacoes = () => carregar<VotacaoResumo[]>('votacoes/indice.json');
 export const carregarVotacoesDoAno = (ano: number) =>
   carregar<VotacoesDoAno>(`votacoes/ano-${ano}.json`);
+export const carregarArquivoVotacao = (arquivo: string) =>
+  carregar<VotacoesDoAno>(`votacoes/${arquivo}.json`);
 export const carregarIndicadores = () => carregar<Indicadores>('indicadores.json');
 export const carregarMomento = (id: string) => carregar<Deputado[]>(`momentos/${id}.json`);

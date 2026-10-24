@@ -31,7 +31,7 @@ def _meta(r: dict) -> dict:
         "id": r["id"],
         "data": r["data"],
         # O resultado descreve o que foi votado; a "abertura" repete o item da sessão e pode ser
-        # enganosa (ex.: "Votação em segundo turno" num requerimento). Ela só entra se faltar o outro.
+        # enganosa (ex.: "Votação em segundo turno" num requerimento). Só entra se faltar o outro.
         "descricao": (r["descricao"] or r["descricao_abertura"] or "").strip(),
         "proposicoes": r["proposicoes"],
         "aprovada": r["aprovacao"] == "1",
@@ -186,3 +186,85 @@ def publicar_indicadores(
     if fora:
         raise ValueError(f"Indicadores fora de [0, 1]: {fora[:5]}")
     _gravar(destino / "indicadores.json", {"partidos": partidos, "deputados": deputados})
+
+
+# Placar oficial proclamado (fonte primária, DECISIONS A6): Sim, Não, Abstenção, ausentes.
+IMPEACHMENTS = {
+    1992: {
+        "data": "1992-09-29",
+        "descricao": "Autorização para instauração de processo por crime de responsabilidade "
+        "contra o Presidente da República, Fernando Collor (chamada nominal).",
+        "placar": (441, 38, 1, 23),
+    },
+    2016: {
+        "data": "2016-04-17",
+        "descricao": "Parecer da Comissão Especial sobre a DCR 1/2015: autorização para "
+        "instauração de processo por crime de responsabilidade contra a Presidente da "
+        "República, Dilma Rousseff (chamada nominal).",
+        "placar": (367, 137, 7, 2),
+    },
+}
+
+
+def publicar_impeachments(manuais: Path, destino: Path) -> list[dict]:
+    """Votações de impeachment transcritas do Diário (data/manual/impeachment_AAAA.csv), no mesmo
+    formato compacto das votações anuais. Para se a transcrição não bater com o placar oficial."""
+    mapa = pl.read_csv(manuais / "impeachment_partidos.csv", infer_schema=False).with_columns(
+        pl.col("sigla_documento").fill_null("")
+    )
+    entradas = []
+    for ano, info in IMPEACHMENTS.items():
+        t = pl.read_csv(manuais / f"impeachment_{ano}.csv", infer_schema=False).with_columns(
+            pl.col("partido_no_documento").fill_null("")
+        )
+        t = t.join(
+            mapa.filter(pl.col("ano") == str(ano)).select("sigla_documento", "partido_id"),
+            left_on="partido_no_documento",
+            right_on="sigla_documento",
+            how="left",
+        )
+        if t["partido_id"].is_null().any():
+            raise ValueError(f"impeachment {ano}: sigla sem partido em impeachment_partidos.csv")
+        contagem = tuple(
+            t.filter(pl.col("voto") == v).height for v in ("Sim", "Não", "Abstenção", "Ausente")
+        )
+        if contagem != info["placar"]:
+            raise ValueError(
+                f"impeachment {ano}: {contagem} não bate com o placar {info['placar']}"
+            )
+        t = t.sort("nome_no_documento")
+        partidos = sorted(t["partido_id"].unique().to_list())
+        votos = "".join(CODIGO.get(v, ".") for v in t["voto"])
+        idx = "".join(
+            BASE36[partidos.index(p)] if v != "Ausente" else "."
+            for p, v in zip(t["partido_id"], t["voto"], strict=True)
+        )
+        s, n, a, aus = info["placar"]
+        meta = {
+            "id": f"impeachment-{ano}",
+            "data": info["data"],
+            "descricao": info["descricao"],
+            "proposicoes": ["Impeachment"],
+            "aprovada": True,
+            "orientacao_governo": None,
+            "placar": [s, n, a, 0],
+            "ausentes": aus,
+            "pec": False,
+            "impeachment": True,
+            "arquivo": f"impeachment-{ano}",
+            "fonte": t["fonte"][0],
+        }
+        deputados = [
+            [int(i) if i else 0, nome, uf]
+            for i, nome, uf in t.select("id_camara", "nome_no_documento", "uf").iter_rows()
+        ]
+        _gravar(
+            destino / "votacoes" / f"impeachment-{ano}.json",
+            {
+                "deputados": deputados,
+                "partidos": partidos,
+                "votacoes": [{**meta, "v": votos, "p": idx}],
+            },
+        )
+        entradas.append(meta)
+    return entradas

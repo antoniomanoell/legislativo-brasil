@@ -160,3 +160,16 @@ não estava publicada em 2026-10-23.
 - DIAP, Análise do Governismo (jun/2023): https://www.diap.org.br/images/stories/analise_governismo_camara_2023-06.pdf
 - Agência Câmara (31/07/2025), perda de mandato de 7 deputados (sobras eleitorais de 2022):
   https://www.camara.leg.br/noticias/1184072-camara-declara-a-perda-de-mandato-de-sete-deputados-federais-e-convoca-novos-eleitos/
+
+---
+
+## Diários oficiais (impeachments)
+
+- Diário do Congresso Nacional, Seção I, nº 161, 30/09/1992 (ata da sessão de 29/09/1992; votação
+  nominal nas pp. 22121–22127): https://imagem.camara.leg.br/Imagem/d/pdf/DCD30SET1992.pdf
+- Diário da Câmara dos Deputados, ano LXXI, nº 056, 18/04/2016 (ata da 91ª sessão; chamada nas
+  pp. 57–118): https://imagem.camara.leg.br/Imagem/d/pdf/DCD0020160418000560000.PDF
+- Acervo: https://imagem.camara.leg.br (busca por data). Domínio público, citada a fonte.
+- Conferência secundária: Congresso em Foco, "Quem foram os 38 deputados que votaram contra o
+  impeachment de Collor"; notas taquigráficas do DETAQ da sessão 091.2.55.O (2016).
+

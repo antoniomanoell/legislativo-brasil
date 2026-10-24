@@ -95,6 +95,30 @@ ministério, a favor. O comportamento de voto entra com as votações nominais.
 Os percentuais de "base aliada" citados em outras publicações costumam incluir partidos que apoiam o
 governo sem ter ministério, e por isso podem ser maiores que os deste site.
 
+## Votações
+
+O site traz todas as votações nominais do plenário da Câmara em que o voto de cada deputado foi
+registrado: de dezembro de 2001 em diante, pelos Dados Abertos da Câmara. Antes disso a Câmara não
+publica o voto individual, e o período aparece como lacuna. As duas votações de autorização de
+impeachment (29/09/1992 e 17/04/2016) foram transcritas do Diário oficial, com o voto de cada
+deputado, e conferidas com o placar proclamado.
+
+**Governismo.** Mede quanto um deputado ou partido votou conforme a orientação do Governo. Entram só
+as votações em que o Governo orientou "Sim" ou "Não". Conta-se a proporção de votos iguais à
+orientação entre os votos "Sim", "Não", "abstenção" e "obstrução" — abstenção e obstrução contam
+como não seguir a orientação. Faltas não entram; aparecem na taxa de presença.
+
+**Presença.** Votações em que o deputado registrou voto, dividido pelas votações ocorridas enquanto
+ele estava no exercício do mandato. O registro "Artigo 17", do presidente da sessão, não conta.
+
+**Coesão.** Índice de Rice: em cada votação, a diferença entre os votos "Sim" e "Não" do partido,
+dividida pelo total desses votos (1 = todos votaram igual; 0 = divisão meio a meio). O valor de um
+período é a média das votações.
+
+**Destaques.** Só por critério objetivo: votações de mérito de Propostas de Emenda à Constituição em
+primeiro ou segundo turno (não entram requerimentos, destaques e recursos) e as duas autorizações de
+impeachment. Nenhuma votação é destacada por escolha editorial.
+
 ## Hemiciclo
 
 Cada bolinha é uma cadeira. Os partidos classificados vão da esquerda para a direita pela pontuação

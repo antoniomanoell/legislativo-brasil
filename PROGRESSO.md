@@ -51,25 +51,23 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Web: página Governos e indicação da base formal no Início (com IPEA; falta a curadoria pós-2020)
 - [x] Testes, CI e resumo para o Antônio
 
-## Fase 3 — em andamento (votações da Câmara, 2001–2026)
+## Fase 3 — concluída (2026-10-23)
 
 - [x] Extração: arquivos em lote da Câmara (votacoes, votacoesVotos, votacoesOrientacoes,
       votacoesProposicoes) 2001–2026, com cache em data/raw/camara/votacoes
 - [x] Transformação: votações nominais de plenário, votos, orientação do Governo normalizada
       ("GOV." e "Governo"), partido do voto mapeado para partido_id
-- [ ] Impeachments 1992 e 2016: voto nominal transcrito do Diário da Câmara (agente) →
-      data/manual/impeachment_*.csv, conferido com o placar
+- [x] Impeachments 1992 e 2016: voto nominal transcrito do Diário → data/manual/impeachment_*.csv, conferido com o placar
 - [x] Indicadores: governismo e presença (deputado e partido, por ano/legislatura/gabinete) e
       coesão (Rice), conforme DECISIONS (A3, A4, A8)
-- [~] Destaques: PEC em 1º/2º turno (A5) feito (202 votações de 120 PECs, regra sobre o texto do resultado); falta impeachments (agente)
+- [x] Destaques: PEC em 1º/2º turno (202 votações de 120 PECs) e impeachments 1992 e 2016 (transcritos do Diário)
 - [x] Validação cruzada: partido no voto × filiação na data (reports/divergencias_filiacao.csv)
 - [x] Publicar: arquivos anuais compactos + índice + indicadores.json (DECISIONS)
-- [ ] Web: páginas Votações e Deputados; governismo na página Governos
-- [ ] Testes, CI e resumo para o Antônio
+- [x] Web: páginas Votações e Deputados; governismo na página Governos
+- [x] Testes, CI e resumo para o Antônio
 
 ## Próximo passo exato
 
-Web da Fase 3: página Votações (lista filtrável pelo índice; detalhe com placar por partido,
-orientações e hemiciclo colorido pelo voto), página Deputados (busca; perfil com partidos, governismo
-e presença por legislatura e votos) e governismo por partido na página Governos. Impeachments:
-aguardando o agente (scratchpad/impeachment) para transcrever em data/manual/.
+Fase 4 (Senado) ou Fase 5 (conteúdo e lançamento), conforme o Antônio decidir. Pendências de
+revisão: textos da Metodologia e das páginas; curadoria de gabinetes depois de 30/03/2026; pontos
+duvidosos da transcrição de 1992 (PENDENCIAS.md).

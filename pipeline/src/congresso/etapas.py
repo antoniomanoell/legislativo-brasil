@@ -1,6 +1,7 @@
 """Etapas do pipeline, na ordem em que rodam. Cada uma lê de data/raw (baixando se preciso),
 grava em data/processed e escreve suas conferências em reports/."""
 
+import json
 from datetime import date
 
 import polars as pl
@@ -9,7 +10,7 @@ from congresso.extract import camara, camara_votacoes, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.load.site import publicar as gravar_site
 from congresso.load.site import publicar_governos
-from congresso.load.votacoes_site import publicar_indicadores
+from congresso.load.votacoes_site import publicar_impeachments, publicar_indicadores
 from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import governos as gov
@@ -392,6 +393,17 @@ def publicar_votacoes(*, atualizar: bool = False) -> None:
     votacoes_ = pl.read_parquet(PROCESSADOS / "votacoes.parquet")
     votos = pl.read_parquet(PROCESSADOS / "votos.parquet")
     tamanho = gravar_votacoes(votacoes_, votos, PUBLICADOS)
+    try:
+        impeachments = publicar_impeachments(MANUAIS, PUBLICADOS)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    indice_path = PUBLICADOS / "votacoes" / "indice.json"
+    indice = json.loads(indice_path.read_text(encoding="utf-8"))
+    indice_path.write_text(
+        json.dumps(indice + impeachments, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+        + "\n",
+        encoding="utf-8",
+    )
     publicar_indicadores(
         votos,
         votacoes_,

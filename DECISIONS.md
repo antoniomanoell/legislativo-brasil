@@ -300,3 +300,18 @@ Formato de cada entrada:
 - **Motivo:** a primeira versão marcava requerimentos como mérito e deixava de fora a votação de
   mérito da reforma da Previdência; conferido nos dados da PEC 6/2019 votação a votação.
 
+## 2026-10-23 — Impeachments: voto nominal transcrito do Diário oficial (aplica A6)
+- **Decisão:** as duas votações de autorização de impeachment entram com o voto de cada deputado,
+  transcrito de fonte primária: 1992 do Diário do Congresso Nacional, Seção I, nº 161, de 30/09/1992
+  (tabela nominal, pp. 22121–22127; o PDF é imagem, transcrito visualmente linha a linha); 2016 do
+  Diário da Câmara dos Deputados nº 056, de 18/04/2016 (registro da chamada oral, pp. 57–118, com texto
+  extraível). Os totais batem exatamente com o placar proclamado (1992: 441 Sim, 38 Não, 1 abstenção,
+  23 ausentes; 2016: 367, 137, 7, 2), e o pipeline para se a transcrição deixar de bater. Nomes e
+  partidos ficam como impressos no documento; o partido em branco no Diário de 1992 (5 casos) aparece
+  como "não informado", sem completar com outra fonte. As votações entram como destaque (§7.7,
+  critério 2) e ficam fora do governismo (não há orientação do Governo registrada nelas).
+- **Conferências:** 1992 — contagem por UF fecha com as bancadas; os 38 votos "Não" e a abstenção
+  coincidem nome a nome com a lista do Congresso em Foco. 2016 — cada um dos 513 nomes da lista de
+  presença do Diário casa com exatamente um voto; placar por UF igual ao publicado pela imprensa.
+- **Motivo:** decidido pelo Antônio (impeachment com o voto de cada deputado).
+

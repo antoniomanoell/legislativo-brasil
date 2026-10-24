@@ -48,3 +48,4 @@ prd,PRD,Partido Renovação Democrática,fusão de PTB e Patriota em 09/11/2023,
 missao,MISSÃO,Partido Missão,"registrado em 04/11/2025; usa o número 14, do PTB extinto",https://www.tse.jus.br/partidos/partidos-registrados-no-tse
 pmb,DEMOCRATA,Democrata,Partido da Mulher Brasileira (PMB) até 02/12/2025,https://www.tse.jus.br/partidos/partidos-registrados-no-tse
 sem_partido,S.PART.,Sem partido,situação registrada pela Câmara; não é partido,"Câmara dos Deputados — Dados Abertos, /deputados/{id}/historico (siglas observadas nas fotos de 1º/fev, 2003–2026)"
+nao_informado,não informado,Partido não informado no documento,usado quando a fonte primária não imprime o partido (ex.: Diário de 30/09/1992),"Diário do Congresso Nacional, Seção I, nº 161, 30/09/1992, pp. 22121–22127 — https://imagem.camara.leg.br/Imagem/d/pdf/DCD30SET1992.pdf"

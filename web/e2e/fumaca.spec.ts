@@ -108,3 +108,13 @@ test('perfil de deputado com presença e votos', async ({ page }) => {
   await expect(page.locator('#conteudo')).toContainText('Presença');
   await expect(page.locator('#votos tbody tr').first()).toBeVisible();
 });
+
+test('impeachment de 2016 com o voto de cada deputado e a fonte', async ({ page }) => {
+  await page.goto('./votacoes.html?v=impeachment-2016&a=2016');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page.locator('.placar')).toContainText('Ausentes: 2');
+  await expect(page.locator('#conteudo')).toContainText('Diário da Câmara dos Deputados');
+  const cadeiras = await page.locator('#hemiciclo circle.cadeira').count();
+  const fora = await page.locator('#fora .fileira-a-parte span').count();
+  expect(cadeiras + fora).toBe(367 + 137 + 7);
+});

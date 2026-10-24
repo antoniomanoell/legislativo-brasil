@@ -69,4 +69,8 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
   `data/manual/ministros_pos2020.csv`.
 - Fontes da curadoria fora da lista inicial (SBT News, Correio Braziliense, Congresso em Foco, Jornal
   de Brasília, Diário de Pernambuco, site do Republicanos): marcadas no CSV.
+- Impeachment 1992: BEBETTO HADDAD sem id da Câmara (candidato provável: Alberto Haddad, 73695, SP;
+  não forçado); Gilvam Borges impresso como PMDB, mas PRN na API; grafias lidas na impressão
+  matricial a conferir (ALDIR/ALOIR CABRAL, ROMEL/RONEL ANISIO). A transcrição de 1992 foi feita uma
+  vez; votos e UFs estão travados pelos totais, mas um erro de grafia de nome ou partido é possível.
 
