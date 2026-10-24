@@ -5,7 +5,8 @@
 O **Congresso em Números** mostra como a Câmara dos Deputados e o Senado Federal estiveram compostos
 desde 1991: quem foi eleito, quem estava em exercício, por qual partido, onde cada partido fica no
 espectro ideológico segundo a pesquisa acadêmica, quais partidos formavam a base formal de cada
-governo e como cada parlamentar votou.
+governo e como cada parlamentar votou nas votações nominais registradas. Mostra também a
+composição prevista a partir de 2027.
 
 É um projeto independente, sem fins comerciais e sem vínculo com partidos, governos, a Câmara ou o
 Senado. O site descreve; não avalia partidos, parlamentares ou governos.
@@ -13,13 +14,15 @@ Senado. O site descreve; não avalia partidos, parlamentares ou governos.
 ## Princípios
 
 - **Toda informação tem fonte nomeada.** Os números vêm de dados oficiais (TSE, Câmara, Senado) e de
-  pesquisas acadêmicas publicadas; as fontes estão abaixo e em cada página.
+  pesquisas acadêmicas publicadas; as fontes estão abaixo e em cada página. Onde o próprio projeto
+  classifica (os gabinetes de 2021 em diante), o critério e as fontes de cada caso estão visíveis.
 - **Lacuna aparece como lacuna.** Quando a fonte não cobre um período ou um caso, o site mostra a
-  falta, em vez de completá-la por estimativa.
+  falta, em vez de completá-la por estimativa. A página "2027" é a única previsão do site, feita por
+  regras explicadas na Metodologia e marcada como tal.
 - **Nenhum texto sobre o conteúdo das proposições é do projeto.** Ementas, temas e indexação são os
   publicados pela Câmara e pelo Senado.
-- **Os critérios estão na [Metodologia](metodologia.html)**, inclusive as escolhas que outros fariam
-  de outro jeito.
+- **Os critérios estão na [Metodologia](metodologia.html)**, com as escolhas de método e as
+  alternativas mais relevantes.
 
 ## Fontes e licenças
 
