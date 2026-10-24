@@ -125,18 +125,27 @@ governo sem ter ministério, e por isso podem ser maiores que os deste site.
 ## Votações
 
 O site traz todas as votações nominais do plenário da Câmara em que o voto de cada deputado foi
-registrado: de dezembro de 2001 em diante, pelos Dados Abertos da Câmara. Antes disso a Câmara não
-publica o voto individual, e o período aparece como lacuna. As duas votações de autorização de
-impeachment (29/09/1992 e 17/04/2016) foram transcritas do Diário oficial, com o voto de cada
-deputado, e conferidas com o placar proclamado.
+registrado: de dezembro de 2001 em diante, pelos Dados Abertos da Câmara. A série só ganha volume em
+2003: 2001 e 2002 têm 7 votações nos dados abertos. Antes de dezembro de 2001, a Câmara não publica
+o voto individual, e o período aparece como lacuna. As duas votações de autorização de impeachment
+(29/09/1992 e 17/04/2016) foram transcritas do Diário oficial, com o voto de cada deputado, e
+conferidas com o placar proclamado.
+
+**Resultado.** É o registrado pela Câmara. Quando a fonte não registra resultado, a votação aparece
+como "sem resultado registrado". Quando o resultado contraria a maioria simples do placar, a página
+da votação mostra um aviso: pode ser quórum qualificado (uma PEC precisa de 3/5 da Casa), votação de
+parecer contrário ou de texto destacado, ou erro na fonte. Nenhum resultado é corrigido à mão.
 
 **Governismo.** Mede quanto um deputado ou partido votou conforme a orientação do Governo. Entram só
 as votações em que o Governo orientou "Sim" ou "Não". Conta-se a proporção de votos iguais à
 orientação entre os votos "Sim", "Não", "abstenção" e "obstrução" — abstenção e obstrução contam
-como não seguir a orientação. Faltas não entram; aparecem na taxa de presença.
+como não seguir a orientação. Faltas não entram; aparecem na taxa de presença. A orientação do
+Governo só está registrada a partir de 2003; antes disso não há governismo.
 
 **Presença.** Votações em que o deputado registrou voto, dividido pelas votações ocorridas enquanto
-ele estava no exercício do mandato. O registro "Artigo 17", do presidente da sessão, não conta.
+ele estava no exercício do mandato. Quem votou conta como em exercício naquela votação, mesmo que o
+histórico da Câmara não registre: o voto prova o exercício. O registro "Artigo 17", do presidente da
+sessão, não conta.
 
 **Coesão.** Índice de Rice: em cada votação, a diferença entre os votos "Sim" e "Não" do partido,
 dividida pelo total desses votos (1 = todos votaram igual; 0 = divisão meio a meio). O valor de um
