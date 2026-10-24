@@ -204,11 +204,15 @@ da foto.
 
 ## Congresso a partir de 2027
 
-A página "2027" mostra a composição prevista da 58ª legislatura. Na Câmara, os 513 eleitos em 2026. No
-Senado, os 54 eleitos em 2026 e as 27 cadeiras eleitas em 2022, cada uma com quem a ocupa nos
-registros mais recentes do Senado e o partido da filiação registrada. Se o ocupante foi eleito
-governador no 1º turno de 2026, entra o 1º suplente. Trocas de partido até a posse, o 2º turno e a
-diplomação ainda podem mudar a composição.
+A página "2027" mostra a composição prevista da 58ª legislatura. Na Câmara, os 513 eleitos em 2026,
+pelo partido da eleição. No Senado, os 54 eleitos em 2026 (também pelo partido da eleição) e as 27
+cadeiras eleitas em 2022. Em cada uma dessas 27 fica quem a ocupa nos registros mais recentes do
+Senado, com o partido da filiação registrada nessa data. Isso inclui suplentes que assumiram de vez
+(por renúncia do titular) e suplentes em exercício por afastamento temporário, caso em que o titular
+pode voltar. Se o ocupante foi eleito governador no 1º turno de 2026, segundo o TSE, entra o 1º
+suplente. Suplente sem filiação registrada no Senado aparece como "não informado", e a observação
+diz por qual partido ele foi suplente em 2022, sem presumir que continue nele. Trocas de partido até
+a posse, o 2º turno e a diplomação ainda podem mudar a composição.
 
 ## Hemiciclo
 
