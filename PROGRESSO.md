@@ -53,7 +53,7 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 
 ## Fase 3 — em andamento (votações da Câmara, 2001–2026)
 
-- [ ] Extração: arquivos em lote da Câmara (votacoes, votacoesVotos, votacoesOrientacoes,
+- [~] Extração: arquivos em lote da Câmara (votacoes, votacoesVotos, votacoesOrientacoes,
       votacoesProposicoes) 2001–2026, com cache em data/raw/camara/votacoes
 - [ ] Transformação: votações nominais de plenário, votos, orientação do Governo normalizada
       ("GOV." e "Governo"), partido do voto mapeado para partido_id
@@ -69,4 +69,4 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 
 ## Próximo passo exato
 
-Escrever extract/camara_votacoes.py e baixar os arquivos em lote (em segundo plano).
+Download em andamento (extract/camara_votacoes.py, rodar `uv run python -c "from congresso.extract import camara_votacoes as cv; cv.todos(2026)"`); transform/votacoes.py e presença prontos e testados. Próximo: etapa `votacoes` em etapas.py sobre os dados reais (mapear siglas dos votos com partidos_camara.csv).
