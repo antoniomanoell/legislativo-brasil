@@ -28,16 +28,18 @@ Senado. O site descreve; não avalia partidos, parlamentares ou governos.
 
 | Fonte | O que fornece | Termos de uso |
 |---|---|---|
-| Tribunal Superior Eleitoral — Portal de Dados Abertos | Eleitos de 1990 a 2026 | Creative Commons Atribuição (CC-BY) |
+| Tribunal Superior Eleitoral — Portal de Dados Abertos | Eleitos e candidaturas, 1990 a 2026 | Creative Commons Atribuição (CC-BY) |
 | Câmara dos Deputados — Dados Abertos | Exercício, partidos, votações e proposições da Câmara | Domínio público, citada a fonte |
+| Diário do Congresso Nacional, Seção I (1992) e Diário da Câmara dos Deputados (2016), no portal da Câmara | Votos nominais dos impeachments de 1992 e 2016 | Domínio público, citada a fonte |
 | Senado Federal — Dados Abertos | Exercício, filiações, votações e matérias do Senado | Uso permitido, citada a fonte |
 | Zucco & Power, Brazilian Legislative Surveys (Harvard Dataverse) | Posição ideológica dos partidos, 49ª a 56ª legislatura | CC0 (dados); CC-BY 4.0 (artigo) |
-| Bolognesi, Ribeiro, Codato & Silva (Harvard Dataverse) | Posição ideológica dos partidos, 57ª e 58ª legislatura | CC0 (dados); CC-BY 4.0 (artigo) |
+| Bolognesi, Ribeiro, Codato & Silva (Harvard Dataverse) | Posição ideológica dos partidos, 57ª e 58ª legislatura (medição de 2022) | CC0 (dados); CC-BY 4.0 (artigo) |
 | IPEA — Almeida, Nota Técnica Diest nº 53 | Gabinetes ministeriais de 1985 a 2020 | Reprodução permitida com citação; uso comercial proibido |
 
 De 2021 em diante, a composição partidária dos gabinetes é curadoria do projeto pelo mesmo critério
-do IPEA, com a fonte de cada nomeação registrada. As referências completas estão na
-[Metodologia](metodologia.html).
+do IPEA. A fonte de cada nomeação (Diário Oficial, sites de partidos e imprensa) aparece na página
+[Governos](governos.html), só como citação e link, sem reprodução do conteúdo. As referências
+completas estão na [Metodologia](metodologia.html).
 
 ## Dados
 
