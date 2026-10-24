@@ -54,7 +54,15 @@ Contexto completo de cada item em `reports/fase0_viabilidade.md`.
 - Filtro `/deputados` em 1º/fev/2005 devolve 497 (de 513): investigar antes da Fase 1.
 - Rótulo da orientação do Governo: normalizar "GOV." e "Governo".
 - TSE 1998: deduplicar substitutos que dividem o número com o titular.
-- Senado: votações de 2015–2016 incompletas ou com datas erradas; validar ano a ano na Fase 4.
+- Senado: votações de 2015–2016 incompletas ou com datas erradas. Validado na Fase 4: 25 votações com
+  lista incompatível com os mandatos saem (`reports/votacoes_senado_excluidas.csv`); 2015 fica sem
+  votação e 2016 com 6.
+- Senado: o arquivo de vagas de 2018 do TSE registra 1 vaga em MT (foram eleitos 2); a conferência usa
+  a regra constitucional.
+- Senado: cinco senadores de 1991–1994 (Álvaro Pacheco, Carlos de Carli, Enéas Faria, Eva Blay, Oziel
+  Carneiro) aparecem nos votos sem UF e fora das listas de legislatura da API; a UF fica como lacuna.
+- Senado: fotos de 1º/fev só em 13 anos (`reports/fotos_senado_lacunas.csv`); reavaliar se a API
+  completar os exercícios de suplentes e da 48ª legislatura.
 - Eleitos (2026-10-23): duas bancadas fora da tolerância de ±2 contra o Apêndice A — **1990 PDS** (TSE 45,
   Apêndice 42) e **2010 PP** (TSE 44, Apêndice 41). Vale o TSE (A14); falta explicar a diferença.
 - O TSE grava siglas de formas diferentes conforme o ano ("PCdoB", "PC DO B", "PC do B", "PCDOB") e

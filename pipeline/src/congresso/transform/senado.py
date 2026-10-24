@@ -265,7 +265,7 @@ def ler_mandatos(pasta: Path) -> pl.DataFrame:
 
 # Votação cuja lista traz muitos senadores sem mandato na data tem data ou lista errada na fonte.
 # Nos dados de 2026-10-23 a distribuição é bimodal: 0 a 3 por votação (lacunas do cadastro de
-# mandatos) ou 40 ou mais (26 votações de 2002, 2015 e 2016).
+# mandatos) ou 40 ou mais (25 votações de 2002, 2015, 2016 e 2017).
 LIMITE_SEM_MANDATO = 10
 
 

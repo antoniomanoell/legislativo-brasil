@@ -348,8 +348,15 @@ Formato de cada entrada:
 - **Decisão:** sai a votação em que 10 ou mais senadores listados não tinham mandato (titular ou
   suplente) na data. Nos dados de 2026-10-23 a distribuição é bimodal — 0 a 3 por votação (lacunas do
   cadastro de mandatos) ou 40 ou mais (data ou lista errada na fonte) —, então o corte não decide
-  nenhum caso duvidoso. Saem 25 votações (de 2002, 2015 e 2016), listadas em
+  nenhum caso duvidoso. Saem 25 votações (15 de 2015, 4 de 2016, 4 de 2002 e 2 de 2017), listadas em
   `reports/votacoes_senado_excluidas.csv`.
 - **Motivo:** mostrar uma votação com a lista de votantes de outra época seria publicar dado errado;
   a lista fica disponível para conferência.
 
+
+## 2026-10-23 — Senado eleito: contagem por UF pela regra constitucional, não pelo arquivo de vagas
+- **Decisão:** de 1994 em diante, os eleitos por UF são conferidos com a CF, art. 46 (1 ou 2 por UF,
+  alternadamente); em 1990, com o arquivo de vagas do TSE (AP e RR elegeram três).
+- **Motivo:** o arquivo `consulta_vagas_2018` do TSE registra 1 vaga de senador em MT, mas foram
+  eleitos 2 (como nas outras 26 UFs, renovação de 2/3). Erro do arquivo de vagas, registrado em
+  PENDENCIAS.md.

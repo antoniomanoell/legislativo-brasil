@@ -2,8 +2,8 @@
 
 # Metodologia
 
-Este site mostra como a Câmara dos Deputados esteve composta desde 1991 (49ª legislatura, a primeira
-eleita sob a Constituição de 1988). Ele descreve a composição; não avalia partidos, parlamentares
+Este site mostra como a Câmara dos Deputados e o Senado Federal estiveram compostos desde 1991
+(49ª legislatura, a primeira eleita sob a Constituição de 1988). Ele descreve a composição; não avalia partidos, parlamentares
 ou governos. Toda classificação tem fonte nomeada, e o que não tem fonte aparece como lacuna.
 
 ## Duas formas de ver a composição
@@ -118,6 +118,41 @@ período é a média das votações.
 **Destaques.** Só por critério objetivo: votações de mérito de Propostas de Emenda à Constituição em
 primeiro ou segundo turno (não entram requerimentos, destaques e recursos) e as duas autorizações de
 impeachment. Nenhuma votação é destacada por escolha editorial.
+
+## Senado
+
+O Senado usa as mesmas definições da Câmara, com as diferenças abaixo.
+
+**Eleitos.** O Senado renova 1/3 das 81 cadeiras numa eleição (um senador por UF) e 2/3 na
+seguinte (dois por UF). A visão de eleitos mostra só os eleitos daquele ano, pelo TSE; as demais
+cadeiras aparecem à parte, como "mandato em curso". Em 1990, Amapá e Roraima, recém-transformados
+em estados, elegeram três senadores cada. A contagem por UF é conferida com a regra constitucional;
+em 2018 o arquivo de vagas do TSE registra uma vaga em Mato Grosso, mas foram eleitos dois
+senadores, como nas demais UFs.
+
+**Em exercício em 1º de fevereiro.** A fonte são os períodos de exercício de cada senador nos Dados
+Abertos do Senado. A foto só é publicada quando esses registros fecham exatamente 81 senadores, 3
+por UF: 1999 a 2003, 2011, 2012, 2019, 2020, 2022 a 2024 e 2026. Nos demais anos a fonte não fecha
+(mandatos de 1987 sem exercício registrado, suplentes que exerceram sem registro, exercícios
+sobrepostos em 2025), e o ano aparece como lacuna, sem completar com outra fonte. O partido é o da
+filiação registrada pelo Senado na data; sem filiação que cubra a data, "não informado".
+
+**Votações.** Todas as votações abertas do plenário com o voto de cada senador, de 1991 em diante.
+Votações secretas não têm voto individual e ficam de fora. O partido de cada voto é o da filiação
+na data (a fonte grava a sigla atual do senador, não a da época). Saem 25 votações cuja lista de
+votantes traz dez ou mais senadores sem mandato na data, sinal de data ou lista errada na fonte
+(2002, 2015, 2016 e 2017). Alguns anos têm poucas votações na fonte (1992, 1996 a 1998, 2016) e
+2015 fica sem nenhuma.
+
+**Presença.** Votações em que o senador registrou voto, dividido pelas votações em que ele foi
+listado, sem contar licenças e ausências a serviço do Senado. O registro do presidente da sessão
+(art. 51 do Regimento Interno) não conta, como o "Artigo 17" da Câmara.
+
+**Governismo.** Mesma regra da Câmara. A orientação do líder do Governo só é registrada pelo Senado
+de 2018–2019 em diante e só numa parte das votações; antes disso, o governismo fica como lacuna.
+
+**Base formal.** Os mesmos gabinetes da Câmara: soma das cadeiras dos partidos com ministro, na data
+da foto.
 
 ## Hemiciclo
 
