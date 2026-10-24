@@ -90,7 +90,7 @@ async function perfil(id: string): Promise<void> {
   ].sort((a, b) => b - a);
 
   $('#conteudo').innerHTML = `<p class="voltar"><a href="${paginaBusca}">← ${NOME.buscar}</a></p>
-    <h1 class="bloco-titulo">${esc(d.nome)} — ${esc(d.uf)}</h1>
+    <h1 class="bloco-titulo">${esc(d.nome)} — ${esc(d.uf ?? 'UF não informada na fonte')}</h1>
     <h2>Partidos (${senado ? 'pela filiação na data de cada voto' : 'pelo registro nos votos'})</h2><ul>${filiacoes}</ul>
     <h2>Presença e governismo por legislatura</h2>
     <p class="bloco-dica">${senado ? 'Presença: votações abertas em que registrou voto ÷ votações em que foi listado, menos licenças e ausências a serviço do Senado (presidente da sessão não conta).' : 'Presença: votações nominais em que registrou voto ÷ votações ocorridas enquanto estava em exercício ("Artigo 17" não conta).'} Governismo: votos iguais à orientação do Governo ÷ votos Sim, Não, Abstenção e Obstrução, só quando o Governo orientou Sim ou Não${senado ? ' (no Senado, registrado só de 2018–2019 em diante)' : ''}. <a href="metodologia.html">Metodologia</a></p>
@@ -155,7 +155,7 @@ async function busca(): Promise<void> {
       })
       .filter(
         ({ d, siglas }) =>
-          !termo || semAcento(`${d.nome} ${d.uf} ${siglas.join(' ')}`).includes(termo),
+          !termo || semAcento(`${d.nome} ${d.uf ?? ''} ${siglas.join(' ')}`).includes(termo),
       )
       .sort((a, b) => a.d.nome.localeCompare(b.d.nome, 'pt-BR'));
     $('#contagem').textContent = `${achados.length} ${NOME.varios.toLowerCase()}`;
@@ -163,7 +163,7 @@ async function busca(): Promise<void> {
       .slice(0, 200)
       .map(
         ({ id, d, siglas }) =>
-          `<tr><td><a href="deputados.html?d=${id}${sufixoCasa}">${esc(d.nome)}</a></td><td>${esc(d.uf)}</td><td>${esc(siglas.join(', '))}</td><td>${Object.keys(
+          `<tr><td><a href="deputados.html?d=${id}${sufixoCasa}">${esc(d.nome)}</a></td><td>${esc(d.uf ?? '—')}</td><td>${esc(siglas.join(', '))}</td><td>${Object.keys(
             d.legislaturas ?? {},
           )
             .map((l) => `${l}ª`)

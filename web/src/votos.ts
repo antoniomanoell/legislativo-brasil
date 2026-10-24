@@ -36,9 +36,10 @@ export function decodificar(ano: VotacoesDoAno, v: VotacaoCompleta): VotoDeputad
   for (let i = 0; i < v.v.length; i++) {
     const voto = VOTO[v.v[i] as string];
     if (!voto) continue;
-    const [id, nome, uf] = ano.deputados[i] as [number, string, string];
+    const [id, nome, uf] = ano.deputados[i] as [number, string, string | null];
     const partido = ano.partidos[BASE36.indexOf(v.p[i] as string)] ?? '';
-    lista.push({ id, nome, uf, partido, voto });
+    // UF nula na fonte (cinco senadores de 1991–1994): aparece como lacuna.
+    lista.push({ id, nome, uf: uf ?? '—', partido, voto });
   }
   return lista;
 }

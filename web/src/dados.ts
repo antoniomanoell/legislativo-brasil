@@ -143,7 +143,8 @@ export interface VotacaoCompleta extends VotacaoResumo {
 
 export interface VotacoesDoAno {
   /** [id na Câmara, nome, UF] */
-  deputados: [number, string, string][];
+  /** [id, nome, UF]; a UF é nula em cinco senadores de 1991–1994. */
+  deputados: [number, string, string | null][];
   partidos: string[];
   votacoes: VotacaoCompleta[];
 }
@@ -158,7 +159,8 @@ export interface IndicadorPartido {
 
 export interface IndicadoresDeputado {
   nome: string;
-  uf: string;
+  /** Nulo em cinco senadores de 1991–1994 cujos votos não trazem a UF. */
+  uf: string | null;
   /** [partido, primeiro voto, último voto] */
   partidos: [string, string, string][];
   legislaturas?: Record<

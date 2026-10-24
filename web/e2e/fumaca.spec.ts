@@ -118,3 +118,56 @@ test('impeachment de 2016 com o voto de cada deputado e a fonte', async ({ page 
   const fora = await page.locator('#fora .fileira-a-parte span').count();
   expect(cadeiras + fora).toBe(367 + 137 + 7);
 });
+
+test('Senado: eleitos de 2022 com as cadeiras de mandato em curso sinalizadas', async ({
+  page,
+}) => {
+  await page.goto('./?c=senado&m=senado-eleitos-2022');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  // Os 27 eleitos no hemiciclo (todos classificados em 2022); as 54 em curso, à parte.
+  await expect(page.locator('#hemiciclo circle.cadeira')).toHaveCount(27);
+  await expect(page.locator('#fora-da-ordem')).toContainText('mandato em curso');
+  await expect(page.locator('#fora-da-ordem')).toContainText('54');
+  await semRolagemLateral(page);
+});
+
+test('Senado: foto de 2023 com 81 cadeiras e base formal', async ({ page }) => {
+  await page.goto('./?c=senado&m=senado-2023-02-01&b=1');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  const cadeiras = await page.locator('#hemiciclo circle.cadeira').count();
+  const fora = await page.locator('#fora-da-ordem .fileira-a-parte span').count();
+  expect(cadeiras + fora).toBe(81);
+  await expect(page.locator('#linha-base')).toContainText('gabinete Lula 3-1');
+  await expect(page.getByRole('button', { name: 'Senado', exact: true })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+});
+
+test('Senado: votação aberta com o voto de cada senador e perfil', async ({ page }) => {
+  await page.goto('./votacoes.html?v=SF-6675&a=2023&c=senado');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page.locator('.placar')).toContainText('Sim 59');
+  await expect(page.locator('.placar')).toContainText('Presidente (art. 51 RISF): 1');
+  await expect(page.locator('#hemiciclo circle.cadeira')).toHaveCount(60);
+  await page.getByRole('link', { name: 'Alan Rick' }).click();
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page).toHaveURL(/c=senado/);
+  await expect(page.locator('#conteudo')).toContainText('Senado Federal');
+});
+
+for (const caminho of [
+  'evolucao.html?c=senado&t=exercicio',
+  'votacoes.html?c=senado',
+  'deputados.html?c=senado',
+]) {
+  test(`${caminho} carrega sem erro`, async ({ page }) => {
+    const erros: string[] = [];
+    page.on('pageerror', (e) => erros.push(e.message));
+    await page.goto(`./${caminho}`);
+    await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+    await expect(page.locator('#erro')).toBeHidden();
+    expect(erros).toEqual([]);
+    await semRolagemLateral(page);
+  });
+}
