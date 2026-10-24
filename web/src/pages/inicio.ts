@@ -378,6 +378,10 @@ async function iniciar(): Promise<void> {
   );
   const geradoEm = (catalogoCamara.gerado_em ?? '').split('-').reverse().join('/');
   $('#titulo-tabela').textContent = casa === 'senado' ? 'Senadores' : 'Deputados';
+  // A regra dos lugares (só líderes com lugar marcado) foi conferida para a Câmara, não para o Senado.
+  if (casa === 'senado')
+    $('#nota-hemiciclo').textContent =
+      'A posição das cadeiras é representativa; não corresponde ao assento real no plenário.';
   $('#rodape-fontes').textContent =
     `Composição: TSE (eleitos), Câmara dos Deputados e Senado Federal (em exercício). Posição ideológica: Zucco & Power (BLS) e Bolognesi et al. Dados gerados em ${geradoEm}.`;
   document.querySelectorAll<HTMLButtonElement>('[data-casa]').forEach((b) => {

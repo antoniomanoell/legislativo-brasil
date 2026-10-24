@@ -160,6 +160,9 @@ não estava publicada em 2026-10-23.
 - DIAP, Análise do Governismo (jun/2023): https://www.diap.org.br/images/stories/analise_governismo_camara_2023-06.pdf
 - Agência Câmara (31/07/2025), perda de mandato de 7 deputados (sobras eleitorais de 2022):
   https://www.camara.leg.br/noticias/1184072-camara-declara-a-perda-de-mandato-de-sete-deputados-federais-e-convoca-novos-eleitos/
+- Câmara dos Deputados, visita virtual ao Plenário Ulysses Guimarães (396 lugares; voto de qualquer
+  cadeira; primeira fila reservada aos líderes):
+  https://www.camara.leg.br/internet/visitaVirtual/english/edificioPrincipal/plenario/plenarioConteudo.html
 - Conjur (26/06/2025), STF mantém a regra das sobras para 2022 (ADIs 7.228 e 7.263; decisão de 2024,
   aplicação a 2022 decidida em março de 2025, embargos rejeitados em 24/06/2025):
   https://www.conjur.com.br/2025-jun-26/stf-mantem-aplicacao-de-regra-de-divisao-das-sobras-eleitorais-nas-eleicoes-de-2022/

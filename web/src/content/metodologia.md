@@ -217,10 +217,13 @@ a posse, o 2º turno e a diplomação ainda podem mudar a composição.
 ## Hemiciclo
 
 Cada bolinha é uma cadeira. Os partidos classificados vão da esquerda para a direita pela pontuação
-da legislatura; dentro de cada partido, os deputados estão em ordem alfabética. A cor mostra a
-posição do partido, não o partido: partidos na mesma faixa têm a mesma cor e são separados por
-traços e siglas. A posição das cadeiras é representativa: no Plenário Ulysses Guimarães os
-deputados não têm lugar fixo, exceto os líderes, na primeira fila.
+da legislatura; dentro de cada partido, os parlamentares estão em ordem alfabética. A cor mostra a
+posição do partido, não o partido. De 2023 em diante, partidos na mesma faixa têm a mesma cor; até
+2023, sem faixas, a cor varia de forma contínua com a pontuação. Os partidos são separados por
+traços, e os maiores (a partir de 2,5% das cadeiras do arco) levam a sigla. Partidos sem
+classificação ficam fora do arco, numa fileira à parte. A posição das cadeiras é representativa: no
+Plenário Ulysses Guimarães, da Câmara, os deputados não têm lugar fixo, exceto os líderes, na
+primeira fila.
 
 ## Fontes
 
