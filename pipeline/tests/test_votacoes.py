@@ -94,13 +94,14 @@ def test_governismo_conta_obstrucao_contra_e_ignora_artigo_17(arquivos):
 def test_rice_so_com_sim_e_nao():
     votos = pl.DataFrame(
         {
-            "id_votacao": ["1"] * 5,
-            "partido_id": ["pt", "pt", "pt", "pt", "psol"],
-            "voto": ["Sim", "Sim", "Sim", "Não", "Abstenção"],
+            "id_votacao": ["1"] * 9,
+            "partido_id": ["pt", "pt", "pt", "pt", "psol", "pl", "pl", "pl", "pl"],
+            "voto": ["Sim", "Sim", "Sim", "Não", "Abstenção", "Não", "Não", "Não", "Sim"],
         }
     )
-    r = rice(votos)
-    assert r.select("partido_id", "rice").rows() == [("pt", 0.5)]
+    r = rice(votos).sort("partido_id")
+    # Mais Não que Sim (pl) também dá 0,5; o Rice fica sempre entre 0 e 1.
+    assert r.select("partido_id", "rice").rows() == [("pl", 0.5), ("pt", 0.5)]
 
 
 def test_presenca_usa_os_periodos_de_exercicio():

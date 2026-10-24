@@ -112,8 +112,9 @@ def rice(votos: pl.DataFrame) -> pl.DataFrame:
         votos.filter(pl.col("voto").is_in(["Sim", "Não"]))
         .group_by("id_votacao", "partido_id")
         .agg(
-            (pl.col("voto") == "Sim").sum().alias("sim"),
-            (pl.col("voto") == "Não").sum().alias("nao"),
+            # Inteiros com sinal: com contagens sem sinal, Sim − Não "dá a volta" quando Não > Sim.
+            (pl.col("voto") == "Sim").sum().cast(pl.Int64).alias("sim"),
+            (pl.col("voto") == "Não").sum().cast(pl.Int64).alias("nao"),
         )
         .with_columns(
             ((pl.col("sim") - pl.col("nao")).abs() / (pl.col("sim") + pl.col("nao"))).alias("rice")

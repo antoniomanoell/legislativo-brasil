@@ -81,3 +81,44 @@ def test_publicar_gera_catalogo_momentos_e_agregados(tmp_path):
     assert ideo["57"]["pt"]["faixa"] == "esquerda"
     partidos_json = json.loads((tmp_path / "partidos.json").read_text("utf-8"))
     assert partidos_json["pr"]["renomeacoes"][0]["sigla_nova"] == "PL"
+
+
+def test_publicar_votacoes_formato_compacto(tmp_path):
+    from congresso.load.votacoes_site import publicar_votacoes
+
+    votacoes = pl.DataFrame(
+        {
+            "id": ["1-1"],
+            "data": ["2016-10-10"],
+            "data_hora": ["2016-10-10T20:00"],
+            "descricao": ["Aprovada"],
+            "descricao_abertura": ["Votação em primeiro turno."],
+            "proposicoes": [["PEC 241/2016"]],
+            "aprovacao": ["1"],
+            "orientacao_governo": ["Sim"],
+            "n_Sim": [1],
+            "n_Não": [1],
+            "n_Abstenção": [0],
+            "n_Obstrução": [0],
+            "destaque_pec": [True],
+        }
+    )
+    votos = pl.DataFrame(
+        {
+            "id_votacao": ["1-1", "1-1", "1-1"],
+            "id_deputado": [10, 20, 30],
+            "nome": ["Ana", "Beto", "Caio"],
+            "uf": ["SP", "RJ", "MG"],
+            "voto": ["Sim", "Não", "Artigo 17"],
+            "partido_id": ["pt", "psdb", "pmdb"],
+        }
+    )
+    publicar_votacoes(votacoes, votos, tmp_path)
+    ano = json.loads((tmp_path / "votacoes" / "ano-2016.json").read_text("utf-8"))
+    assert ano["deputados"] == [[10, "Ana", "SP"], [20, "Beto", "RJ"], [30, "Caio", "MG"]]
+    assert ano["partidos"] == ["pmdb", "psdb", "pt"]
+    v = ano["votacoes"][0]
+    assert (v["v"], v["p"]) == ("SN7", "210")
+    assert v["pec"] is True and v["placar"] == [1, 1, 0, 0]
+    indice = json.loads((tmp_path / "votacoes" / "indice.json").read_text("utf-8"))
+    assert "v" not in indice[0]

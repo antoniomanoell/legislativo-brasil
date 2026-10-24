@@ -9,6 +9,8 @@ from congresso.extract import camara, camara_votacoes, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.load.site import publicar as gravar_site
 from congresso.load.site import publicar_governos
+from congresso.load.votacoes_site import publicar_indicadores
+from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
 from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
@@ -383,3 +385,19 @@ def votacoes(*, atualizar: bool = False) -> None:
 def legislatura_em_data(dia: date) -> int:
     """Legislatura de uma data (votos de dez/2001 e 2002 são da 51ª, anterior ao histórico)."""
     return 51 if dia < date(2003, 2, 1) else legislatura_em(dia)
+
+
+def publicar_votacoes(*, atualizar: bool = False) -> None:
+    """Votações (arquivos anuais compactos e índice) e indicadores para o site."""
+    votacoes_ = pl.read_parquet(PROCESSADOS / "votacoes.parquet")
+    votos = pl.read_parquet(PROCESSADOS / "votos.parquet")
+    tamanho = gravar_votacoes(votacoes_, votos, PUBLICADOS)
+    publicar_indicadores(
+        votos,
+        votacoes_,
+        pl.read_parquet(PROCESSADOS / "presenca.parquet"),
+        pl.read_csv(MANUAIS / "governos.csv", try_parse_dates=True),
+        PUBLICADOS,
+    )
+    ind = (PUBLICADOS / "indicadores.json").stat().st_size
+    print(f"publicar_votacoes: {tamanho / 1e6:.1f} MB de votações; indicadores {ind / 1e3:.0f} KB")
