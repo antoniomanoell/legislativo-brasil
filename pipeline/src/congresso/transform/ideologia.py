@@ -76,12 +76,25 @@ def de_bls(estimativas: pl.DataFrame, siglas: pl.DataFrame) -> pl.DataFrame:
 
 
 def de_bolognesi(tabela: pl.DataFrame, siglas: pl.DataFrame) -> pl.DataFrame:
-    """Linhas das legislaturas 57ª e 58ª, com a média ponderada e a faixa publicadas."""
+    """Linhas das legislaturas 57ª e 58ª, com a média simples de 2022 e a faixa pelos cortes dos
+    autores (DECISIONS 2026-10-24, revisão da A17).
+
+    A "média ponderada" publicada é a média simples multiplicada por um fator único de ~1,03 que o
+    artigo não descreve de forma reproduzível (o método do texto não gera a tabela; o UP, sem média
+    de 2018, também recebe o fator). A faixa publicada continua sendo conferida contra a média
+    ponderada, como teste da transcrição."""
+    erradas = [
+        r["sigla_fonte"]
+        for r in tabela.iter_rows(named=True)
+        if faixa(r["media_ponderada"]) != r["faixa_publicada"].replace(" ", "-")
+    ]
+    if erradas:
+        raise ValueError(f"Bolognesi: faixa publicada não bate com a média ponderada: {erradas}")
     base = siglas.filter(pl.col("fonte_id") == "bolognesi").join(
         tabela.select(
             "sigla_fonte",
-            pl.col("media_ponderada").alias("pontuacao"),
-            pl.col("faixa_publicada").str.replace(" ", "-").alias("faixa"),
+            pl.col("media_2022").alias("pontuacao"),
+            pl.col("media_2022").map_elements(faixa, return_dtype=pl.String).alias("faixa"),
             pl.col("n_validos").alias("n"),
         ),
         on="sigla_fonte",

@@ -70,19 +70,24 @@ presidente (Zucco & Lauderdale, 2011).
   começa em 2027, a medição é de 2022; ela será substituída quando houver medição mais recente.
 
 **Faixas.** Os rótulos (extrema-esquerda, esquerda, centro-esquerda, centro, centro-direita,
-direita, extrema-direita) são os que Bolognesi et al. publicam para cada partido, a partir da média
-ponderada e dos cortes definidos pelos autores na escala de 0 a 10; o site não recalcula nenhum
-rótulo. A "média ponderada" não dá pesos diferentes aos respondentes: ela equivale à média simples de
-2022 multiplicada por um mesmo fator, de cerca de 1,03, para todos os partidos (conferido nos números
-publicados); segundo os autores, é um ajuste de escala entre as rodadas de 2018 e 2022. Esse ajuste
-muda a faixa de quatro partidos: pela média simples, Republicanos, PSC e União Brasil ficariam em
-"direita" (e não "extrema-direita") e o PSD em "centro-direita" (e não "direita"). Partidos perto de
-um corte entre faixas devem ser lidos pela pontuação, não só pelo rótulo. A BLS não publica
-rótulos, e as duas escalas medem coisas diferentes, de formas diferentes. Testamos uma conversão
+direita, extrema-direita) seguem os cortes definidos por Bolognesi et al. na escala de 0 a 10,
+aplicados à **média simples** das avaliações de 2022 publicada pelos autores. Os autores publicam
+também uma "média ponderada", que é a que usam para os rótulos do artigo. O site não a usa porque ela
+não pode ser reproduzida: o artigo a descreve como um ajuste partido a partido pela razão entre as
+médias de 2018 e 2022, mas os valores da tabela correspondem à média simples multiplicada por um
+mesmo fator, de cerca de 1,03, para todos os partidos, inclusive o UP, que não tem média de 2018. O
+artigo afirma que a ponderação não muda nenhum partido de categoria, mas, pela própria tabela, muda
+quatro: com ela, Republicanos, PSC e União Brasil passariam de "direita" a "extrema-direita", e o
+PSD de "centro-direita" a "direita". Partidos perto de um corte entre faixas devem ser lidos pela
+pontuação, não só pelo rótulo.
+
+A BLS não publica rótulos, e as duas escalas medem coisas diferentes, de formas diferentes. Testamos uma conversão
 entre elas com os partidos medidos pelas duas pesquisas em datas próximas: a ordem dos partidos
-coincide muito, mas cerca de um em cada quatro partidos cairia numa faixa diferente da publicada.
+coincide muito, mas cerca de um em cada quatro partidos cairia numa faixa diferente da de Bolognesi
+et al.
 Por isso as escalas **não são convertidas**: até a 56ª legislatura o site mostra a pontuação da
-BLS, sem rótulo; a partir da 57ª, a pontuação e o rótulo de Bolognesi et al. Os gráficos marcam a
+BLS, sem rótulo; a partir da 57ª, a pontuação de Bolognesi et al. e o rótulo pelos cortes dos
+autores. Os gráficos marcam a
 quebra entre as duas fontes.
 
 **Não classificado.** Partido que a fonte da legislatura não mediu aparece como "não classificado",

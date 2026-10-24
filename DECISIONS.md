@@ -426,3 +426,17 @@ Formato de cada entrada:
 - **Exibição:** linha "Presidente" no Início (na foto, o presidente na data; nos eleitos, o do início da
   legislatura) e na página Governos. Sem marca no hemiciclo: a nota do presidente é, em geral, de outra
   onda que a usada no arco, e a partir de 2023 o arco usa outra escala.
+
+## 2026-10-24 — Bolognesi 2022: média simples com os cortes dos autores (revisa a A17)
+- **Decisão (Antônio, "a mais rigorosa intelectualmente"):** pontuação = média simples de 2022 publicada
+  na Tabela 1; faixa = cortes dos autores (0–1,5; 1,51–3; 3,01–4,49; 4,5–5,5; 5,51–7; 7,01–8,5;
+  8,51–10) aplicados a ela. A "média ponderada" deixa de ser usada.
+- **Motivo:** a média ponderada não é reproduzível. O texto (p. 15) descreve um fator por partido, "a
+  razão entre as classificações de 2018 e 2022", que aplicado literalmente devolve a média de 2018; a
+  tabela corresponde à média simples × ~1,03 para todos os partidos (1,029–1,031), inclusive o UP, sem
+  média de 2018. O artigo diz que "nenhum partido muda de posição ou de categoria", mas pela tabela
+  mudam quatro (Republicanos, PSC, União Brasil → extrema-direita; PSD → direita). Conferido no PDF.
+- **Efeito:** Republicanos (8,33), PSC (8,41) e União Brasil (8,49) ficam "direita"; PSD (6,94),
+  "centro-direita". A ordem dos partidos não muda. A faixa publicada continua conferida contra a média
+  ponderada, como teste de transcrição.
+- **Pendente:** e-mail aos autores perguntando como o fator foi calculado; rever se responderem.

@@ -54,7 +54,8 @@ def test_bls_sem_rotulo_e_na_legislatura_da_onda():
     assert r["faixa"].is_null().all()
 
 
-def test_bolognesi_usa_media_ponderada_e_marca_a_58():
+def test_bolognesi_usa_media_simples_com_os_cortes_dos_autores_e_marca_a_58():
+    # PSD: 6,94 pela média simples (centro-direita); 7,151 pela "ponderada" publicada (direita).
     tabela = pl.DataFrame(
         {
             "sigla_fonte": ["PSD"],
@@ -66,14 +67,14 @@ def test_bolognesi_usa_media_ponderada_e_marca_a_58():
     )
     r = de_bolognesi(tabela, _siglas()).sort("legislatura")
     assert r.select("legislatura", "pontuacao", "faixa").rows() == [
-        (57, 7.151, "direita"),
-        (58, 7.151, "direita"),
+        (57, 6.94, "centro-direita"),
+        (58, 6.94, "centro-direita"),
     ]
     assert r["nota"][1].startswith("medição de 2022")
     assert conferir(r) == []
 
 
-def test_conferir_acusa_faixa_que_nao_bate_com_os_cortes():
+def test_faixa_publicada_que_nao_bate_com_a_ponderada_para_o_pipeline():
     tabela = pl.DataFrame(
         {
             "sigla_fonte": ["PSD"],
@@ -83,7 +84,8 @@ def test_conferir_acusa_faixa_que_nao_bate_com_os_cortes():
             "n_validos": [443],
         }
     )
-    assert conferir(de_bolognesi(tabela, _siglas()))
+    with pytest.raises(ValueError, match="PSD"):
+        de_bolognesi(tabela, _siglas())
 
 
 def test_toda_sigla_de_bolognesi_mapeada_existe_na_tabela():
