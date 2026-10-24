@@ -13,6 +13,7 @@ export default defineConfig({
         partidos: resolve(import.meta.dirname, 'partidos.html'),
         metodologia: resolve(import.meta.dirname, 'metodologia.html'),
         sobre: resolve(import.meta.dirname, 'sobre.html'),
+        congresso2027: resolve(import.meta.dirname, 'congresso-2027.html'),
         estilo: resolve(import.meta.dirname, 'estilo.html'),
       },
     },

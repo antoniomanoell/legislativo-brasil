@@ -378,3 +378,19 @@ Formato de cada entrada:
   do escopo). A página "Sobre" fica com fontes, licenças de cada fonte e como citar. Os JSON que o
   site carrega continuam acessíveis tecnicamente a quem abrir as ferramentas do navegador (é um site
   estático); não há link nem convite para baixá-los.
+
+## 2026-10-24 — Congresso a partir de 2027 (composição prevista da 58ª legislatura)
+- **Pedido do Antônio:** mostrar como fica o Congresso a partir de 2027 com o resultado do 1º turno.
+- **Câmara:** os 513 eleitos de 2026 (TSE, situação atual — A14), pelo partido da eleição.
+- **Senado:** os 54 eleitos de 2026 mais as 27 cadeiras com mandato até 31/01/2031 (eleitas em 2022).
+  Em cada uma das 27 fica **quem a ocupa na data dos dados do Senado** (registros de exercício), com
+  o partido da filiação registrada nessa data. Isso já cobre suplentes efetivados (MA: renúncia de
+  Flávio Dino) e mostra com nota o suplente em exercício por afastamento temporário (PI). Se o
+  ocupante foi **eleito governador no 1º turno** (TSE 2026: Cleitinho/MG, Sergio Moro/PR), entra o
+  1º suplente; quem **disputa o 2º turno** (Alan Rick/AC, Professora Dorinha/TO) fica, com nota.
+  Suplente sem filiação no Senado fica "não informado", com o partido pelo qual foi suplente em 2022
+  na nota (o PSC de 2022 foi incorporado ao Podemos; não se presume filiação atual).
+- **Fica de fora (avisado na página):** trocas de partido até a posse, mudanças até a diplomação,
+  resultado do 2º turno. Reprocessar depois de 25/10/2026 e da diplomação.
+- **Mais rigoroso que as alternativas:** usar o titular eleito em 2022 ignoraria a renúncia de Dino;
+  usar o partido da eleição de 2022 nas 27 cadeiras ignoraria trocas registradas pelo Senado.

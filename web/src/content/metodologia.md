@@ -159,6 +159,14 @@ de 2018–2019 em diante e só numa parte das votações; antes disso, o governi
 **Base formal.** Os mesmos gabinetes da Câmara: soma das cadeiras dos partidos com ministro, na data
 da foto.
 
+## Congresso a partir de 2027
+
+A página "2027" mostra a composição prevista da 58ª legislatura. Na Câmara, os 513 eleitos em 2026. No
+Senado, os 54 eleitos em 2026 e as 27 cadeiras eleitas em 2022, cada uma com quem a ocupa nos
+registros mais recentes do Senado e o partido da filiação registrada. Se o ocupante foi eleito
+governador no 1º turno de 2026, entra o 1º suplente. Trocas de partido até a posse, o 2º turno e a
+diplomação ainda podem mudar a composição.
+
 ## Hemiciclo
 
 Cada bolinha é uma cadeira. Os partidos classificados vão da esquerda para a direita pela pontuação

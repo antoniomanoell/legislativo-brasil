@@ -84,10 +84,12 @@ Fontes verificadas, relatório em `reports/fase0_viabilidade.md`, visual do mapa
 - [x] Página Sobre (fontes, licenças, como citar)
 - [x] Auditoria Lighthouse: desempenho ≥ 90 e acessibilidade 100 em todas as páginas (celular e
       computador); CLS corrigido; carga inicial ~100 KB de código + dados sob demanda
+- [x] Página "2027": composição prevista da 58ª legislatura (etapa `congresso_2027`, fase 4)
 - [ ] Revisão dos textos com o Antônio (Metodologia e Sobre ainda marcadas como rascunho)
 - [ ] Antes do deploy: tirar `noindex` e criar robots.txt; preencher o endereço em "Como citar"
 - [ ] Deploy na Vercel (conectar o repositório: passo do Antônio)
-- [ ] Depois do 2º turno (25/10) e da diplomação: governo de 2027 e eleitos definitivos
+- [ ] Depois do 2º turno (25/10): `uv run congresso --fase 4 --etapa congresso_2027` (AC e TO) e
+      governo de 2027; depois da diplomação: eleitos definitivos
 
 ## Próximo passo exato
 

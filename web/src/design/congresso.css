@@ -488,3 +488,32 @@ main.texto {
   background: none;
   border: 0;
 }
+
+/* ---------- Congresso a partir de 2027 ---------- */
+.barra-faixas {
+  display: flex;
+  height: 18px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 6px 0 10px;
+}
+.tabela-faixas {
+  max-width: 420px;
+}
+.subtitulo-2027 {
+  margin: 18px 0 4px;
+  font-size: 0.9375rem;
+}
+.detalhes-partidos {
+  margin-top: 14px;
+}
+.detalhes-partidos summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.tabela-faixas .amostra {
+  margin-right: 6px;
+}
+.chamada-2027 {
+  margin: 0 0 12px;
+}

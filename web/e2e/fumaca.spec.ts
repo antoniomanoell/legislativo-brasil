@@ -172,3 +172,25 @@ for (const caminho of [
     await semRolagemLateral(page);
   });
 }
+
+test('Congresso a partir de 2027: 513 deputados e 81 senadores, com as notas do Senado', async ({
+  page,
+}) => {
+  await page.goto('./congresso-2027.html');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  for (const [casa, total] of [
+    ['camara', 513],
+    ['senado', 81],
+  ] as const) {
+    const cadeiras = await page.locator(`#hemiciclo-${casa} circle.cadeira`).count();
+    const fora = await page
+      .locator(`#titulo-${casa}`)
+      .locator('xpath=ancestor::section')
+      .locator('.fileira-a-parte span')
+      .count();
+    expect(cadeiras + fora).toBe(total);
+  }
+  await page.getByText('As 27 cadeiras com mandato até 2031').click();
+  await expect(page.locator('#conteudo')).toContainText('eleito governador no 1º turno de 2026');
+  await semRolagemLateral(page);
+});

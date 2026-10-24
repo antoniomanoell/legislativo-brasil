@@ -10,11 +10,12 @@ from congresso.extract import camara, camara_votacoes, tse
 from congresso.extract import ideologia as fontes_ideologia
 from congresso.extract import senado as fonte_senado
 from congresso.load.site import publicar as gravar_site
-from congresso.load.site import publicar_governos
+from congresso.load.site import publicar_2027, publicar_governos
 from congresso.load.site import publicar_senado as gravar_senado
 from congresso.load.votacoes_site import publicar_impeachments, publicar_indicadores
 from congresso.load.votacoes_site import publicar_votacoes as gravar_votacoes
 from congresso.paths import MANUAIS, PROCESSADOS, PUBLICADOS, RELATORIOS
+from congresso.transform import congresso_2027 as c27
 from congresso.transform import governos as gov
 from congresso.transform import ideologia as ideo
 from congresso.transform import materias
@@ -638,3 +639,103 @@ def publicar_senado(*, atualizar: bool = False) -> None:
         PUBLICADOS,
     )
     print(f"publicar_senado: {len(cat['momentos'])} momentos; {len(cat['lacunas'])} anos sem foto")
+
+
+def congresso_2027(*, atualizar: bool = False) -> None:
+    """Composição prevista a partir de 1º/fev/2027: eleitos de 2026 mais, no Senado, as 27 cadeiras
+    com mandato até 2031, com quem as ocupa na data dos dados (DECISIONS 2026-10-24)."""
+    dia = date.today()
+    pasta = fonte_senado.PASTA
+    try:
+        cadeiras = c27.cadeiras_ate_2031(pasta, dia)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    situacao = c27.governadores_1o_turno(tse.candidatos(2026, atualizar=atualizar), 2026)
+    completos = c27.nomes_completos(pasta)
+    linhas = []
+    for c in cadeiras.iter_rows(named=True):
+        nome_completo = completos.get(c["ocupante_codigo"], c["ocupante_nome"])
+        sit = situacao.get((c["uf"], c27.normalizar(nome_completo)))
+        codigo, nome, nota = c["ocupante_codigo"], c["ocupante_nome"], None
+        if c["ocupante_codigo"] != c["titular_codigo"]:
+            causa = c["causa_afastamento_titular"] or "causa não registrada"
+            nota = (
+                f"Ocupa a vaga em definitivo: {c['titular_nome']} deixou o mandato "
+                f"({causa.lower()})."
+                if c27.afastamento_definitivo(causa)
+                else f"Suplente em exercício na vaga de {c['titular_nome']} ({causa.lower()}); "
+                "o titular pode reassumir."
+            )
+        if sit == "ELEITO":
+            codigo, nome = c["primeiro_suplente_codigo"], c["primeiro_suplente_nome"]
+            nota = f"1º suplente de {c['ocupante_nome']}, eleito governador no 1º turno de 2026."
+        elif sit == "2º TURNO":
+            nota = (
+                f"{c['ocupante_nome']} disputa o 2º turno para governador em 25/10/2026; "
+                f"se vencer, assume o 1º suplente, {c['primeiro_suplente_nome']}."
+            )
+        linhas.append({"codigo": codigo, "nome": nome, "uf": c["uf"], "nota": nota})
+    continuam = pl.DataFrame(linhas, schema_overrides={"nota": pl.String})
+    # Suplentes que nunca exerceram não estão nas listas de legislatura: baixa as filiações deles.
+    fonte_senado.senadores(continuam["codigo"].to_list(), atualizar=atualizar)
+    mapa = pl.read_csv(MANUAIS / "partidos_senado.csv", infer_schema=False)
+    try:
+        continuam = sen.partido_na_data(continuam, sen.ler_filiacoes(pasta), mapa, dia)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    # Sem filiação no Senado (suplente que nunca exerceu): o partido fica "não informado", e a nota
+    # diz por qual partido foi suplente em 2022 (o partido pode ter mudado ou deixado de existir).
+    de_2022 = c27.suplentes_2022(tse.candidatos(2022, atualizar=atualizar))
+    notas = []
+    for r in continuam.iter_rows(named=True):
+        nota = r["nota"]
+        if r["partido_id"] == "nao_informado":
+            sigla = de_2022.get((r["uf"], c27.normalizar(r["nome"] or "")), "?")
+            extra = f"Sem filiação registrada no Senado; em 2022, suplente pelo {sigla}."
+            nota = f"{nota} {extra}" if nota else extra
+        notas.append(nota)
+    continuam = continuam.with_columns(pl.Series("nota", notas, dtype=pl.String))
+    eleitos_sen = pl.read_parquet(PROCESSADOS / "eleitos_senado.parquet").filter(
+        pl.col("ano") == 2026
+    )
+    senado = pl.concat(
+        [
+            eleitos_sen.select(
+                pl.coalesce("nome_urna", "nome").alias("nome"),
+                "uf",
+                pl.col("partido_id").alias("partido"),
+                pl.col("sigla_na_eleicao").alias("sigla"),
+                pl.lit("eleito_2026").alias("origem"),
+                pl.lit(None, pl.String).alias("nota"),
+            ),
+            continuam.select(
+                "nome",
+                "uf",
+                pl.col("partido_id").alias("partido"),
+                pl.when(pl.col("partido_id") == "sem_partido")
+                .then(pl.lit("sem partido"))
+                .otherwise(pl.col("sigla").fill_null("não informado"))
+                .alias("sigla"),
+                pl.lit("mandato_ate_2031").alias("origem"),
+                "nota",
+            ),
+        ]
+    )
+    camara = (
+        pl.read_parquet(PROCESSADOS / "eleitos.parquet")
+        .filter(pl.col("ano") == 2026)
+        .select(
+            pl.coalesce("nome_urna", "nome").alias("nome"),
+            "uf",
+            pl.col("partido_id").alias("partido"),
+            pl.col("sigla_na_eleicao").alias("sigla"),
+        )
+    )
+    try:
+        publicar_2027(camara, senado, dia, PUBLICADOS)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    notas = continuam.filter(pl.col("nota").is_not_null())
+    print(f"congresso_2027: Câmara 513, Senado 81 (posição em {dia}); {notas.height} com nota:")
+    for r in notas.iter_rows(named=True):
+        print(f"  {r['uf']} {r['nome']}: {r['nota']}")

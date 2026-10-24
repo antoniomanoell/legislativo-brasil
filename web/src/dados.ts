@@ -226,3 +226,20 @@ export const carregarArquivoVotacao = (arquivo: string) =>
 export const carregarIndicadores = (casa: Casa = 'camara') =>
   carregar<Indicadores>(casa === 'senado' ? 'indicadores-senado.json' : 'indicadores.json');
 export const carregarMomento = (id: string) => carregar<Deputado[]>(`momentos/${id}.json`);
+
+/** Senador na composição prevista de 2027: eleito em 2026 ou com mandato até 31/01/2031. */
+export interface Senador2027 extends Deputado {
+  origem: 'eleito_2026' | 'mandato_ate_2031';
+  /** Suplente em exercício, governador eleito no 1º turno ou candidato no 2º turno. */
+  nota: string | null;
+}
+
+export interface Congresso2027 {
+  legislatura: number;
+  /** Data dos registros do Senado usados para as 27 cadeiras que continuam. */
+  posicao_em: string;
+  camara: Deputado[];
+  senado: Senador2027[];
+}
+
+export const carregarCongresso2027 = () => carregar<Congresso2027>('congresso-2027.json');

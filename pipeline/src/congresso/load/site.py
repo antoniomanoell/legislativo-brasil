@@ -9,7 +9,7 @@
 """
 
 import json
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 import polars as pl
@@ -318,3 +318,28 @@ def publicar_senado(
     _gravar(destino / "catalogo-senado.json", catalogo)
     _gravar(destino / "agregados-senado.json", agregados)
     return catalogo
+
+
+def publicar_2027(
+    camara: pl.DataFrame, senado: pl.DataFrame, posicao_em: date, destino: Path
+) -> None:
+    """congresso-2027.json: composição prevista a partir de 1º/fev/2027 (58ª legislatura).
+
+    `camara`: nome, uf, partido, sigla. `senado`: os mesmos campos mais `origem` ("eleito_2026" ou
+    "mandato_ate_2031") e `nota` (suplente, governador eleito ou no 2º turno)."""
+    if camara.height != 513:
+        raise ValueError(f"Câmara 2027: {camara.height} cadeiras, esperado 513")
+    por_uf = senado.group_by("uf").len()
+    if senado.height != 81 or por_uf["len"].to_list() != [3] * por_uf.height:
+        raise ValueError(f"Senado 2027: {senado.height} cadeiras, esperado 81 com 3 por UF")
+    _gravar(
+        destino / "congresso-2027.json",
+        {
+            "legislatura": 58,
+            "posicao_em": posicao_em.isoformat(),
+            "camara": _deputados(camara),
+            "senado": senado.select("nome", "uf", "partido", "sigla", "origem", "nota")
+            .sort("uf", "origem", "nome")
+            .to_dicts(),
+        },
+    )
