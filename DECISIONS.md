@@ -329,3 +329,27 @@ Formato de cada entrada:
 - O partido gravado nos votos do Senado é a sigla atual do senador (ex.: "MDB" para Sarney em 2003),
   e por isso não é usado como partido na data.
 
+## 2026-10-23 — Senado: votações, governismo e presença
+- **Presença (decidido pelo Antônio):** votou (Sim, Não, Abstenção, Obstrução) ÷ todos os senadores
+  listados na votação, menos licenças (LS, LP, LG, LA, LAP) e ausências a serviço do Senado (AP,
+  MIS, REP, MERC). "Não compareceu" (NCom) e "presente, não registrou voto" (P-NRV) contam como não
+  votou. "Presidente (art. 51 RISF)" sai, como o "Artigo 17" da Câmara. Códigos de significado não
+  confirmado (P-OD, NA) ficam fora do numerador e do denominador.
+- **Governismo:** mesma regra da Câmara (A8), só nas votações com orientação "Sim" ou "Não" da
+  liderança do Governo (`/plenario/votacao/orientacaoBancada`), que só existe de 2018/2019 em diante e
+  numa parte das votações; antes disso, lacuna (§7.6).
+- **Votações secretas** (voto "Votou") ficam fora de governismo, coesão e presença.
+- **Partido no voto:** pela filiação datada do senador na data da votação (o partido gravado no voto é
+  a sigla atual); sem filiação datada, "não informado".
+- **Anos incompletos na fonte:** 2015 e 2016 têm 15 e 10 votações abertas (contra 50–130 nos anos
+  vizinhos), e 2016 traz matérias de 1998–1999 com data de 2016 (Fase 0); aparecem com aviso.
+
+## 2026-10-23 — Senado: votações com lista de votantes incompatível com os mandatos ficam de fora
+- **Decisão:** sai a votação em que 10 ou mais senadores listados não tinham mandato (titular ou
+  suplente) na data. Nos dados de 2026-10-23 a distribuição é bimodal — 0 a 3 por votação (lacunas do
+  cadastro de mandatos) ou 40 ou mais (data ou lista errada na fonte) —, então o corte não decide
+  nenhum caso duvidoso. Saem 25 votações (de 2002, 2015 e 2016), listadas em
+  `reports/votacoes_senado_excluidas.csv`.
+- **Motivo:** mostrar uma votação com a lista de votantes de outra época seria publicar dado errado;
+  a lista fica disponível para conferência.
+

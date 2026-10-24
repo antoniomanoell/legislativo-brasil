@@ -67,3 +67,23 @@ def test_sigla_desconhecida_para():
     mapa = pl.read_csv(MANUAIS / "partidos_senado.csv", infer_schema=False)
     with pytest.raises(ValueError, match="XYZ"):
         partido_na_data(foto, filiacoes, mapa, date(2013, 2, 1))
+
+
+def test_votacao_com_lista_incompativel_com_mandatos():
+    from congresso.transform.senado import votacoes_inconsistentes
+
+    mandatos = pl.DataFrame(
+        {
+            "codigo": [str(i) for i in range(20)],
+            "ini": [date(2011, 2, 1)] * 20,
+            "fim_mandato": [date(2019, 1, 31)] * 20,
+        }
+    )
+    votos = pl.DataFrame(
+        {
+            "id_votacao": ["boa"] * 20 + ["ruim"] * 20,
+            "data": [date(2013, 5, 1)] * 20 + [date(2002, 4, 16)] * 20,
+            "codigo": [str(i) for i in range(20)] * 2,
+        }
+    )
+    assert votacoes_inconsistentes(votos, mandatos)["id_votacao"].to_list() == ["ruim"]

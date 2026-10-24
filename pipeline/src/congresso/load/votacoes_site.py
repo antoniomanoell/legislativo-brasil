@@ -41,8 +41,14 @@ def _meta(r: dict) -> dict:
     }
 
 
-def publicar_votacoes(votacoes: pl.DataFrame, votos: pl.DataFrame, destino: Path) -> int:
-    """Grava os arquivos anuais e o índice; devolve o total de bytes gravados."""
+def publicar_votacoes(
+    votacoes: pl.DataFrame,
+    votos: pl.DataFrame,
+    destino: Path,
+    prefixo: str = "ano",
+    nome_indice: str = "indice.json",
+) -> int:
+    """Grava os arquivos anuais (`<prefixo>-AAAA.json`) e o índice; devolve os bytes gravados."""
     pasta = destino / "votacoes"
     indice = []
     votacoes = votacoes.with_columns(pl.col("data").str.slice(0, 4).cast(pl.Int32).alias("ano"))
@@ -73,15 +79,15 @@ def publicar_votacoes(votacoes: pl.DataFrame, votos: pl.DataFrame, destino: Path
             indice.append(m)
             lista.append({**m, **por_votacao[r["id"]]})
         _gravar(
-            pasta / f"ano-{ano}.json",
+            pasta / f"{prefixo}-{ano}.json",
             {
                 "deputados": deputados.select("id_deputado", "nome", "uf").rows(),
                 "partidos": partidos,
                 "votacoes": lista,
             },
         )
-    _gravar(pasta / "indice.json", indice)
-    return sum(f.stat().st_size for f in pasta.glob("*.json"))
+    _gravar(pasta / nome_indice, indice)
+    return sum(f.stat().st_size for f in pasta.glob(f"{prefixo}-*.json"))
 
 
 def _arred(x: float | None, casas: int = 4) -> float | None:
@@ -94,6 +100,7 @@ def publicar_indicadores(
     presenca: pl.DataFrame,
     governos: pl.DataFrame,
     destino: Path,
+    nome_arquivo: str = "indicadores.json",
 ) -> None:
     """indicadores.json: governismo (A8), coesão (A4) e presença por partido e deputado."""
 
@@ -185,7 +192,7 @@ def publicar_indicadores(
     fora = [v for v in valores if not 0 <= v <= 1]
     if fora:
         raise ValueError(f"Indicadores fora de [0, 1]: {fora[:5]}")
-    _gravar(destino / "indicadores.json", {"partidos": partidos, "deputados": deputados})
+    _gravar(destino / nome_arquivo, {"partidos": partidos, "deputados": deputados})
 
 
 # Placar oficial proclamado (fonte primária, DECISIONS A6): Sim, Não, Abstenção, ausentes.

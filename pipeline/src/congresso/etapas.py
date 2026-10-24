@@ -493,3 +493,88 @@ def fotos_senado(*, atualizar: bool = False) -> None:
         f"fotos_senado: {len(validas)} fotos válidas, {len(lacunas)} anos sem foto; "
         f"{sem_partido} senadores sem filiação datada na data"
     )
+
+
+def votacoes_senado(*, atualizar: bool = False) -> None:
+    """Votações nominais do plenário do Senado: votos com partido, presença, governismo e coesão,
+    publicados no mesmo formato compacto da Câmara (prefixo "senado")."""
+    pasta = fonte_senado.votacoes(date.today().year, atualizar=atualizar)
+    filiacoes = sen.ler_filiacoes(pasta)
+    mapa = pl.read_csv(MANUAIS / "partidos_senado.csv", infer_schema=False)
+    lista_v, lista_votos = [], []
+    for ano in range(1991, date.today().year + 1):
+        v, vt = sen.ler_votacoes(pasta, ano)
+        lista_v.append(v)
+        if vt.height:
+            lista_votos.append(vt)
+    tab_v = pl.concat(lista_v, how="diagonal_relaxed").unique("id", keep="first")
+    tab_votos = pl.concat(lista_votos, how="diagonal_relaxed")
+    try:
+        tab_votos = sen.partido_nos_votos(tab_votos, filiacoes, mapa)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    tab_votos = tab_votos.with_columns(
+        pl.col("codigo").cast(pl.Int64).alias("id_deputado"),
+        pl.col("data").dt.year().alias("ano"),
+        pl.col("data")
+        .map_elements(legislatura_em_data, return_dtype=pl.Int16)
+        .alias("legislatura"),
+        pl.when(pl.col("situacao").is_in(list(sen.PRESIDENTE)))
+        .then(pl.lit("Artigo 17"))
+        .otherwise(pl.col("voto"))
+        .alias("voto"),
+    )
+    ruins = sen.votacoes_inconsistentes(tab_votos, sen.ler_mandatos(pasta))
+    ruins.join(
+        tab_v.select("id", "identificacao", "descricao"), left_on="id_votacao", right_on="id"
+    ).write_csv(RELATORIOS / "votacoes_senado_excluidas.csv")
+    tab_votos = tab_votos.filter(~pl.col("id_votacao").is_in(ruins["id_votacao"].implode()))
+    tab_v = tab_v.filter(~pl.col("id").is_in(ruins["id_votacao"].implode()))
+    tab_votos.write_parquet(PROCESSADOS / "votos_senado.parquet")
+
+    contagem = tab_votos.group_by("id_votacao").agg(
+        *[(pl.col("voto") == x).sum().alias(f"n_{x}") for x in vot.VOTOS_VALIDOS]
+    )
+    abertas = (
+        tab_v.filter(~pl.col("secreta"))
+        .join(contagem, left_on="id", right_on="id_votacao", how="inner")
+        .with_columns(
+            pl.col("data").alias("data_hora"),
+            pl.lit(None, pl.String).alias("descricao_abertura"),
+            pl.concat_list(pl.col("identificacao")).alias("proposicoes"),
+            pl.when(pl.col("resultado") == "A")
+            .then(pl.lit("1"))
+            .otherwise(pl.lit("0"))
+            .alias("aprovacao"),
+            (
+                (pl.col("sigla_materia") == "PEC")
+                & pl.col("descricao").str.to_lowercase().str.contains(vot.TURNO)
+            ).alias("destaque_pec"),
+        )
+    )
+    votos_publicos = tab_votos.filter(pl.col("voto").is_not_null())
+    # Votação aberta sem nenhum voto registrado (só ausências e licenças) não entra.
+    sem_voto = abertas.filter(~pl.col("id").is_in(votos_publicos["id_votacao"].unique().implode()))
+    abertas = abertas.join(sem_voto.select("id"), on="id", how="anti")
+    abertas.write_parquet(PROCESSADOS / "votacoes_senado.parquet")
+    tamanho = gravar_votacoes(
+        abertas, votos_publicos, PUBLICADOS, prefixo="senado", nome_indice="indice-senado.json"
+    )
+    presenca = tab_votos.filter(pl.col("esperado")).select(
+        "id_votacao", "id_deputado", pl.col("votou").alias("presente")
+    )
+    publicar_indicadores(
+        votos_publicos,
+        abertas,
+        presenca,
+        pl.read_csv(MANUAIS / "governos.csv", try_parse_dates=True),
+        PUBLICADOS,
+        nome_arquivo="indicadores-senado.json",
+    )
+    orientadas = abertas.filter(pl.col("orientacao_governo").is_in(["Sim", "Não"])).height
+    print(
+        f"votacoes_senado: {tab_v.height} votações ({abertas.height} abertas, {orientadas} com "
+        f"orientação Sim/Não do Governo); {ruins.height} excluídas por lista incompatível com "
+        f"os mandatos; {sem_voto.height} abertas sem voto registrado; "
+        f"{votos_publicos.height} votos; {tamanho / 1e6:.1f} MB"
+    )

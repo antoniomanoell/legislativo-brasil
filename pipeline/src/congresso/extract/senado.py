@@ -77,3 +77,18 @@ def senadores(cods: list[str], *, atualizar: bool = False) -> Path:
             if n % 100 == 0:
                 print(f"  {n}/{len(cods)} senadores")
     return PASTA
+
+
+def votacoes(ultimo_ano: int, *, atualizar: bool = False) -> Path:
+    """Votações de plenário com o voto de cada senador (endpoint /votacao, um ano por consulta) e
+    as orientações de liderança (/plenario/votacao/orientacaoBancada), um JSON por ano."""
+    with _cliente() as c:
+        for ano in range(1991, ultimo_ano + 1):
+            for nome, url in (
+                ("votacoes", f"{API}/votacao?dataInicio={ano}-01-01&dataFim={ano}-12-31"),
+                ("orientacoes", f"{API}/plenario/votacao/orientacaoBancada/{ano}0101/{ano}1231"),
+            ):
+                destino = PASTA / nome / f"{ano}.json"
+                if atualizar or ano == ultimo_ano or not destino.exists():
+                    _salvar(destino, _get(c, url))
+    return PASTA
