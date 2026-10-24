@@ -19,6 +19,7 @@ from congresso.transform import votacoes as vot
 from congresso.transform.eleitos import ler_1990, ler_consulta_cand, ler_vagas
 from congresso.transform.fotos import foto, intervalos_de_exercicio, legislatura_em, ler_eventos
 from congresso.transform.partidos import atribuir_partido, atribuir_partido_camara
+from congresso.ufs import UFS_27
 from congresso.validate.eleitos import conferir_limites, conferir_referencia, conferir_vagas
 
 
@@ -413,3 +414,46 @@ def publicar_votacoes(*, atualizar: bool = False) -> None:
     )
     ind = (PUBLICADOS / "indicadores.json").stat().st_size
     print(f"publicar_votacoes: {tamanho / 1e6:.1f} MB de votações; indicadores {ind / 1e3:.0f} KB")
+
+
+# CF, art. 46: renovação alternada de 1/3 (um senador por UF) e 2/3 (dois por UF). Em 1990, AP e RR,
+# recém-transformados em estados, elegeram três senadores cada (conferido pelo arquivo de vagas).
+SENADORES_POR_UF = {1994: 2, 1998: 1, 2002: 2, 2006: 1, 2010: 2, 2014: 1, 2018: 2, 2022: 1, 2026: 2}
+
+
+def eleitos_senado(*, atualizar: bool = False) -> None:
+    """Senadores eleitos em cada eleição (TSE, situação atual), com partido pela tabela curada."""
+    partes = []
+    problemas = []
+    for ano in tse.ANOS:
+        zip_cand = tse.candidatos(ano, atualizar=atualizar)
+        e = (
+            ler_1990(zip_cand, "SENADOR")
+            if ano == 1990
+            else ler_consulta_cand(zip_cand, ano, "SENADOR")
+        )
+        por_uf = dict(e.group_by("uf").len().iter_rows())
+        if ano == 1990:
+            esperado = dict(
+                ler_vagas(tse.vagas(ano), ano, "SENADOR").select("uf", "vagas").iter_rows()
+            )
+        else:
+            esperado = dict.fromkeys(por_uf.keys() | set(UFS_27), SENADORES_POR_UF[ano])
+        for uf in sorted(esperado.keys() | por_uf.keys()):
+            if por_uf.get(uf, 0) != esperado.get(uf, 0):
+                problemas.append(
+                    f"{ano} {uf}: {por_uf.get(uf, 0)} senadores, esperado {esperado.get(uf, 0)}"
+                )
+        partes.append(e)
+    if problemas:
+        raise FalhaDeValidacao("Senadores eleitos:\n" + "\n".join(problemas))
+    tabela = pl.concat(partes)
+    mapa = pl.read_csv(
+        MANUAIS / "partidos_tse.csv", schema_overrides={"ano": pl.Int16, "nr_partido": pl.String}
+    )
+    try:
+        tabela = atribuir_partido(tabela, mapa)
+    except ValueError as erro:
+        raise FalhaDeValidacao(str(erro)) from erro
+    tabela.write_parquet(PROCESSADOS / "eleitos_senado.parquet")
+    print(f"eleitos_senado: {tabela.height} senadores eleitos em {len(tse.ANOS)} eleições")

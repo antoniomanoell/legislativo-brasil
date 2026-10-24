@@ -11,6 +11,7 @@ FASES: dict[int, list[Callable[..., None]]] = {
     1: [etapas.eleitos, etapas.fotos, etapas.ideologia, etapas.publicar],
     2: [etapas.governos, etapas.publicar],
     3: [etapas.votacoes, etapas.publicar_votacoes],
+    4: [etapas.eleitos_senado],
 }
 
 

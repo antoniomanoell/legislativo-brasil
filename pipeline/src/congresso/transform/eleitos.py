@@ -76,7 +76,7 @@ def _linhas_csv(dados: bytes, colunas: list[str] | None = None) -> list[dict[str
     return list(csv.DictReader(texto, fieldnames=colunas, delimiter=";"))
 
 
-def ler_1990(zip_path: Path) -> pl.DataFrame:
+def ler_1990(zip_path: Path, cargo: str = CARGO) -> pl.DataFrame:
     """Eleitos de 1990: um TXT por UF, sem cabeçalho, uma linha por candidato e turno."""
     registros = []
     with zipfile.ZipFile(zip_path) as z:
@@ -84,7 +84,7 @@ def ler_1990(zip_path: Path) -> pl.DataFrame:
             if not nome.lower().endswith(".txt"):
                 continue
             for r in _linhas_csv(z.read(nome), COLUNAS_1990):
-                if r["DESCRICAO_CARGO"].upper() != CARGO:
+                if r["DESCRICAO_CARGO"].upper() != cargo:
                     continue
                 if r["DESC_SIT_CAND_TOT"].upper() not in SITUACOES_ELEITO:
                     continue
@@ -106,13 +106,13 @@ def ler_1990(zip_path: Path) -> pl.DataFrame:
     return _deduplicar(registros)
 
 
-def ler_consulta_cand(zip_path: Path, ano: int) -> pl.DataFrame:
+def ler_consulta_cand(zip_path: Path, ano: int, cargo: str = CARGO) -> pl.DataFrame:
     """Eleitos de 1994 em diante, do arquivo nacional `consulta_cand_<ano>_BRASIL.csv`."""
     with zipfile.ZipFile(zip_path) as z:
         linhas = _linhas_csv(z.read(f"consulta_cand_{ano}_BRASIL.csv"))
     registros = []
     for r in linhas:
-        if r["DS_CARGO"].upper() != CARGO or r["NR_TURNO"] != "1":
+        if r["DS_CARGO"].upper() != cargo or r["NR_TURNO"] != "1":
             continue
         situacao = r["DS_SIT_TOT_TURNO"].upper()
         if situacao not in SITUACOES_ELEITO:
@@ -152,8 +152,8 @@ def _deduplicar(registros: list[dict]) -> pl.DataFrame:
     return pl.DataFrame(finais, schema=ESQUEMA).sort("ano", "uf", "nr_candidato")
 
 
-def ler_vagas(zip_path: Path, ano: int) -> pl.DataFrame:
-    """Vagas de deputado federal por UF. Em 1990, TXT por UF sem cabeçalho (Leia-me do TSE)."""
+def ler_vagas(zip_path: Path, ano: int, cargo: str = CARGO) -> pl.DataFrame:
+    """Vagas do cargo por UF. Em 1990, TXT por UF sem cabeçalho (Leia-me do TSE)."""
     vagas: dict[str, int] = {}
     with zipfile.ZipFile(zip_path) as z:
         if ano == 1990:
@@ -162,11 +162,11 @@ def ler_vagas(zip_path: Path, ano: int) -> pl.DataFrame:
                     continue
                 for linha in csv.reader(io.StringIO(z.read(nome).decode("latin-1")), delimiter=";"):
                     # SIGLA_UF (4), DESCRICAO_CARGO (8), QTDE_VAGAS (9)
-                    if linha[8].upper() == CARGO:
+                    if linha[8].upper() == cargo:
                         vagas[linha[4]] = int(linha[9])
         else:
             for r in _linhas_csv(z.read(f"consulta_vagas_{ano}_BRASIL.csv")):
-                if r["DS_CARGO"].upper() == CARGO:
+                if r["DS_CARGO"].upper() == cargo:
                     # A coluna se chama QT_VAGAS em alguns anos (ex.: 2010) e QT_VAGA nos demais.
                     vagas[r["SG_UF"]] = int(r.get("QT_VAGA") or r["QT_VAGAS"])
     return pl.DataFrame(
