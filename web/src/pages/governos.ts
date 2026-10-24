@@ -7,7 +7,9 @@ import '../design/congresso.css';
 import {
   carregarCatalogo,
   carregarGovernos,
+  carregarIndicadores,
   carregarPartidos,
+  type Indicadores,
   type Catalogo,
   type Gabinete,
   type Governos,
@@ -15,7 +17,7 @@ import {
 } from '../dados';
 import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
-import { esc, pct } from '../formato';
+import { esc, formatarNumero, pct } from '../formato';
 import { siglaEm } from '../siglas';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
@@ -112,12 +114,43 @@ function grafico(cat: Catalogo, gov: Governos): SVGSVGElement {
   return svg;
 }
 
+/** Base formal × comportamento (PROJECT.md 3.2): governismo e coesão de cada partido no governo,
+ * com a indicação de se teve ministério em algum gabinete. */
+function comportamento(
+  governo: string,
+  gabs: Gabinete[],
+  ind: Indicadores,
+  partidos: Record<string, Partido>,
+  inicio: string,
+): string {
+  const comMinisterio = new Set(gabs.flatMap((g) => g.partidos));
+  const linhas = Object.entries(ind.partidos)
+    .map(([id, x]) => ({ id, x: x.governos?.[governo] }))
+    .filter((r) => r.x && r.x.governismo !== null && (r.x.votos ?? 0) > 0)
+    .sort((a, b) => (b.x?.governismo ?? 0) - (a.x?.governismo ?? 0));
+  if (!linhas.length) return '';
+  const pctTexto = (v: number | null | undefined) =>
+    v == null ? '—' : `${formatarNumero(100 * v, 1)}%`;
+  const corpo = linhas
+    .map(
+      ({ id, x }) =>
+        `<tr><td><a href="partidos.html?p=${encodeURIComponent(id)}">${esc(siglaEm(id, inicio, partidos))}</a></td>
+        <td>${comMinisterio.has(id) ? 'sim' : 'não'}</td><td class="num">${pctTexto(x?.governismo)}</td>
+        <td class="num">${x?.votos ?? '—'}</td><td class="num">${x?.rice == null ? '—' : formatarNumero(x.rice, 2)}</td></tr>`,
+    )
+    .join('');
+  return `<h3>Como os partidos votaram</h3>
+    <p class="bloco-dica">Governismo: votos iguais à orientação do Governo ÷ votos Sim, Não, Abstenção e Obstrução, nas votações nominais em que o Governo orientou Sim ou Não. Coesão: Índice de Rice médio. Ministério: se o partido teve ministro em algum gabinete deste governo.</p>
+    <div class="tabela-rolagem"><table class="ranking"><thead><tr><th scope="col">Partido</th><th scope="col">Ministério</th><th scope="col">Governismo</th><th scope="col">Votos considerados</th><th scope="col">Coesão</th></tr></thead><tbody>${corpo}</tbody></table></div>`;
+}
+
 async function iniciar(): Promise<void> {
   iniciarTema();
-  const [cat, gov, partidos] = await Promise.all([
+  const [cat, gov, partidos, ind] = await Promise.all([
     carregarCatalogo(),
     carregarGovernos(),
     carregarPartidos(),
+    carregarIndicadores(),
   ]);
   const secoes = [...gov.governos]
     .reverse()
@@ -143,7 +176,7 @@ async function iniciar(): Promise<void> {
       return `<section class="bloco" aria-labelledby="gov-${g.governo_id}">
         <h2 class="bloco-titulo" id="gov-${g.governo_id}">${esc(g.presidente)} — ${esc(dataCurta(g.inicio))} a ${esc(dataCurta(g.fim))}</h2>
         <p class="bloco-dica">Partido do presidente: ${esc(g.partido_presidente)}${g.observacao ? ` · ${esc(g.observacao)}` : ''}</p>
-        ${tabela}${curadoria}</section>`;
+        ${tabela}${curadoria}${comportamento(g.governo_id, gabs, ind, partidos, g.inicio)}</section>`;
     })
     .join('');
   $('#conteudo').outerHTML = `<div id="conteudo" class="pagina-governos">

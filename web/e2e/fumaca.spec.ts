@@ -86,3 +86,25 @@ test('Governos põe cada gabinete no governo certo', async ({ page }) => {
   const dilma2 = page.locator('section', { has: page.locator('#gov-dilma2') });
   await expect(dilma2).not.toContainText('Temer-1');
 });
+
+test('votação de mérito da PEC 6/2019 em destaque, com hemiciclo pelo voto', async ({ page }) => {
+  await page.goto('./votacoes.html?ano=2019&d=1');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  const linha = page.locator('#linhas tr', { hasText: '370 × 124' });
+  await expect(linha).toContainText('PEC 6/2019');
+  await linha.getByRole('link').click();
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page.locator('.placar')).toContainText('Sim 370');
+  const cadeiras = await page.locator('#hemiciclo circle.cadeira').count();
+  const fora = await page.locator('#fora .fileira-a-parte span').count();
+  expect(cadeiras + fora).toBe(370 + 124 + 1); // Sim + Não + abstenção (sem Artigo 17 nesta votação)
+});
+
+test('perfil de deputado com presença e votos', async ({ page }) => {
+  await page.goto('./deputados.html?q=tiririca');
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await page.getByRole('link', { name: 'Tiririca' }).click();
+  await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
+  await expect(page.locator('#conteudo')).toContainText('Presença');
+  await expect(page.locator('#votos tbody tr').first()).toBeVisible();
+});

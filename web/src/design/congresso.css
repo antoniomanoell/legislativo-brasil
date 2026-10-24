@@ -418,3 +418,23 @@
   font-size: 0.875rem;
   color: var(--texto-2);
 }
+.pagina-governos .linha-nota td {
+  white-space: normal;
+}
+
+/* Com sete seções, o menu não cabe numa linha no celular: quebra em linhas em vez de alargar a
+   página. */
+.topo nav {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: 2px;
+}
+@media (max-width: 599px) {
+  .topo-pagina {
+    flex-wrap: wrap;
+  }
+  .topo-pagina nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
