@@ -97,7 +97,7 @@ function tabelaContinuam(senado: Senador2027[], posicao: string): string {
     .sort((a, b) => a.uf.localeCompare(b.uf))
     .map(
       (s) =>
-        `<tr><td>${esc(s.uf)}</td><td>${esc(s.nome)}</td><td>${esc(s.sigla)}</td><td class="posicao-celula">${esc(s.nota ?? '')}</td></tr>`,
+        `<tr><td>${esc(s.uf)}</td><td>${esc(s.nome)}</td><td>${esc(s.sigla)}</td><td class="posicao-celula">${esc(s.nota ?? '')}${s.fontes.map((u, i) => ` <a href="${esc(u)}" target="_blank" rel="noopener">fonte ${i + 1}</a>`).join('')}</td></tr>`,
     )
     .join('');
   return `<details class="detalhes-partidos"><summary>As 27 cadeiras com mandato até 2031</summary>

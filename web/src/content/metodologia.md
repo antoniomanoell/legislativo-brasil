@@ -237,8 +237,10 @@ cadeiras eleitas em 2022. Em cada uma dessas 27 fica quem a ocupa nos registros 
 Senado, com o partido da filiação registrada nessa data. Isso inclui suplentes que assumiram de vez
 (por renúncia do titular) e suplentes em exercício por afastamento temporário, caso em que o titular
 pode voltar. Se o ocupante foi eleito governador no 1º turno de 2026, segundo o TSE, entra o 1º
-suplente. Suplente sem filiação registrada no Senado aparece como "não informado", e a observação
-diz por qual partido ele foi suplente em 2022, sem presumir que continue nele. Trocas de partido até
+suplente. Suplente que nunca exerceu o mandato não tem filiação registrada no Senado, e o TSE não publica a
+lista nominal de filiados; nesse caso vale a filiação noticiada pela imprensa, com as fontes ao lado
+e a ressalva de que o Senado ainda não a registra. Sem notícia, ele aparece como "não informado", e
+a observação diz por qual partido foi suplente em 2022, sem presumir que continue nele. Trocas de partido até
 a posse, o 2º turno e a diplomação ainda podem mudar a composição.
 
 ## Hemiciclo

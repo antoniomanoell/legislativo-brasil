@@ -450,3 +450,17 @@ Formato de cada entrada:
   escala única de 0 a 10 (mesma ilusão de comparabilidade, sem ganho); posição relativa dentro da foto
   (recomendada, recusada pelo Antônio).
 - **Risco declarado na Metodologia:** as duas barras têm o mesmo desenho mas não são a mesma régua.
+
+## 2026-10-24 — Filiação noticiada para suplentes sem registro (exceção ao PROJECT.md 6.5)
+- **Decisão (Antônio):** na página 2027, o suplente que assume e nunca exerceu (sem filiação no Senado)
+  recebe a filiação noticiada pela imprensa, com as fontes visíveis e a ressalva de que o Senado ainda
+  não a registra. Tabela curada: `data/manual/filiacoes_suplentes.csv`. Casos: Luis Felipe Cunha
+  (PR, PL desde 08/10/2026: SBT News, CNN/TNH1, O Hoje) e Alex Diniz (MG, PL: O Fator, A Crítica,
+  datas divergentes).
+- **Motivo:** não há fonte primária (o TSE não publica a lista nominal de filiados nos dados abertos; o
+  Senado só registra a partir do exercício), e o "não informado" não refletia dúvida real sobre o
+  partido. Mesmo padrão da curadoria dos gabinetes. Exceção ao §6.5 (jornalismo só para validação).
+- **Efeito:** PL com 29 senadores na composição prevista de 2027 (19 eleitos + 8 com mandato até 2031 +
+  2 suplentes), em linha com as reportagens posteriores a 08/10/2026. As matérias de 05/10 falavam em
+  28 por contar Sergio Moro, que deixa o Senado ao assumir o governo do Paraná.
+- **Conferir:** quando os suplentes tomarem posse, comparar com o registro de filiação do Senado.

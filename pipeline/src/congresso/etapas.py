@@ -705,15 +705,34 @@ def congresso_2027(*, atualizar: bool = False) -> None:
     # Sem filiação no Senado (suplente que nunca exerceu): o partido fica "não informado", e a nota
     # diz por qual partido foi suplente em 2022 (o partido pode ter mudado ou deixado de existir).
     de_2022 = c27.suplentes_2022(tse.candidatos(2022, atualizar=atualizar))
-    notas = []
+    # Suplente que nunca exerceu não tem filiação no Senado, e o TSE não publica a lista nominal de
+    # filiados: vale a filiação noticiada, com as fontes (data/manual/filiacoes_suplentes.csv;
+    # DECISIONS 2026-10-24). Sem notícia, fica "não informado" com o partido de 2022 na nota.
+    curadas = {
+        r["codigo_senado"]: r
+        for r in pl.read_csv(MANUAIS / "filiacoes_suplentes.csv", infer_schema=False).iter_rows(
+            named=True
+        )
+    }
+    linhas_c = []
     for r in continuam.iter_rows(named=True):
-        nota = r["nota"]
-        if r["partido_id"] == "nao_informado":
+        nota, fontes = r["nota"], []
+        if r["partido_id"] == "nao_informado" and r["codigo"] in curadas:
+            c = curadas[r["codigo"]]
+            r = {**r, "partido_id": c["partido_id"], "sigla": c["sigla"]}
+            extra = (
+                f"{c['observacao']}; o Senado ainda não a registra porque não exerceu o mandato."
+            )
+            fontes = [u.strip() for u in c["fontes"].split("|") if u.strip()]
+            nota = f"{nota} {extra}" if nota else extra
+        elif r["partido_id"] == "nao_informado":
             sigla = de_2022.get((r["uf"], c27.normalizar(r["nome"] or "")), "?")
             extra = f"Sem filiação registrada no Senado; em 2022, suplente pelo {sigla}."
             nota = f"{nota} {extra}" if nota else extra
-        notas.append(nota)
-    continuam = continuam.with_columns(pl.Series("nota", notas, dtype=pl.String))
+        linhas_c.append({**r, "nota": nota, "fontes": fontes})
+    continuam = pl.DataFrame(
+        linhas_c, schema_overrides={"nota": pl.String, "fontes": pl.List(pl.String)}
+    )
     eleitos_sen = pl.read_parquet(PROCESSADOS / "eleitos_senado.parquet").filter(
         pl.col("ano") == 2026
     )
@@ -726,6 +745,7 @@ def congresso_2027(*, atualizar: bool = False) -> None:
                 pl.col("sigla_na_eleicao").alias("sigla"),
                 pl.lit("eleito_2026").alias("origem"),
                 pl.lit(None, pl.String).alias("nota"),
+                pl.lit([], pl.List(pl.String)).alias("fontes"),
             ),
             continuam.select(
                 "nome",
@@ -737,6 +757,7 @@ def congresso_2027(*, atualizar: bool = False) -> None:
                 .alias("sigla"),
                 pl.lit("mandato_ate_2031").alias("origem"),
                 "nota",
+                "fontes",
             ),
         ]
     )

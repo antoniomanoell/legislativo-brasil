@@ -254,6 +254,8 @@ export interface Senador2027 extends Deputado {
   origem: 'eleito_2026' | 'mandato_ate_2031';
   /** Suplente em exercício, governador eleito no 1º turno ou candidato no 2º turno. */
   nota: string | null;
+  /** Fontes da filiação quando ela vem da curadoria (suplente sem registro no Senado). */
+  fontes: string[];
 }
 
 export interface Congresso2027 {

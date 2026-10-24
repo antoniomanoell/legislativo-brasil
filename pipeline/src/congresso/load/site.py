@@ -358,7 +358,7 @@ def publicar_2027(
             "legislatura": 58,
             "posicao_em": posicao_em.isoformat(),
             "camara": _deputados(camara),
-            "senado": senado.select("nome", "uf", "partido", "sigla", "origem", "nota")
+            "senado": senado.select("nome", "uf", "partido", "sigla", "origem", "nota", "fontes")
             .sort("uf", "origem", "nome")
             .to_dicts(),
         },
