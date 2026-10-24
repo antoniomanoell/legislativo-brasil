@@ -90,3 +90,33 @@ def test_toda_sigla_de_bolognesi_mapeada_existe_na_tabela():
     tabela = pl.read_csv(MANUAIS / "bolognesi_2022.csv")
     siglas = pl.read_csv(MANUAIS / "ideologia_siglas.csv").filter(pl.col("fonte_id") == "bolognesi")
     assert set(siglas["sigla_fonte"]) <= set(tabela["sigla_fonte"])
+
+
+def test_posicao_dos_presidentes_durante_depois_e_antes():
+    from datetime import date
+
+    from congresso.transform.ideologia import posicao_dos_presidentes
+
+    governos = pl.DataFrame(
+        {
+            "governo_id": ["fhc1", "dilma1", "lula3"],
+            "presidente_bls": ["FHC", "DILMA", "LULA"],
+            "inicio": [date(1995, 1, 1), date(2011, 1, 1), date(2023, 1, 1)],
+            "fim": [date(1998, 12, 31), date(2014, 12, 31), date(2027, 1, 5)],
+        }
+    )
+    est = pl.DataFrame(
+        {
+            "year": [2013, 2017, 2013, 2017, 2013, 2017],
+            "party.or.pres": ["FHC", "FHC", "DILMA", "DILMA", "LULA", "LULA"],
+            "ideo": [0.18, 0.32, -0.42, -0.51, -0.42, -0.50],
+            "ideo.se": [0.04] * 6,
+        }
+    )
+    p = {
+        r["governo_id"]: r["posicao_presidente"]
+        for r in posicao_dos_presidentes(governos, est).iter_rows(named=True)
+    }
+    assert (p["fhc1"]["ano_medicao"], p["fhc1"]["relacao"]) == (2013, "depois")
+    assert (p["dilma1"]["ano_medicao"], p["dilma1"]["relacao"]) == (2013, "durante")
+    assert (p["lula3"]["ano_medicao"], p["lula3"]["relacao"]) == (2017, "antes")

@@ -21,6 +21,7 @@ import { iniciarTema } from '../design/tema';
 import { esc, formatarNumero, pct } from '../formato';
 import { siglaEm } from '../siglas';
 import { mostrarAtualizacao } from '../atualizacao';
+import { posicaoDoPresidente } from '../presidente';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 const SVG = 'http://www.w3.org/2000/svg';
@@ -215,6 +216,7 @@ async function iniciar(): Promise<void> {
       return `<section class="bloco" aria-labelledby="gov-${g.governo_id}">
         <h2 class="bloco-titulo" id="gov-${g.governo_id}">${esc(g.presidente)} — ${esc(dataCurta(g.inicio))} a ${esc(dataCurta(g.fim))}</h2>
         <p class="bloco-dica">Partido do presidente: ${esc(g.partido_presidente)}${g.observacao ? ` · ${esc(g.observacao)}` : ''}</p>
+        <p class="bloco-dica">Posição do presidente: ${posicaoDoPresidente(g)}.</p>
         ${tabela}${curadoria}${comportamento(g.governo_id, gabs, ind, partidos, g.inicio)}</section>`;
     })
     .join('');

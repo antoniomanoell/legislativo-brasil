@@ -209,8 +209,12 @@ def publicar(*, atualizar: bool = False) -> None:
             extra = pl.read_csv(MANUAIS / "gabinetes_pos2020.csv")
             gabinetes = pl.concat([gabinetes, gov.ler_gabinetes(extra)]).sort("inicio")
             fim = date.fromisoformat(str(extra["cobertura_ate"].max()))
+        governos_ = pl.read_csv(MANUAIS / "governos.csv", try_parse_dates=True)
+        posicoes = ideo.posicao_dos_presidentes(
+            governos_, pl.read_csv(fontes_ideologia.bls(atualizar=atualizar))
+        )
         publicar_governos(
-            governos=pl.read_csv(MANUAIS / "governos.csv", try_parse_dates=True),
+            governos=governos_.join(posicoes, on="governo_id", how="left"),
             gabinetes=gabinetes,
             base=pl.read_parquet(PROCESSADOS / "base_governo.parquet"),
             inicio_gabinetes=pl.read_csv(RELATORIOS / "base_inicio_gabinetes.csv"),

@@ -127,3 +127,45 @@ def conferir(tabela: pl.DataFrame) -> list[str]:
                 f"{r['sigla_fonte']}: {r['pontuacao']} não é '{r['faixa']}' pelos cortes"
             )
     return problemas
+
+
+def posicao_dos_presidentes(governos: pl.DataFrame, estimativas: pl.DataFrame) -> pl.DataFrame:
+    """Posição de cada presidente na escala da BLS (Zucco & Power), por governo.
+
+    A BLS só avaliou presidentes nas ondas de 2013, 2017 e 2021, quase sempre depois do mandato.
+    Escolha (DECISIONS 2026-10-24): a onda feita durante o mandato; senão, a primeira posterior;
+    senão, a mais recente anterior (só Lula 3, que tem a de 2017). `relacao` diz qual foi o caso.
+    """
+    est = estimativas.select(
+        pl.col("year").cast(pl.Int16).alias("ano"),
+        pl.col("party.or.pres").alias("presidente_bls"),
+        pl.col("ideo").alias("pontuacao"),
+        pl.col("ideo.se").alias("erro_padrao"),
+    )
+    linhas = []
+    for g in governos.iter_rows(named=True):
+        ondas = est.filter(pl.col("presidente_bls") == g["presidente_bls"]).sort("ano")
+        if ondas.height == 0:
+            raise ValueError(f"{g['governo_id']}: presidente sem avaliação na BLS")
+        ini, fim = g["inicio"].year, g["fim"].year
+        durante = ondas.filter((pl.col("ano") >= ini) & (pl.col("ano") <= fim))
+        depois = ondas.filter(pl.col("ano") > fim)
+        antes = ondas.filter(pl.col("ano") < ini)
+        if durante.height:
+            escolhida, relacao = durante.row(-1, named=True), "durante"
+        elif depois.height:
+            escolhida, relacao = depois.row(0, named=True), "depois"
+        else:
+            escolhida, relacao = antes.row(-1, named=True), "antes"
+        linhas.append(
+            {
+                "governo_id": g["governo_id"],
+                "posicao_presidente": {
+                    "pontuacao": round(escolhida["pontuacao"], 4),
+                    "erro_padrao": round(escolhida["erro_padrao"], 4),
+                    "ano_medicao": escolhida["ano"],
+                    "relacao": relacao,
+                },
+            }
+        )
+    return pl.DataFrame(linhas)

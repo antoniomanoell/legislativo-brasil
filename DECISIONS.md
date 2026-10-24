@@ -406,3 +406,18 @@ Formato de cada entrada:
   SF-2754/SF-2755 (Emenda 240-CCJ à PEC 29/2000, texto de mérito dividido).
 - **Antes:** toda PEC com turno na descrição (414 votações), contrariando a A5. **Depois:** 400.
 - **Motivo:** decidido pelo Antônio ("o mais honesto e rigoroso"); aplica a A5 já decidida.
+
+## 2026-10-24 — Posição ideológica dos presidentes (BLS)
+- **Pedido do Antônio:** mostrar no hemiciclo quem era o presidente e a posição ideológica dele.
+- **Fonte:** as estimativas de presidentes da BLS (Zucco & Power, `bls9_estimates_partiespresidents`),
+  na escala −1 a +1. Só existem nas ondas de 2013 (Sarney, Collor, Itamar, FHC, Lula, Dilma), 2017 (os
+  mesmos e Temer) e 2021 (só Bolsonaro).
+- **Regra:** a onda feita durante o mandato; senão, a primeira posterior; senão, a mais recente anterior.
+  Resultado: Dilma 1 (2013), Temer (2017) e Bolsonaro (2021) durante; Collor, Itamar, FHC 1–2, Lula 1–2
+  (2013) e Dilma 2 (2017) depois; Lula 3 com a de 2017, antes do mandato.
+- **Decidido pelo Antônio:** mostrar as avaliações retrospectivas com a ressalva (ano e "depois do
+  mandato") e, para Lula 3, a de 2017 com a ressalva "antes deste mandato" ("os presidentes precisam ter
+  notas"). Alternativa descartada: lacuna para Lula 3.
+- **Exibição:** linha "Presidente" no Início (na foto, o presidente na data; nos eleitos, o do início da
+  legislatura) e na página Governos. Sem marca no hemiciclo: a nota do presidente é, em geral, de outra
+  onda que a usada no arco, e a partir de 2023 o arco usa outra escala.

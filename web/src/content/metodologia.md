@@ -86,6 +86,16 @@ um partido medido: o PDS (eleito em 1990, medido como parte da linhagem PDS/PPR)
 1990 e rebatizado PPS em 1992), o PPR eleito em 1994 e o PL eleito em 2006 (fundido no PR antes da
 posse). Cada um desses casos é indicado junto da pontuação.
 
+**Presidentes.** A posição de cada presidente vem da BLS, na mesma escala de −1 a +1 dos partidos.
+Os parlamentares só avaliaram presidentes nas ondas de 2013 (Sarney a Dilma), 2017 (os mesmos e
+Temer) e 2021 (só Bolsonaro), na maioria das vezes depois do mandato. O site usa a avaliação feita
+durante o mandato quando existe (Dilma no primeiro mandato, Temer, Bolsonaro); senão, a primeira
+posterior (Collor, Itamar, Fernando Henrique, Lula nos dois primeiros mandatos, Dilma no segundo).
+Para o terceiro mandato de Lula, iniciado em 2023, não há avaliação; o site mostra a de 2017, feita
+antes do mandato. O ano e a relação com o mandato aparecem junto de cada nota. Bolognesi et al. não
+avaliam presidentes, e por isso a nota do presidente não é comparada com o hemiciclo a partir de
+2023, que usa a escala de 0 a 10.
+
 **Uma limitação de qualquer série longa.** Na Constituinte de 1987, poucos parlamentares de direita
 se declaravam assim; Leôncio Martins Rodrigues chamou o fenômeno de "direita envergonhada"
 (Rodrigues, 1987). Pesquisas posteriores com parlamentares o descrevem como um traço duradouro da

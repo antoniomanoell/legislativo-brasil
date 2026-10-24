@@ -27,6 +27,7 @@ import { esc, pct } from '../formato';
 import { siglaEm } from '../siglas';
 import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
 import { mostrarAtualizacao } from '../atualizacao';
+import { descreverPresidente, governoEm } from '../presidente';
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
@@ -237,6 +238,7 @@ async function mostrar(momento: Momento): Promise<void> {
     `${casa === 'senado' ? 'Senado' : 'Câmara'} — ${momento.rotulo} — ${momento.legislatura}ª legislatura`;
   desenharResumo();
   desenharSlider();
+  desenharLinhaPresidente();
   desenharLinhaBase();
   desenharTudoQueDependeDoTema();
   desenharTabelaDeputados();
@@ -263,20 +265,29 @@ function fonteDoGabinete(nome: string): string {
     : 'IPEA (Almeida, 2021)';
 }
 
+/** Presidente na data da foto ou, nos eleitos, no início da legislatura (1º/fev do ano seguinte). */
+function desenharLinhaPresidente(): void {
+  const m = estado.momento;
+  const dia = m.tipo === 'exercicio' && m.data ? m.data : `${m.ano + 1}-02-01`;
+  const g = governoEm(governos.governos, dia);
+  const quando = m.tipo === 'exercicio' ? 'Presidente' : 'Presidente no início da legislatura';
+  $('#linha-presidente').innerHTML = g
+    ? `${quando}: ${descreverPresidente(g)}.`
+    : `${quando}: ainda não registrado no site.`;
+}
+
 function desenharLinhaBase(): void {
   const el = $('#linha-base');
   const base = baseDoMomento();
   el.hidden = !base;
   if (!base) return;
-  const governo = governos.governos.find((g) => g.governo_id === base.governo);
-  const nomeGoverno = governo ? `Governo ${governo.presidente}` : 'Governo';
   if (base.gabinete === null || base.cadeiras_base === null) {
-    el.innerHTML = `${esc(nomeGoverno)} · base formal: sem dados nesta data. <a href="governos.html">Governos</a>`;
+    el.innerHTML = `Base formal: sem dados nesta data. <a href="governos.html">Governos</a>`;
     return;
   }
   const siglas =
     base.partidos.map((id) => siglaEm(id, estado.momento.id, partidos)).join(', ') || 'nenhum';
-  el.innerHTML = `${esc(nomeGoverno)} · base formal (partidos com ministro, gabinete ${esc(base.gabinete)}): ${esc(siglas)} — ${base.cadeiras_base} cadeiras (${pct(base.cadeiras_base, estado.momento.cadeiras)}). Fonte: ${fonteDoGabinete(base.gabinete)}.
+  el.innerHTML = `Base formal (partidos com ministro, gabinete ${esc(base.gabinete)}): ${esc(siglas)} — ${base.cadeiras_base} cadeiras (${pct(base.cadeiras_base, estado.momento.cadeiras)}). Fonte: ${fonteDoGabinete(base.gabinete)}.
     <label><input type="checkbox" id="destacar-base"${estado.destacarBase ? ' checked' : ''}> destacar no hemiciclo</label>`;
   ($('#destacar-base') as HTMLInputElement).addEventListener('change', (e) => {
     estado.destacarBase = (e.target as HTMLInputElement).checked;

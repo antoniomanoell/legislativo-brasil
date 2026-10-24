@@ -86,6 +86,13 @@ export interface Governo {
   partido_presidente: string;
   partido_id_inicio: string | null;
   observacao: string | null;
+  /** Posição do presidente na escala da BLS (−1 a +1), com a onda e a relação com o mandato. */
+  posicao_presidente: {
+    pontuacao: number;
+    erro_padrao: number;
+    ano_medicao: number;
+    relacao: 'durante' | 'depois' | 'antes';
+  } | null;
 }
 
 export interface Gabinete {
