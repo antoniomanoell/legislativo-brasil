@@ -440,3 +440,13 @@ Formato de cada entrada:
   "centro-direita". A ordem dos partidos não muda. A faixa publicada continua conferida contra a média
   ponderada, como teste de transcrição.
 - **Sem consulta aos autores** (decisão do Antônio): a escolha fica como está, explicada na Metodologia.
+
+## 2026-10-24 — Posição ideológica em barra "esquerda ↔ direita" (opção B)
+- **Pedido do Antônio:** a troca de escala (−1 a +1 → 0 a 10) confundia.
+- **Decisão (Antônio):** mostrar a posição numa barra com marcador, com fonte e número embaixo (linha
+  do presidente, ficha da cadeira, tabelas do Início e da página 2027, Governos). Barra contínua na BLS
+  e dividida nas faixas de Bolognesi et al., para a quebra continuar visível.
+- **Alternativas descartadas:** conversão calibrada com faixas (1 em 4 partidos na faixa errada; A7);
+  escala única de 0 a 10 (mesma ilusão de comparabilidade, sem ganho); posição relativa dentro da foto
+  (recomendada, recusada pelo Antônio).
+- **Risco declarado na Metodologia:** as duas barras têm o mesmo desenho mas não são a mesma régua.

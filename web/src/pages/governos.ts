@@ -216,7 +216,7 @@ async function iniciar(): Promise<void> {
       return `<section class="bloco" aria-labelledby="gov-${g.governo_id}">
         <h2 class="bloco-titulo" id="gov-${g.governo_id}">${esc(g.presidente)} — ${esc(dataCurta(g.inicio))} a ${esc(dataCurta(g.fim))}</h2>
         <p class="bloco-dica">Partido do presidente: ${esc(g.partido_presidente)}${g.observacao ? ` · ${esc(g.observacao)}` : ''}</p>
-        <p class="bloco-dica">Posição do presidente: ${posicaoDoPresidente(g)}.</p>
+        <div class="bloco-dica">Posição do presidente:${posicaoDoPresidente(g)}</div>
         ${tabela}${curadoria}${comportamento(g.governo_id, gabs, ind, partidos, g.inicio)}</section>`;
     })
     .join('');

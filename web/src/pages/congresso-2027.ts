@@ -15,8 +15,9 @@ import {
 } from '../dados';
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
-import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
+import { coresDasFaixas, corDe, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
 import { mostrarAtualizacao } from '../atualizacao';
+import { barraPosicao, celulaPosicao } from '../posicao';
 
 const $ = (sel: string) => document.querySelector(sel) as HTMLElement;
 
@@ -72,7 +73,7 @@ function tabelaPartidos(casa: Casa): string {
       const classe = g.pontuacao ? 'cor-partido' : 'cor-partido amostra-hachura';
       return `<tr><td><span class="${classe}" style="${corCss}" aria-hidden="true"></span><a href="partidos.html?p=${encodeURIComponent(g.partido)}">${esc(g.sigla)}</a></td>
         <td class="num">${g.deputados.length}</td><td class="num">${pct(g.deputados.length, total)}</td>
-        <td class="posicao-celula">${esc(descrever(g.pontuacao))}</td></tr>`;
+        <td>${celulaPosicao(g.pontuacao)}</td></tr>`;
     })
     .join('');
   return `<details class="detalhes-partidos"><summary>Cadeiras por partido</summary><div class="tabela-rolagem"><table class="ranking">
@@ -174,7 +175,7 @@ async function iniciar(): Promise<void> {
             : d.origem === 'eleito_2026'
               ? ' · eleito em 2026'
               : '';
-        ficha.innerHTML = `<strong>${esc(d.nome)}</strong> · ${esc(d.sigla)} · ${esc(d.uf)}${origem} — ${esc(descrever(pontos[d.partido]))}${d.nota ? `<br><span class="posicao-celula">${esc(d.nota)}</span>` : ''}`;
+        ficha.innerHTML = `<strong>${esc(d.nome)}</strong> · ${esc(d.sigla)} · ${esc(d.uf)}${origem}${pontos[d.partido]?.faixa ? ` — ${esc(pontos[d.partido]?.faixa ?? '')}` : ''}${barraPosicao(pontos[d.partido])}${d.nota ? `<span class="posicao-celula">${esc(d.nota)}</span>` : ''}`;
       });
     }
   };

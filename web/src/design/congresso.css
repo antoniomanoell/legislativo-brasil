@@ -518,3 +518,73 @@ main.texto {
 .chamada-2027 {
   margin: 0 0 12px;
 }
+
+/* ---------- Barra de posição ideológica (src/posicao.ts) ---------- */
+.bloco-posicao {
+  display: block;
+  margin: 4px 0 2px;
+}
+.bloco-posicao .barra-posicao,
+.bloco-posicao .pontas-posicao {
+  max-width: 340px;
+}
+.barra-posicao {
+  position: relative;
+  display: block;
+  height: 10px;
+  margin: 6px 0 2px;
+}
+.barra-posicao.compacta {
+  display: inline-block;
+  width: 96px;
+  height: 8px;
+  margin: 0 8px 0 0;
+  vertical-align: middle;
+}
+.trilho {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.trilho-continuo {
+  background: linear-gradient(
+    90deg,
+    var(--faixa-1),
+    var(--faixa-2),
+    var(--faixa-3),
+    var(--faixa-4),
+    var(--faixa-5),
+    var(--faixa-6),
+    var(--faixa-7)
+  );
+}
+.trilho-faixas {
+  display: flex;
+}
+.marca-posicao {
+  position: absolute;
+  top: -4px;
+  /* 8px com border-box: 4px de traço entre as bordas de 2px. */
+  width: 8px;
+  height: 18px;
+  background: var(--texto);
+  border: 2px solid var(--fundo);
+  border-radius: 3px;
+  transform: translateX(-50%);
+}
+.compacta .marca-posicao {
+  top: -3px;
+  height: 14px;
+}
+.pontas-posicao {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--texto-2);
+}
+.legenda-posicao {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--texto-2);
+}

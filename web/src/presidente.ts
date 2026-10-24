@@ -3,7 +3,8 @@
 // a mais recente anterior).
 
 import type { Governo } from './dados';
-import { esc, formatarNumero } from './formato';
+import { esc } from './formato';
+import { barraPosicao } from './posicao';
 
 export function governoEm(governos: Governo[], dia: string): Governo | undefined {
   return governos.find((g) => g.inicio <= dia && dia <= g.fim);
@@ -15,15 +16,17 @@ const RELACAO = {
   antes: 'avaliação feita antes deste mandato',
 } as const;
 
-/** "0,18 na escala da BLS, de −1 (esquerda) a +1 (direita) — avaliação feita depois do mandato,
- * em 2013". */
+/** Barra esquerda ↔ direita da posição do presidente (BLS), com o ano e a relação com o mandato. */
 export function posicaoDoPresidente(g: Governo): string {
   const p = g.posicao_presidente;
-  if (!p) return 'sem avaliação na fonte';
-  return `<strong>${formatarNumero(p.pontuacao, 2)}</strong> na escala da BLS, de −1 (esquerda) a +1 (direita) — ${RELACAO[p.relacao]}, em ${p.ano_medicao}`;
+  if (!p) return '<span class="posicao-celula">sem avaliação na fonte</span>';
+  return barraPosicao(
+    { pontuacao: p.pontuacao, fonte_id: 'bls', ano_medicao: p.ano_medicao },
+    { nota: RELACAO[p.relacao] },
+  );
 }
 
-/** Nome, partido e posição do presidente. */
+/** Nome e partido do presidente. */
 export function descreverPresidente(g: Governo): string {
-  return `${esc(g.presidente)} (${esc(g.partido_presidente)}) · posição: ${posicaoDoPresidente(g)}`;
+  return `${esc(g.presidente)} (${esc(g.partido_presidente)})`;
 }

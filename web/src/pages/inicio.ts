@@ -25,9 +25,10 @@ import { ajuda } from '../design/ajuda';
 import { iniciarTema } from '../design/tema';
 import { esc, pct } from '../formato';
 import { siglaEm } from '../siglas';
-import { coresDasFaixas, corDe, descrever, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
+import { coresDasFaixas, corDe, FAIXAS, linhaDeFonte, nomeFonte } from '../ideologia';
 import { mostrarAtualizacao } from '../atualizacao';
-import { descreverPresidente, governoEm } from '../presidente';
+import { barraPosicao, celulaPosicao } from '../posicao';
+import { descreverPresidente, governoEm, posicaoDoPresidente } from '../presidente';
 
 const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
 
@@ -164,7 +165,7 @@ function desenharTabelaDeputados(): void {
     .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'))
     .map(
       (d) =>
-        `<tr><td>${esc(d.nome)}</td><td>${esc(d.uf)}</td><td>${esc(d.sigla)}</td><td class="posicao-celula">${esc(descrever(pontos[d.partido]))}</td></tr>`,
+        `<tr><td>${esc(d.nome)}</td><td>${esc(d.uf)}</td><td>${esc(d.sigla)}</td><td>${celulaPosicao(pontos[d.partido])}</td></tr>`,
     )
     .join('');
   $('#tabela-deputados').innerHTML =
@@ -184,7 +185,7 @@ function desenharTabelaPartidos(): void {
       const classe = g.pontuacao ? 'cor-partido' : 'cor-partido amostra-hachura';
       return `<tr><td><span class="${classe}" style="${corCss}" aria-hidden="true"></span><a href="partidos.html?p=${encodeURIComponent(g.partido)}">${esc(g.sigla)}</a></td>
         <td class="num">${g.deputados.length}</td><td class="num">${pct(g.deputados.length, m.ocupadas)}</td>
-        <td class="posicao-celula">${esc(descrever(g.pontuacao))}</td></tr>`;
+        <td>${celulaPosicao(g.pontuacao)}</td></tr>`;
     })
     .join('');
   $('#tabela-partidos').innerHTML =
@@ -272,7 +273,7 @@ function desenharLinhaPresidente(): void {
   const g = governoEm(governos.governos, dia);
   const quando = m.tipo === 'exercicio' ? 'Presidente' : 'Presidente no início da legislatura';
   $('#linha-presidente').innerHTML = g
-    ? `${quando}: ${descreverPresidente(g)}.`
+    ? `${quando}: <strong>${descreverPresidente(g)}</strong>${posicaoDoPresidente(g)}`
     : `${quando}: ainda não registrado no site.`;
 }
 
@@ -309,7 +310,7 @@ function desenharTudoQueDependeDoTema(): void {
     (s) =>
       desenharFicha(
         s
-          ? `<strong>${esc(s.deputado.nome)}</strong> · ${esc(s.deputado.sigla)} · ${esc(s.deputado.uf)}<br>${esc(s.descricao)}`
+          ? `<strong>${esc(s.deputado.nome)}</strong> · ${esc(s.deputado.sigla)} · ${esc(s.deputado.uf)}${s.pontuacao?.faixa ? ` — ${esc(s.pontuacao.faixa)}` : ''}${barraPosicao(s.pontuacao)}`
           : '',
       ),
     destaque,

@@ -5,7 +5,7 @@
 
 import type { Composicao } from '../composicao';
 import { emOrdem } from '../composicao';
-import type { Deputado } from '../dados';
+import type { Deputado, Pontuacao } from '../dados';
 import { corDe, descrever } from '../ideologia';
 import { hemiciclo } from './hemiciclo';
 
@@ -19,6 +19,8 @@ const DISTANCIA_ROTULOS = 0.2;
 export interface Selecao {
   deputado: Deputado;
   descricao: string;
+  /** Posição do partido na fonte da legislatura (para a barra esquerda ↔ direita). */
+  pontuacao?: Pontuacao;
 }
 
 function el<K extends keyof SVGElementTagNameMap>(
@@ -130,7 +132,14 @@ export function desenharHemiciclo(
     const item = ordem[i];
     if (!item) return aoMudar(undefined, origem);
     circulos[i]?.classList.add('ativa');
-    aoMudar({ deputado: item.deputado, descricao: descrever(item.grupo.pontuacao) }, origem);
+    aoMudar(
+      {
+        deputado: item.deputado,
+        descricao: descrever(item.grupo.pontuacao),
+        pontuacao: item.grupo.pontuacao,
+      },
+      origem,
+    );
   };
 
   svg.addEventListener('pointerover', (e) => {

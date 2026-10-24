@@ -107,6 +107,13 @@ antes do mandato. O ano e a relação com o mandato aparecem junto de cada nota.
 avaliam presidentes, e por isso a nota do presidente não é comparada com o hemiciclo a partir de
 2023, que usa a escala de 0 a 10.
 
+**Como a posição aparece.** Nas linhas, fichas e tabelas, a posição é mostrada numa barra
+"esquerda ↔ direita", com a fonte e o número embaixo. A barra é contínua quando a fonte é a BLS
+(−1 a +1, sem faixas) e dividida nas sete faixas dos autores quando é Bolognesi et al. (0 a 10). As
+duas barras têm o mesmo tamanho, mas não são a mesma régua: uma posição na barra da BLS não equivale
+à mesma posição na barra de Bolognesi et al., e a comparação entre épocas deve levar em conta a quebra
+de fonte em 2023.
+
 **Uma limitação de qualquer série longa.** Na Constituinte de 1987, poucos parlamentares de direita
 se declaravam assim; Leôncio Martins Rodrigues chamou o fenômeno de "direita envergonhada"
 (Rodrigues, 1987). Pesquisas posteriores com parlamentares o descrevem como um traço duradouro da

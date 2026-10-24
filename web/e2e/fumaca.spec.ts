@@ -73,9 +73,8 @@ test('base formal na foto de 2010, com siglas da época e destaque no hemiciclo'
   await expect(page.locator('body')).toHaveAttribute('data-pronto', 'true');
   const linha = page.locator('#linha-base');
   await expect(linha).toContainText('gabinete Lula 2-3');
-  await expect(page.locator('#linha-presidente')).toContainText(
-    'Luiz Inácio Lula da Silva (PT) · posição: -0,42',
-  );
+  await expect(page.locator('#linha-presidente')).toContainText('Luiz Inácio Lula da Silva (PT)');
+  await expect(page.locator('#linha-presidente')).toContainText('BLS 2013 · -0,42 de −1 a +1');
   await expect(linha).toContainText('PRB');
   await expect(linha).not.toContainText('REPUBLICANOS');
   expect(await page.locator('#hemiciclo circle.esmaecida').count()).toBeGreaterThan(0);
