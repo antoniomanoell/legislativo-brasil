@@ -13,6 +13,9 @@ const SVG = 'http://www.w3.org/2000/svg';
 /** Partidos com pelo menos esta fração das cadeiras ganham sigla escrita junto ao arco. */
 const FRACAO_ROTULO = 0.025;
 
+/** Distância angular mínima entre duas siglas (radianos). */
+const DISTANCIA_ROTULOS = 0.2;
+
 export interface Selecao {
   deputado: Deputado;
   descricao: string;
@@ -51,12 +54,20 @@ export function desenharHemiciclo(
   // Siglas dos partidos maiores, junto ao arco, no ângulo médio do partido.
   const rotulos = el('g', { class: 'rotulos-hemiciclo', 'aria-hidden': 'true' });
   let inicio = 0;
+  let anguloAnterior = Infinity;
   for (const grupo of composicao.classificados) {
     const fim = inicio + grupo.deputados.length;
     const primeiro = cadeiras[inicio];
     const ultimo = cadeiras[fim - 1];
     if (primeiro && ultimo && grupo.deputados.length / ordem.length >= FRACAO_ROTULO) {
       const ang = (primeiro.angulo + ultimo.angulo) / 2;
+      // Com poucas cadeiras, dois partidos pequenos vizinhos teriam siglas sobrepostas: fica a
+      // primeira (as demais continuam na tabela e no realce ao passar o cursor).
+      if (anguloAnterior - ang < DISTANCIA_ROTULOS) {
+        inicio = fim;
+        continue;
+      }
+      anguloAnterior = ang;
       const x = 1.11 * Math.cos(ang);
       const texto = el('text', {
         x,

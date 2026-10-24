@@ -1,6 +1,12 @@
 // Tipos e carregamento dos JSON gerados pelo pipeline (pipeline/src/congresso/load/site.py).
 
 export type TipoMomento = 'eleitos' | 'exercicio';
+export type Casa = 'camara' | 'senado';
+
+/** Casa na URL (?c=senado); Câmara por padrão. */
+export function casaDaUrl(): Casa {
+  return new URLSearchParams(location.search).get('c') === 'senado' ? 'senado' : 'camara';
+}
 
 export interface Momento {
   id: string;
@@ -13,8 +19,12 @@ export interface Momento {
   cadeiras: number;
   /** Cadeiras com alguém eleito ou em exercício. A diferença são as cadeiras vagas. */
   ocupadas: number;
-  fonte: 'tse' | 'camara';
+  fonte: 'tse' | 'camara' | 'senado';
   fonte_gerada_em?: string[];
+  /** Senado, eleitos: cadeiras não renovadas naquela eleição (§7.8). */
+  em_curso?: number;
+  /** Senado, fotos: base formal do governo na data. */
+  base?: { gabinete: string | null; partidos: string[]; cadeiras_base: number | null } | null;
 }
 
 export interface Fonte {
@@ -25,10 +35,12 @@ export interface Fonte {
 }
 
 export interface Catalogo {
-  gerado_em: string;
+  gerado_em?: string;
   momentos: Momento[];
-  legislaturas: Record<string, { eleicao: number; inicio: string; fim: string }>;
-  fontes: Record<string, Fonte>;
+  legislaturas?: Record<string, { eleicao: number; inicio: string; fim: string }>;
+  fontes?: Record<string, Fonte>;
+  /** Senado: anos sem foto de 1º/fev e o motivo. */
+  lacunas?: { data: string; motivo: string }[];
 }
 
 export interface Deputado {
@@ -178,15 +190,19 @@ function carregar<T>(caminho: string): Promise<T> {
   return p as Promise<T>;
 }
 
-export const carregarCatalogo = () => carregar<Catalogo>('catalogo.json');
+export const carregarCatalogo = (casa: Casa = 'camara') =>
+  carregar<Catalogo>(casa === 'senado' ? 'catalogo-senado.json' : 'catalogo.json');
 export const carregarIdeologia = () => carregar<Ideologia>('ideologia.json');
 export const carregarPartidos = () => carregar<Record<string, Partido>>('partidos.json');
-export const carregarAgregados = () => carregar<Agregados>('agregados.json');
+export const carregarAgregados = (casa: Casa = 'camara') =>
+  carregar<Agregados>(casa === 'senado' ? 'agregados-senado.json' : 'agregados.json');
 export const carregarGovernos = () => carregar<Governos>('governos.json');
-export const carregarIndiceVotacoes = () => carregar<VotacaoResumo[]>('votacoes/indice.json');
-export const carregarVotacoesDoAno = (ano: number) =>
-  carregar<VotacoesDoAno>(`votacoes/ano-${ano}.json`);
+export const carregarIndiceVotacoes = (casa: Casa = 'camara') =>
+  carregar<VotacaoResumo[]>(`votacoes/${casa === 'senado' ? 'indice-senado' : 'indice'}.json`);
+export const carregarVotacoesDoAno = (ano: number, casa: Casa = 'camara') =>
+  carregar<VotacoesDoAno>(`votacoes/${casa === 'senado' ? 'senado' : 'ano'}-${ano}.json`);
 export const carregarArquivoVotacao = (arquivo: string) =>
   carregar<VotacoesDoAno>(`votacoes/${arquivo}.json`);
-export const carregarIndicadores = () => carregar<Indicadores>('indicadores.json');
+export const carregarIndicadores = (casa: Casa = 'camara') =>
+  carregar<Indicadores>(casa === 'senado' ? 'indicadores-senado.json' : 'indicadores.json');
 export const carregarMomento = (id: string) => carregar<Deputado[]>(`momentos/${id}.json`);

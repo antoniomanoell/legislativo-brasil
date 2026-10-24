@@ -18,6 +18,9 @@ export interface Cadeira {
 /** Raio da fileira mais interna, como fração do raio externo. */
 const RAIO_INTERNO = 0.4;
 
+/** Raio máximo de uma cadeira. */
+const RAIO_MAXIMO = 0.075;
+
 /** Número de fileiras para N cadeiras: cresce com √N (513 → 14; 81 → 5). */
 export function fileirasPara(n: number): number {
   return Math.max(1, Math.round(Math.sqrt(n) * 0.6));
@@ -59,7 +62,9 @@ export function hemiciclo(n: number, k = fileirasPara(n)): Cadeira[] {
   porFileira.forEach((m, i) => {
     if (m > 1) passoArco = Math.min(passoArco, (Math.PI * (rs[i] as number)) / (m - 1));
   });
-  const r = 0.42 * Math.min(passoRadial, passoArco);
+  // Teto para poucas cadeiras (ex.: os 27 senadores de uma eleição de 1/3), que de outro modo
+  // ficariam enormes; não afeta 81 nem 513.
+  const r = Math.min(0.42 * Math.min(passoRadial, passoArco), RAIO_MAXIMO);
 
   const cadeiras: Cadeira[] = [];
   porFileira.forEach((m, fileira) => {

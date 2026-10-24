@@ -7,6 +7,7 @@ import { desenharHemiciclo } from '../charts/hemiciclo-svg';
 import { compor, type Composicao } from '../composicao';
 import {
   carregarCatalogo,
+  casaDaUrl,
   carregarGovernos,
   carregarIdeologia,
   carregarMomento,
@@ -41,6 +42,7 @@ interface Estado {
   destacarBase: boolean;
 }
 
+const casa = casaDaUrl();
 let catalogo: Catalogo;
 let ideologia: Ideologia;
 let governos: Governos;
@@ -68,6 +70,7 @@ function lerUrl(): Estado {
 
 function gravarUrl(): void {
   const p = new URLSearchParams({ m: estado.momento.id });
+  if (casa === 'senado') p.set('c', 'senado');
   if (estado.visao === 'tabela') p.set('v', 'tabela');
   if (estado.destacarBase) p.set('b', '1');
   history.replaceState(null, '', `?${p}`);
@@ -127,8 +130,13 @@ function desenharLegenda(): void {
 function desenharForaDaOrdem(): void {
   const m = estado.momento;
   const fora = composicao.naoClassificados;
-  const vagas = m.cadeiras - m.ocupadas;
+  const vagas = m.em_curso ? 0 : m.cadeiras - m.ocupadas;
   const partes: string[] = [];
+  if (m.em_curso) {
+    partes.push(`<div class="nao-classificados">
+      <span>Cadeiras com mandato em curso, não renovadas nesta eleição: ${m.em_curso}</span>
+      <div class="fileira-a-parte" aria-hidden="true">${'<span class="vaga"></span>'.repeat(m.em_curso)}</div></div>`);
+  }
   if (fora.length) {
     const lista = fora.map((g) => `${esc(g.sigla)} (${g.deputados.length})`).join(', ');
     const n = fora.reduce((s, g) => s + g.deputados.length, 0);
@@ -197,10 +205,22 @@ function desenharSlider(): void {
   const rotulo = `${estado.momento.rotulo} · ${estado.momento.legislatura}ª legislatura`;
   $('#slider output').textContent = rotulo;
   range.setAttribute('aria-valuetext', rotulo);
-  $('#aviso-lacuna').textContent =
-    estado.momento.tipo === 'exercicio'
+  $('#aviso-lacuna').textContent = avisoLacuna();
+}
+
+function avisoLacuna(): string {
+  const eleitos =
+    'Eleitos conforme a situação atual de cada candidato no TSE, que já inclui retotalizações e decisões judiciais posteriores à eleição.';
+  if (casa === 'camara') {
+    return estado.momento.tipo === 'exercicio'
       ? 'Fotos em exercício só a partir de 2003: antes disso a Câmara não tem registro datado de quem exercia o mandato e por qual partido. Para 1990–2002, veja os eleitos.'
-      : 'Eleitos conforme a situação atual de cada candidato no TSE, que já inclui retotalizações e decisões judiciais posteriores à eleição.';
+      : eleitos;
+  }
+  if (estado.momento.tipo === 'eleitos') {
+    return `${eleitos} O Senado renova 1/3 ou 2/3 das cadeiras a cada eleição; as demais seguem com mandato em curso.`;
+  }
+  const anos = (catalogo.lacunas ?? []).map((l) => l.data.slice(0, 4));
+  return `Fotos do Senado só nos anos em que os registros oficiais de exercício somam exatamente 81 senadores, 3 por estado. Sem foto (registros incompletos ou sobrepostos na fonte): ${anos.join(', ')}. Partido pela filiação datada no Senado.`;
 }
 
 async function mostrar(momento: Momento): Promise<void> {
@@ -212,7 +232,8 @@ async function mostrar(momento: Momento): Promise<void> {
   document
     .querySelectorAll<HTMLButtonElement>('[data-tipo]')
     .forEach((b) => b.setAttribute('aria-pressed', String(b.dataset['tipo'] === momento.tipo)));
-  $('#titulo-momento').textContent = `${momento.rotulo} — ${momento.legislatura}ª legislatura`;
+  $('#titulo-momento').textContent =
+    `${casa === 'senado' ? 'Senado' : 'Câmara'} — ${momento.rotulo} — ${momento.legislatura}ª legislatura`;
   desenharResumo();
   desenharSlider();
   desenharLinhaBase();
@@ -224,9 +245,14 @@ async function mostrar(momento: Momento): Promise<void> {
 /** Base formal do governo na data (só fotos em exercício): partidos com ministro (IPEA e
  * curadoria) e suas cadeiras. Sem dados depois do fim da cobertura. */
 function baseDoMomento(): BaseNoMomento | undefined {
-  return estado.momento.tipo === 'exercicio'
-    ? governos.base_por_momento[estado.momento.id]
-    : undefined;
+  const m = estado.momento;
+  if (m.tipo !== 'exercicio') return undefined;
+  if (casa === 'camara') return governos.base_por_momento[m.id];
+  // Senado: a base vem no próprio momento; o governo é o vigente na data da foto.
+  if (!m.base || !m.data) return undefined;
+  const dia = m.data;
+  const governo = governos.governos.find((g) => g.inicio <= dia && dia <= g.fim);
+  return { ...m.base, ocupadas: m.ocupadas, governo: governo?.governo_id ?? null };
 }
 
 function fonteDoGabinete(nome: string): string {
@@ -336,8 +362,10 @@ function ligarControles(): void {
 }
 
 async function iniciar(): Promise<void> {
-  [catalogo, ideologia, governos, partidos] = await Promise.all([
-    carregarCatalogo(),
+  let catalogoCamara: Catalogo;
+  [catalogo, catalogoCamara, ideologia, governos, partidos] = await Promise.all([
+    carregarCatalogo(casa),
+    carregarCatalogo('camara'),
     carregarIdeologia(),
     carregarGovernos(),
     carregarPartidos(),
@@ -346,10 +374,19 @@ async function iniciar(): Promise<void> {
   $('#ajuda-hemiciclo').innerHTML = ajuda(
     'ajuda-hemiciclo-pop',
     'Como ler o hemiciclo',
-    'Cada bolinha é uma cadeira. Os partidos vão da esquerda para a direita pela posição ideológica medida pela fonte acadêmica da legislatura; dentro do partido, os deputados estão em ordem alfabética. A cor mostra a posição do partido, não o partido: partidos de mesma posição têm a mesma cor e são separados por linhas e siglas. Partidos sem medição na fonte ficam fora da ordenação, à parte. <a href="metodologia.html">Metodologia</a>',
+    'Cada bolinha é uma cadeira. Os partidos vão da esquerda para a direita pela posição ideológica medida pela fonte acadêmica da legislatura; dentro do partido, os parlamentares estão em ordem alfabética. A cor mostra a posição do partido, não o partido: partidos de mesma posição têm a mesma cor e são separados por linhas e siglas. Partidos sem medição na fonte ficam fora da ordenação, à parte. <a href="metodologia.html">Metodologia</a>',
   );
+  const geradoEm = (catalogoCamara.gerado_em ?? '').split('-').reverse().join('/');
+  $('#titulo-tabela').textContent = casa === 'senado' ? 'Senadores' : 'Deputados';
   $('#rodape-fontes').textContent =
-    `Composição: TSE (eleitos) e Câmara dos Deputados (em exercício). Posição ideológica: Zucco & Power (BLS) e Bolognesi et al. Dados gerados em ${catalogo.gerado_em.split('-').reverse().join('/')}.`;
+    `Composição: TSE (eleitos), Câmara dos Deputados e Senado Federal (em exercício). Posição ideológica: Zucco & Power (BLS) e Bolognesi et al. Dados gerados em ${geradoEm}.`;
+  document.querySelectorAll<HTMLButtonElement>('[data-casa]').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset['casa'] === casa));
+    b.addEventListener('click', () => {
+      if (b.dataset['casa'] !== casa)
+        location.search = b.dataset['casa'] === 'senado' ? '?c=senado' : '';
+    });
+  });
   ligarControles();
   mudarVisao(estado.visao);
   iniciarTema(() => desenharTudoQueDependeDoTema());
